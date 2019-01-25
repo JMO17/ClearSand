@@ -17,8 +17,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void prueba(View v){
-        Intent i = new Intent(this,SplashScreenActivity.class);
-        startActivity(i);
-    }
 }
