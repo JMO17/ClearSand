@@ -70,5 +70,11 @@
             android:ems="10"
             android:hint="@string/et_Email_Register"
             android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
     </LinearLayout>
 </RelativeLayout>
