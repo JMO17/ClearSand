@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/arena"
     tools:context=".RegisterActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grisTransparente">
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/imageView"
@@ -86,21 +94,33 @@
             android:id="@+id/etContrasenyaRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_correo"
+            android:drawableLeft="@drawable/ic_001_pin_code"
             android:drawablePadding="10dp"
             android:ems="10"
-            android:hint="@string/et_Email_Register"
+            android:hint="@string/et_Contrasenya_Register"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/etEmailRegister3"
+            android:id="@+id/etContrasenyaRepeatRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_correo"
+            android:drawableLeft="@drawable/ic_001_pin_code"
             android:drawablePadding="10dp"
             android:ems="10"
-            android:hint="@string/et_Email_Register"
+            android:hint="@string/et_ContrasenyaRepeat_Register"
             android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnConfirmarRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_Registrar_register" />
+
+        <Button
+            android:id="@+id/btnCancelarRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_cancelar_register" />
 
     </LinearLayout>
 </RelativeLayout>
