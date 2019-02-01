@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     TextView myTitle;
-    ImageView myLogo;
+    //ImageView myLogo;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +18,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         myTitle = findViewById(R.id.txtNombreSplashScreen);
-        myLogo = findViewById(R.id.ivLogoSplashScreen);
+        //myLogo = findViewById(R.id.ivLogoSplashScreen);
 
         Animation animClearSand = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        Animation animLogo = AnimationUtils.loadAnimation(this,R.anim.shake);
+        //Animation animLogo = AnimationUtils.loadAnimation(this,R.anim.shake);
 
         myTitle.startAnimation(animClearSand);
-        myLogo.startAnimation(animLogo);
+        //myLogo.startAnimation(animLogo);
+
+        getSupportActionBar().hide();
     }
 }

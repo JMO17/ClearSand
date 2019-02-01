@@ -2,5 +2,4 @@
 
     <cycleInterpolator
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:cycles="100"
-    />
+        android:cycles="100" />
