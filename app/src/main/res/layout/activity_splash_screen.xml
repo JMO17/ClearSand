@@ -22,12 +22,12 @@
 
         <ImageView
             android:id="@+id/ivLogoSplashScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/ly_width"
+            android:layout_height="@dimen/ly_height"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:paddingBottom="@dimen/padding_img_splash_scrn"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:background="@mipmap/ic_launcher"
+            android:paddingBottom="@dimen/padding_img_splash_scrn" />
 
         <TextView
             android:id="@+id/txtNombreSplashScreen"

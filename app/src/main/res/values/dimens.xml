@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_img_splash_scrn">100dp</dimen>
+    <dimen name="ly_width_logo">200dp</dimen>
+    <dimen name="ly_width">130dp</dimen>
+    <dimen name="ly_height">130dp</dimen>
 </resources>
