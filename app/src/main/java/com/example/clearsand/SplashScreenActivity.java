@@ -9,7 +9,7 @@ import android.widget.TextView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     TextView myTitle;
-
+    TextView merge;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
