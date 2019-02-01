@@ -69,7 +69,34 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/button_border"
             android:fontFamily="@font/roboto_thin"
-            android:text="@string/btn_SignIn_login"
+            android:text="@string/btn_SignIn_login" />
+
+        <Button
+            android:id="@+id/btnGoogleLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="32dp"
+            android:background="#C94130"
+            android:drawableLeft="@drawable/ic_google_plus"
+            android:text="@string/btn_google_login"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnFacebookLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btnGoogleLogin"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:background="#4D6FA9"
+            android:drawableLeft="@drawable/ic_facebook"
+            android:drawablePadding="10dp"
+            android:text="@string/btn_facebook_login"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
