@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ClearSand</string>
+    <string name="et_email_login">   Email</string>
+    <string name="img_desc_login">Imagen del logo ClearSand</string>
+    <string name="et_password_login">Password</string>
+    <string name="btn_SignIn_login">Sign in</string>
+    <string name="txt_WelcomeRegister">Bienvenido Usuario!</string>
+    <string name="et_Email_Register">Email</string>
+    <string name="et_Nombre_Register">Nombre</string>
 </resources>

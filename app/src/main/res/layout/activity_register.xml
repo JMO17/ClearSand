@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="93dp"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="71dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/button"
+        style="@android:style/Widget.Button.Toggle"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_below="@+id/imageView"
+        android:layout_marginStart="-27dp"
+        android:layout_marginLeft="-27dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:background="@android:drawable/ic_menu_camera"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="169dp" />
+
+    <TextView
+        android:id="@+id/txtWelcomeRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:autoText="false"
+        android:text="@string/txt_WelcomeRegister"
+        android:textColor="@color/textColorLogin"
+        android:textSize="24sp"
+        android:typeface="normal"
+        app:fontFamily="@font/roboto_thin"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:layout_editor_absoluteX="146dp" />
+
+    <LinearLayout
+        android:id="@+id/hola"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtWelcomeRegister"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etNombreRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_003_id_card_1"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/et_Nombre_Register"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etEmailRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_correo"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/et_Email_Register"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etContrasenyaRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_correo"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/et_Email_Register"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etEmailRegister3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_correo"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/et_Email_Register"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+</RelativeLayout>
