@@ -52,7 +52,7 @@
     <LinearLayout
         android:id="@+id/hola"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/txtWelcomeRegister"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
@@ -66,7 +66,7 @@
             android:id="@+id/etNombreRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_correo"
+            android:drawableLeft="@drawable/ic_003_id_card_1"
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/et_Nombre_Register"
@@ -74,6 +74,26 @@
 
         <EditText
             android:id="@+id/etEmailRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_correo"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/et_Email_Register"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etContrasenyaRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_correo"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/et_Email_Register"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etEmailRegister3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_correo"
