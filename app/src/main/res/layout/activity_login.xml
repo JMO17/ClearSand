@@ -7,6 +7,14 @@
     android:background="@drawable/arena"
     tools:context=".LoginActivity">
 
+    <FrameLayout
+        android:id="@+id/frameLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/degradado">
+
+    </FrameLayout>
+
     <ImageView
         android:id="@+id/imgLogoLogin"
         android:layout_width="100dp"
@@ -58,9 +66,10 @@
             android:id="@+id/btnSignInLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/button_border"
-            android:text="@string/btn_SignIn_login"
             android:fontFamily="@font/roboto_thin"
+            android:text="@string/btn_SignIn_login"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
