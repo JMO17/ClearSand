@@ -22,8 +22,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="96dp"
-        android:contentDescription="@string/img_desc_login"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:background="@mipmap/ic_launcher"
+        android:contentDescription="@string/img_desc_login" />
 
     <LinearLayout
         android:id="@+id/linearVertLogin"
@@ -79,8 +79,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="32dp"
-            android:background="#C94130"
+            android:background="#DC4E41"
             android:drawableLeft="@drawable/ic_google_plus"
+            android:paddingLeft="16dp"
+            android:paddingRight="40dp"
             android:text="@string/btn_google_login"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
@@ -96,6 +98,8 @@
             android:background="#4D6FA9"
             android:drawableLeft="@drawable/ic_facebook"
             android:drawablePadding="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="32dp"
             android:text="@string/btn_facebook_login"
             android:textColor="@android:color/white" />
 
