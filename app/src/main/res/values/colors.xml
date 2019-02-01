@@ -11,5 +11,6 @@
     <color name="azulClaro">#A4DAF2</color>
     <color name="naranja">#FA8E29</color>
     <color name="beige">#F1E9C0</color>
+    <color name="grisTransparente">#bacdc9c9</color>
 
 </resources>

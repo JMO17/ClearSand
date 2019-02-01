@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/arena"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -12,7 +13,7 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="96dp"
         android:contentDescription="@string/img_desc_login"
         app:srcCompat="@mipmap/ic_launcher" />
 
@@ -35,27 +36,33 @@
             android:id="@+id/etEmailLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_correo"
+            android:drawableStart="@android:drawable/sym_action_email"
             android:drawableLeft="@drawable/ic_correo"
-            android:ems="10"
+            android:drawablePadding="16dp"
             android:hint="@string/et_email_login"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+            android:drawablePadding="16dp"
             android:ems="10"
             android:hint="@string/et_password_login"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:padding="12dp" />
 
         <Button
             android:id="@+id/btnSignInLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/btn_SignIn_login" />
+            android:background="@drawable/button_border"
+            android:text="@string/btn_SignIn_login"
+            android:fontFamily="@font/roboto_thin"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 
 </RelativeLayout>
