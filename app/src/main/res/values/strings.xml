@@ -6,4 +6,5 @@
     <string name="btn_SignIn_login">Sign in</string>
     <string name="txt_WelcomeRegister">Bienvenido Usuario!</string>
     <string name="et_Email_Register">Email</string>
+    <string name="et_Nombre_Register">Nombre</string>
 </resources>

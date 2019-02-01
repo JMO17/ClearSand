@@ -63,18 +63,24 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/etNombreRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_correo"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/et_Nombre_Register"
+            android:inputType="textPersonName" />
+
+        <EditText
             android:id="@+id/etEmailRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_correo"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/et_Email_Register"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
     </LinearLayout>
 </RelativeLayout>
