@@ -2,14 +2,14 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#d81b60</color>
+    <color name="colorAccent">#fa8e29</color> <!-- Original #d81b60 -->
     <color name="textColorLogin">#3D4B5C</color>
 
     <!-- Paleta de colores base -->
     <color name="verde">#007966</color>
     <color name="azul">#53AFDB</color>
     <color name="azulClaro">#A4DAF2</color>
-    <color name="naranja">#FA8E29</color>
+    <color name="naranja">#fa8e29</color>
     <color name="beige">#F1E9C0</color>
     <color name="grisTransparente">#bacdc9c9</color>
 
