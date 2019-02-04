@@ -69,7 +69,8 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/button_border"
             android:fontFamily="@font/roboto_thin"
-            android:text="@string/btn_SignIn_login" />
+            android:text="@string/btn_SignIn_login"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnGoogleLogin"
