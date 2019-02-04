@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "154572800011",
+    "firebase_url": "https://clearsand-4e9e0.firebaseio.com",
+    "project_id": "clearsand-4e9e0",
+    "storage_bucket": "clearsand-4e9e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154572800011:android:a6e6b4d9c50838c4",
+        "android_client_info": {
+          "package_name": "com.example.clearsand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154572800011-60tdf3mumcrbu3v49tfrn0c5vpnf8aav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjTx0i5_h6cOXfwCnLk1OQjKo1eAYfsLk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
