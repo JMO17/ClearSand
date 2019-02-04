@@ -10,20 +10,23 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grisTransparente">
+        android:background="@drawable/degradado">
 
     </FrameLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="138dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="93dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="51dp"
+        android:background="@drawable/perfilpreview"
         tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="71dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:layout_editor_absoluteY="71dp" />
 
     <Button
         android:id="@+id/button"
@@ -59,12 +62,12 @@
 
     <LinearLayout
         android:id="@+id/hola"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/txtWelcomeRegister"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="50dp"
@@ -98,7 +101,7 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/et_Contrasenya_Register"
-            android:inputType="textPersonName" />
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/etContrasenyaRepeatRegister"
@@ -108,7 +111,7 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/et_ContrasenyaRepeat_Register"
-            android:inputType="textPersonName" />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnConfirmarRegister"
