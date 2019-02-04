@@ -3,8 +3,14 @@
     <string name="et_email_login">   Email</string>
     <string name="img_desc_login">Imagen del logo ClearSand</string>
     <string name="et_password_login">Password</string>
-    <string name="btn_SignIn_login">Sign in</string>
+    <string name="btn_SignIn_login">Iniciar Sesión</string>
     <string name="txt_WelcomeRegister">Bienvenido Usuario!</string>
     <string name="et_Email_Register">Email</string>
     <string name="et_Nombre_Register">Nombre</string>
+    <string name="et_Contrasenya_Register">Contraseña</string>
+    <string name="et_ContrasenyaRepeat_Register">Repite contraseña</string>
+    <string name="btn_Registrar_register">Registrar</string>
+    <string name="btn_cancelar_register" >Cancelar</string>
+    <string name="btn_google_login">Iniciar con Google</string>
+    <string name="btn_facebook_login">Inicar con Facebook</string>
 </resources>
