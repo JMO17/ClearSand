@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/button_border"
+            android:background="@drawable/button_sign_up_login"
             android:fontFamily="@font/roboto_thin"
             android:text="@string/btn_SignIn_login"
             android:textStyle="bold" />
