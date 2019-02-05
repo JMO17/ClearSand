@@ -25,7 +25,7 @@
     <string name="et_ContrasenyaRepeat_Register">Repite contraseña</string>
     <string name="btn_Registrar_register">Registrar</string>
     <string name="btn_cancelar_register" >Cancelar</string>
-
+    <string name="tv_link_registrar_login">¿no estás registrado? Registrate aquí</string>
 
 
 </resources>

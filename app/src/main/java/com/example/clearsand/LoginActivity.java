@@ -2,6 +2,7 @@ package com.example.clearsand;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
+
+    public static final int RC_REG = 1;
 
     /* AUTENTIFICACIÓN*/
     private FirebaseAuth fba;
@@ -107,4 +110,17 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     } // fin acceder
+
+    public void registrar(View v) {
+        Intent i = new Intent(this, RegisterActivity.class);
+        startActivityForResult(i, RC_REG);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_REG) {
+            //TODO rellenar los campos de email y password
+        }
+    }
 }

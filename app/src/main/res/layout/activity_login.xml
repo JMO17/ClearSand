@@ -73,6 +73,18 @@
             android:text="@string/btn_SignIn_login"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/tvLinkRegistrarLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:onClick="registrar"
+            android:text="@string/tv_link_registrar_login"
+            android:textColor="@color/naranja"
+            android:textStyle="bold"
+            app:fontFamily="@font/roboto_thin" />
+
         <Button
             android:id="@+id/btnGoogleLogin"
             android:layout_width="match_parent"
