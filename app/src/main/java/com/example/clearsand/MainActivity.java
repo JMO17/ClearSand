@@ -8,7 +8,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     String test;
-    String pruebaLogin;
+    String SecondMerge;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
