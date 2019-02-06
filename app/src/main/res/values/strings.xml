@@ -27,5 +27,13 @@
     <string name="btn_cancelar_register" >Cancelar</string>
     <string name="tv_link_registrar_login">¿no estás registrado? Registrate aquí</string>
 
+    <string name="msj_no_data_register">Debe introducir el email y la password</string>
+    <string name="msj_registrado_register">Usuario registrado</string>
+    <string name="msj_no_registrado_register">No se ha podido registrar al usuario</string>
+    <string name="msj_no_accede_register">El usuario no está registrado en el sistema</string>
+    <string name="msj_pwd_length">La password debe contener al menos 6 caracteres</string>
+    <string name="msj_userregistered_register">Usuario registrado:</string>
+    <string name="msj_no_registrado">Usuario no registrado correctamente</string>
+
 
 </resources>
