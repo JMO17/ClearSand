@@ -90,12 +90,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="62dp"
-            android:background="#DC4E41"
+            android:background="@drawable/button_border_google_login"
             android:drawableLeft="@drawable/ic_google_plus"
             android:paddingLeft="16dp"
             android:paddingRight="40dp"
             android:text="@string/btn_google_login"
-            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
@@ -103,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="#4D6FA9"
+            android:background="@drawable/button_border_facebook_login"
             android:drawableLeft="@drawable/ic_facebook"
             android:drawablePadding="10dp"
             android:paddingLeft="16dp"
