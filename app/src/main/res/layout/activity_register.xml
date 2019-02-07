@@ -117,6 +117,7 @@
             android:id="@+id/btnConfirmarRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="registro"
             android:text="@string/btn_Registrar_register" />
 
         <Button

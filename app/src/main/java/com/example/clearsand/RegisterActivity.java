@@ -1,5 +1,6 @@
 package com.example.clearsand;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,6 +55,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 user = fba.getCurrentUser();
                                 Toast.makeText(RegisterActivity.this, getString(R.string.msj_userregistered_register) + ": " + user.getEmail(),
                                         Toast.LENGTH_SHORT).show();
+
+
+                                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                                //i.putExtra("USER", user.getEmail());
+                                startActivity(i);
                             } else {
                                 Toast.makeText(RegisterActivity.this, getString(R.string.msj_no_registrado), Toast.LENGTH_SHORT).show();
                             }
