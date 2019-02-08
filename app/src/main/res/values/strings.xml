@@ -30,7 +30,7 @@
     <string name="et_Contrasenya_Register">Contraseña</string>
     <string name="et_ContrasenyaRepeat_Register">Repite contraseña</string>
     <string name="btn_Registrar_register">Registrar</string>
-    <string name="btn_cancelar_register" >Cancelar</string>
+    <string name="btn_cancelar_register">Cancelar</string>
     <string name="txt_clear_sand_splash_creen">ClearSand</string>
     <string name="tv_link_registrar_login">¿no estás registrado? Registrate aquí</string>
     <string name="msj_no_data_register">Debe introducir el email y la password</string>
@@ -40,6 +40,11 @@
     <string name="msj_pwd_length">La password debe contener al menos 6 caracteres</string>
     <string name="msj_userregistered_register">Usuario registrado:</string>
     <string name="msj_no_registrado">Usuario no registrado correctamente</string>
+    <string name="title_activity_inicio">ActivityInicio</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hint_busqueda">Prueba con Mallorca</string>
 
 
 

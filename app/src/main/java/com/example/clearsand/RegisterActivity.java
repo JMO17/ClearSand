@@ -20,6 +20,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     EditText etEmail;
+
+
     EditText etPassword;
     EditText etPassword2;
     EditText etNombre;
