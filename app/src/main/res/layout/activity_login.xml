@@ -83,7 +83,7 @@
             android:text="@string/tv_link_registrar_login"
             android:textColor="@color/naranja"
             android:textStyle="bold"
-            app:fontFamily="@font/roboto_thin" />
+            app:fontFamily="@font/roboto_medium" />
 
         <Button
             android:id="@+id/btnGoogleLogin"
