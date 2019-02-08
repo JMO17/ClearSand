@@ -45,7 +45,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="hint_busqueda">Prueba con Mallorca</string>
-
+    <string name="tv_eventos_cerca">Eventos cerca de ti:</string>
 
 
 </resources>
