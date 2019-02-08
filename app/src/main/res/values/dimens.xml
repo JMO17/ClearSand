@@ -4,4 +4,11 @@
     <dimen name="paddin_top_clear">30dp</dimen>
     <dimen name="l_widht_logo">170dp</dimen>
     <dimen name="l_height_logo">170dp</dimen>
+    <dimen name="padding_make_events_bg">16dp</dimen>
+    <dimen name="ly_height_make_events">140dp</dimen>
+    <dimen name="padding_make_events_left">7dp</dimen>
+    <dimen name="magirn_make_events_left">7dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

@@ -7,7 +7,7 @@
 
     <!-- Paleta de colores base -->
     <color name="verde">#007966</color>
-    <color name="azul">#53AFDB</color>
+    <color name="azul">#53afdb</color>
     <color name="azulClaro">#A4DAF2</color>
     <color name="naranja">#fa8e29</color>
     <color name="beige">#F1E9C0</color>
