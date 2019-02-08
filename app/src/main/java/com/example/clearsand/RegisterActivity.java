@@ -79,7 +79,11 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-                                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                               // Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+
+                                Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
+
+
                                 //i.putExtra("USER", user.getEmail());
                                 startActivity(i);
                             } else {
