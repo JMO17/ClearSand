@@ -1,5 +1,7 @@
 package com.example.clearsand;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Animation;
@@ -27,5 +29,21 @@ public class SplashScreenActivity extends AppCompatActivity {
         //myLogo.startAnimation(animLogo);
 
         getSupportActionBar().hide();
+
+        openApp(true);
+
+
+    }
+
+    private void openApp(boolean locationPermission) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, 5000);
     }
 }
