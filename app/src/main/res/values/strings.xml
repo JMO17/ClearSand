@@ -40,7 +40,7 @@
     <string name="msj_pwd_length">La password debe contener al menos 6 caracteres</string>
     <string name="msj_userregistered_register">Usuario registrado:</string>
     <string name="msj_no_registrado">Usuario no registrado correctamente</string>
-
+    <string name="tv_distancia_card">A %f km</string>
 
 
 </resources>
