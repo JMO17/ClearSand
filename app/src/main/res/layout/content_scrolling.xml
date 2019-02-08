@@ -8,10 +8,54 @@
     tools:context=".ScrollingActivity"
     tools:showIn="@layout/activity_scrolling">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:padding="16dp">
 
+        <EditText
+            android:id="@+id/etNameBeach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="23dp"
+            android:ems="10"
+            android:hint="@string/hint_title_event"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etLocalPlaya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="75dp"
+            android:ems="10"
+            android:hint="@string/hint_local_beach"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etHorario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/etLocalPlaya"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="56dp"
+            android:ems="10"
+            android:hint="@string/hint_horario_event"
+            android:inputType="time" />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="202dp"
+            android:layout_marginEnd="5dp" />
+    </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
