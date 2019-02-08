@@ -8,16 +8,25 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.clearsand.javabean.Evento;
+import com.example.clearsand.javabean.Playa;
+import com.example.clearsand.javabean.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth fba;
     private FirebaseUser user;
+
+    private DatabaseReference dbR;
 
     EditText etEmail;
     EditText etPassword;
@@ -40,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etContrasenyaRegister);
         etPassword2 = findViewById(R.id.etContrasenyaRepeatRegister);
 
-
+        dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
     }
 
     public void registro(View v) {
@@ -55,6 +64,19 @@ public class RegisterActivity extends AppCompatActivity {
                                 user = fba.getCurrentUser();
                                 Toast.makeText(RegisterActivity.this, getString(R.string.msj_userregistered_register) + ": " + user.getEmail(),
                                         Toast.LENGTH_SHORT).show();
+
+                                //agregando usuario a FIrebase
+
+                                String clave = dbR.push().getKey();
+
+                                ArrayList<Playa> playita = new ArrayList<>();
+                                playita.add(new Playa("playa1","tarragona",null));
+
+                                Usuario user = new Usuario(clave,etNombre.getText().toString(),null,etEmail.getText().toString(),null,null,null,null);
+                                dbR.child(clave).setValue(user);
+
+
+
 
 
                                 Intent i = new Intent(RegisterActivity.this, MainActivity.class);
