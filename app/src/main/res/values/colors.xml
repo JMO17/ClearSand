@@ -13,4 +13,8 @@
     <color name="beige">#F1E9C0</color>
     <color name="grisTransparente">#bacdc9c9</color>
 
+    <!-- Colores Extra -->
+    <color name="rojo_google">#DC4E41</color>
+    <color name="azul_facebook">#4D6FA9</color>
+
 </resources>

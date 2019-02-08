@@ -1,9 +1,23 @@
 <resources>
+    <!--APPLICATION-->
     <string name="app_name">ClearSand</string>
+
+    <!--Activity LOGIN-->
     <string name="et_email_login">   Email</string>
     <string name="img_desc_login">Imagen del logo ClearSand</string>
     <string name="et_password_login">Password</string>
     <string name="btn_SignIn_login">Iniciar Sesión</string>
+    <string name="btn_google_login">Iniciar con Google</string>
+    <string name="btn_facebook_login">Inicar con Facebook</string>
+                                <!--Login TOAST-->
+    <string name="msj_no_data_login">Tienes que introducir un email y una contraseña</string>
+    <string name="msj_no_email_login">Tienes que introducir un email</string>
+    <string name="msj_no_password_login">Tienes que introducir una contraseña</string>
+    <string name="msj_pwd_length_login">La contraseña tiene que tener al menos 6 caracteres</string>
+    <string name="msj_logado_login">Usuario logado:</string>
+    <string name="msj_no_accede_login">Usuario no registrado o contraseña inválida</string>
+
+    <!--Activity REGISTER-->
     <string name="txt_WelcomeRegister">Bienvenido Usuario!</string>
     <string name="et_Email_Register">Email</string>
     <string name="et_Nombre_Register">Nombre</string>
@@ -14,4 +28,15 @@
     <string name="btn_google_login">Iniciar con Google</string>
     <string name="btn_facebook_login">Inicar con Facebook</string>
     <string name="txt_clear_sand_splash_creen">ClearSand</string>
+    <string name="tv_link_registrar_login">¿no estás registrado? Registrate aquí</string>
+
+    <string name="msj_no_data_register">Debe introducir el email y la password</string>
+    <string name="msj_registrado_register">Usuario registrado</string>
+    <string name="msj_no_registrado_register">No se ha podido registrar al usuario</string>
+    <string name="msj_no_accede_register">El usuario no está registrado en el sistema</string>
+    <string name="msj_pwd_length">La password debe contener al menos 6 caracteres</string>
+    <string name="msj_userregistered_register">Usuario registrado:</string>
+    <string name="msj_no_registrado">Usuario no registrado correctamente</string>
+
+
 </resources>
