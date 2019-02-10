@@ -16,11 +16,16 @@
         android:showDividers="middle"
         android:visibility="visible">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/txtNombreUserProfile"
             style="@style/TextoUserProfile"
-            android:text="@string/txt_t_NombreUserProfile"
-            app:fontFamily="@font/roboto_thin" />
+            android:text="@string/txt_t_NombreUserProfile" />
 
         <TextView
             android:id="@+id/txtApellidosUserProfile"
@@ -28,5 +33,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_ApellidosUserProfile" />
+
+        <TextView
+            android:id="@+id/txtEdadUserProfile"
+            style="@style/TextoUserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_EdadUserProfile" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

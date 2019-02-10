@@ -57,21 +57,29 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Query qq = dbR.orderByChild("emailUsuario").equalTo("Jamiro@hola.nrt");
-
+                Query qq = dbR.orderByChild("emailUsuario").equalTo(email);
+                final Usuario[] user = new Usuario[1];
 
                 qq.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        Usuario user = dataSnapshot.getValue(Usuario.class);
 
+
+                        for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                             user[0] = dataSnapshot1.getValue(Usuario.class);
+                        }
+
+
+                        //Usuario user = dataSnapshot.getValue(Usuario.class);
+                      //  user = dataSnapshot.child("usuarios").getValue(Usuario.class);
                         //TODO PORQUE MIERDA NO ME FUNCIONA ESTO -- PREGUNTAR A PILAR
-                        String nom = user.getNombreUsuario();
+                        //TODO OKAY YA FUNCIONA PERO LO HAGO CON EL FOR EACH DE ARRIBA, LA CONSULTA RETORNA UN DATASNAPSOT QUE LUEGO RECORRO POR  CADA UNO DE SUS HIJOS;
+                        String nom = user[0].getNombreUsuario();
                         Toast.makeText(UserProfileActivity.this, nom, Toast.LENGTH_LONG).show();
 
-                        tvNombre.setText(String.format(getString(R.string.txt_t_NombreUserProfile), user.getNombreUsuario()));
-                        tvApellido.setText(String.format(getString(R.string.txt_ApellidosUserProfile), user.getEmailUsuario()));
+                        tvNombre.setText(String.format(getString(R.string.txt_t_NombreUserProfile), user[0].getNombreUsuario()));
+                        tvApellido.setText(String.format(getString(R.string.txt_ApellidosUserProfile), user[0].getEmailUsuario()));
 
 
                     }
