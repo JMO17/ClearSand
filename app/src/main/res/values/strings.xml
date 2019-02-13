@@ -9,7 +9,7 @@
     <string name="app_name">ClearSand</string>
 
     <!--Activity LOGIN-->
-    <string name="et_email_login">   Email</string>
+    <string name="et_email_login">Email</string>
     <string name="img_desc_login">Imagen del logo ClearSand</string>
     <string name="et_password_login">Password</string>
     <string name="btn_SignIn_login">Iniciar Sesión</string>
@@ -40,7 +40,7 @@
     <string name="msj_pwd_length">La password debe contener al menos 6 caracteres</string>
     <string name="msj_userregistered_register">Usuario registrado:</string>
     <string name="msj_no_registrado">Usuario no registrado correctamente</string>
-    <string name="tv_distancia_card">A %f km</string>
+    <string name="tv_distancia_card">A %.3f km</string>
 
 
 </resources>
