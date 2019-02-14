@@ -25,4 +25,13 @@
         <item name="android:typeface">normal</item>
     </style>
 
+    <style name="boton_login_and_registro">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:background">@drawable/button_sign_up_login</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

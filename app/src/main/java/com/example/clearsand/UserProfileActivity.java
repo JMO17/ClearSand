@@ -27,6 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private DatabaseReference dbR;
     private FirebaseAuth fa;
+    FirebaseUser usuario;
 
     TextView tvNombre;
     TextView tvApellido;
@@ -46,8 +47,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         fa = FirebaseAuth.getInstance();
-        FirebaseUser usuario = fa.getCurrentUser();
+        usuario = fa.getCurrentUser();
         email = usuario.getEmail();
+
 
         Toast.makeText(this, email, Toast.LENGTH_LONG).show();
 
@@ -65,17 +67,17 @@ public class UserProfileActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-
-                        for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                             user[0] = dataSnapshot1.getValue(Usuario.class);
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            user[0] = dataSnapshot1.getValue(Usuario.class);
                         }
 
 
                         //Usuario user = dataSnapshot.getValue(Usuario.class);
-                      //  user = dataSnapshot.child("usuarios").getValue(Usuario.class);
+                        //  user = dataSnapshot.child("usuarios").getValue(Usuario.class);
                         //TODO PORQUE MIERDA NO ME FUNCIONA ESTO -- PREGUNTAR A PILAR
                         //TODO OKAY YA FUNCIONA PERO LO HAGO CON EL FOR EACH DE ARRIBA, LA CONSULTA RETORNA UN DATASNAPSOT QUE LUEGO RECORRO POR  CADA UNO DE SUS HIJOS;
                         String nom = user[0].getNombreUsuario();
+                        String edad = user[0].getEdadUsuario();
                         Toast.makeText(UserProfileActivity.this, nom, Toast.LENGTH_LONG).show();
 
                         tvNombre.setText(String.format(getString(R.string.txt_t_NombreUserProfile), user[0].getNombreUsuario()));

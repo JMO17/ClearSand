@@ -35,10 +35,18 @@
             android:text="@string/txt_ApellidosUserProfile" />
 
         <TextView
+            android:id="@+id/txtEmailUserProfile"
+            style="@style/TextoUserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_EmailUserProfile" />
+
+        <TextView
             android:id="@+id/txtEdadUserProfile"
             style="@style/TextoUserProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_EdadUserProfile" />
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

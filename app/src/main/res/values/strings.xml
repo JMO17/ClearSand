@@ -127,6 +127,9 @@
     <string name="txt_t_NombreUserProfile">Nombre:  %1$s</string>
     <string name="txt_ApellidosUserProfile">Apellidos: %1$s</string>
     <string name="txt_EdadUserProfile">Edad: %1$s</string>
+    <string name="txt_EmailUserProfile">Email: %1$s</string>
+    <string name="clave_UserPhoto">FotosUsuarios</string>
+    <string name="clave_User">usuarios</string>
 
 
 </resources>
