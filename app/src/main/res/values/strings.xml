@@ -137,7 +137,7 @@
     <string name="txt_EmailUserProfile">Email: %1$s</string>
     <string name="clave_UserPhoto">FotosUsuarios</string>
     <string name="clave_User">usuarios</string>
-
+    <string name="nom_evento_Inicio">%s</string>
 
 
 </resources>

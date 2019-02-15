@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rvCardEventos"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp">
 
     <android.support.v7.widget.CardView
-        android:layout_width="160dp"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:cardCornerRadius="9dp"
+        android:id="@+id/CardViewEventos"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="8dp"
         app:cardElevation="1dp"
-        app:cardMaxElevation="2dp"
-        android:layout_alignParentLeft="true">
+        app:cardMaxElevation="2dp">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
 
+            <ImageView
+                android:id="@+id/ivEvento"
                 android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/giphy" />
+
+            <TextView
+                android:id="@+id/tvNomEventoInicio"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@+id/ivEvento"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="@string/nom_evento_Inicio"
+                android:textColor="#000" />
+
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
+
 </RelativeLayout>
