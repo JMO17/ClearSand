@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Evento {
 
+    private String keyEvento;
     private String nombreEvento;
     private String fechaEvento;
     private Playa playaEvento;
@@ -15,12 +16,17 @@ public class Evento {
 
     }
 
-    public Evento(String nombreEvento, String fechaEvento, Playa playaEvento, Usuario creadorEvento, ArrayList<Usuario> participantesEvento) {
+    public Evento(String keyEvento,String nombreEvento, String fechaEvento, Playa playaEvento, Usuario creadorEvento, ArrayList<Usuario> participantesEvento) {
+        this.keyEvento = keyEvento;
         this.nombreEvento = nombreEvento;
         this.fechaEvento = fechaEvento;
         this.playaEvento = playaEvento;
         this.creadorEvento = creadorEvento;
         this.participantesEvento = participantesEvento;
+    }
+
+    public String getKeyEvento() {
+        return keyEvento;
     }
 
     public String getNombreEvento() {
