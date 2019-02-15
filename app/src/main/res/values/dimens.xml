@@ -4,11 +4,7 @@
     <dimen name="paddin_top_clear">30dp</dimen>
     <dimen name="l_widht_logo">170dp</dimen>
     <dimen name="l_height_logo">170dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="padding_busqueda">20dp</dimen>
-    <dimen name="padding_et_busqueda">10dp</dimen>
-    <dimen name="padding_et_image">5dp</dimen>
-
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
