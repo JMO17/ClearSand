@@ -31,6 +31,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     TextView tvNombre;
     TextView tvApellido;
+    TextView tvEdad;
+    TextView tvEmail;
 
     String email;
 
@@ -44,6 +46,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
         tvNombre = findViewById(R.id.txtNombreUserProfile);
         tvApellido = findViewById(R.id.txtApellidosUserProfile);
+        tvEdad = findViewById(R.id.txtEdadUserProfile);
+        tvEmail= findViewById(R.id.txtEmailUserProfile);
 
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         fa = FirebaseAuth.getInstance();
@@ -76,13 +80,42 @@ public class UserProfileActivity extends AppCompatActivity {
                         //  user = dataSnapshot.child("usuarios").getValue(Usuario.class);
                         //TODO PORQUE MIERDA NO ME FUNCIONA ESTO -- PREGUNTAR A PILAR
                         //TODO OKAY YA FUNCIONA PERO LO HAGO CON EL FOR EACH DE ARRIBA, LA CONSULTA RETORNA UN DATASNAPSOT QUE LUEGO RECORRO POR  CADA UNO DE SUS HIJOS;
-                        String nom = user[0].getNombreUsuario();
-                        String edad = user[0].getEdadUsuario();
+                        String nom ;
+
+                        if(user[0].getNombreUsuario()!=null){
+                            nom = user[0].getNombreUsuario();
+                        }else{
+                            nom = getString(R.string.txt_SinEspecificar);
+                        }
+
+
+                        String edad;
+                        if(user[0].getEdadUsuario()!=null){
+                             edad =user[0].getEdadUsuario() ;
+                        }else{
+                            edad  = getString(R.string.txt_SinEspecificar);
+                        }
+
+                        String apellido;
+                        if(user[0].getApellidosUsuario()!=null){
+                            apellido = user[0].getApellidosUsuario();
+                        }else{
+                            apellido = getString(R.string.txt_SinEspecificar);
+                        }
+
+                        String email;
+                        if(user[0].getEmailUsuario()!=null){
+                            email = user[0].getEmailUsuario();
+                        }else{
+                            email = getString(R.string.txt_SinEspecificar);
+                        }
+
                         Toast.makeText(UserProfileActivity.this, nom, Toast.LENGTH_LONG).show();
 
                         tvNombre.setText(String.format(getString(R.string.txt_t_NombreUserProfile), user[0].getNombreUsuario()));
-                        tvApellido.setText(String.format(getString(R.string.txt_ApellidosUserProfile), user[0].getEmailUsuario()));
-
+                        tvApellido.setText(String.format(getString(R.string.txt_ApellidosUserProfile), apellido));
+                        tvEmail.setText(String.format(getString(R.string.txt_EmailUserProfile),email));
+                        tvEdad.setText(String.format(getString(R.string.txt_EdadUserProfile),edad));
 
                     }
 

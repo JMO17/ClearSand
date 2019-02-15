@@ -135,9 +135,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     StorageReference fotoRef = mFotoStorageRef.child(selectedUri.getLastPathSegment());
                                     UploadTask ut = fotoRef.putFile(selectedUri);
 
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(null,5000);
-
                                     ut.addOnSuccessListener(RegisterActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -155,6 +152,22 @@ public class RegisterActivity extends AppCompatActivity {
 
                                     Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, null, null);
                                     dbR.child(clave).setValue(user);
+
+
+                                    /**
+                                     * VOY A CREAR YNA PLAYITA PARA JAVI
+                                     */
+/*
+                                    dbR = FirebaseDatabase.getInstance().getReference().child("playita");
+                                    String clave2 = dbR.push().getKey();
+                                    Playa p1 = new Playa("playa1","2423443",null);
+                                    dbR.child(clave2).setValue(p1);
+                                    clave2 = dbR.push().getKey();
+                                    Playa p2 = new Playa("playa2","88888",null);
+                                    dbR.child(clave2).setValue(p2);
+*/
+
+
                                 }
 
                                 //TODO RESTAURAR BUENO ------ Intent i = new Intent(RegisterActivity.this, MainActivity.class);

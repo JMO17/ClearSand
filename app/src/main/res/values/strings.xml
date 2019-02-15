@@ -130,6 +130,7 @@
     <string name="txt_EmailUserProfile">Email: %1$s</string>
     <string name="clave_UserPhoto">FotosUsuarios</string>
     <string name="clave_User">usuarios</string>
+    <string name="txt_SinEspecificar">Sin especificar</string>
 
 
 </resources>
