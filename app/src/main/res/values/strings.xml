@@ -138,6 +138,8 @@
     <string name="clave_UserPhoto">FotosUsuarios</string>
     <string name="clave_User">usuarios</string>
     <string name="nom_evento_Inicio">%s</string>
+    <string name="tv_eventos_cerca">Eventos Cerca:</string>
+    <string name="hint_busqueda">Prueba con Mallorca</string>
 
 
 </resources>
