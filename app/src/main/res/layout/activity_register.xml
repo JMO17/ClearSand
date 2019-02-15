@@ -24,7 +24,7 @@
         android:layout_marginStart="132dp"
         android:layout_marginLeft="132dp"
         android:layout_marginTop="51dp"
-        android:background="@drawable/perfilpreview"
+        android:foregroundGravity="center"
         tools:layout_editor_absoluteX="141dp"
         tools:layout_editor_absoluteY="71dp" />
 
@@ -34,12 +34,13 @@
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_below="@+id/imageView"
-        android:layout_marginStart="-27dp"
-        android:layout_marginLeft="-27dp"
-        android:layout_marginTop="-30dp"
+        android:layout_marginStart="-43dp"
+        android:layout_marginLeft="-43dp"
+        android:layout_marginTop="-42dp"
         android:layout_toEndOf="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
         android:background="@android:drawable/ic_menu_camera"
+        android:onClick="enviarFoto"
         android:textColorHighlight="@color/colorPrimaryDark"
         tools:layout_editor_absoluteX="241dp"
         tools:layout_editor_absoluteY="169dp" />
@@ -115,16 +116,17 @@
 
         <Button
             android:id="@+id/btnConfirmarRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
             android:onClick="registro"
-            android:text="@string/btn_Registrar_register" />
+            android:text="@string/btn_Registrar_register"
+
+            style="@style/boton_login_and_registro" />
 
         <Button
             android:id="@+id/btnCancelarRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_cancelar_register" />
+
+            android:text="@string/btn_cancelar_register"
+            style="@style/boton_login_and_registro"/>
 
     </LinearLayout>
 </RelativeLayout>
