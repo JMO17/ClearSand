@@ -171,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
 
                                 //TODO RESTAURAR BUENO ------ Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-                                System.out.print(pas.toString());
+                                //System.out.print(pas.toString());
                                 Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
 
 
