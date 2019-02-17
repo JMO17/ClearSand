@@ -140,12 +140,15 @@
 
     <!--Activity Scrolling Activity-->
     <string name="title_activity_scrolling">Crea tu evento</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings_Evento">Settings</string>
     <string name="hint_name_beach_scrolling_activity">Introduce el nombre de la playa</string>
     <string name="hint_local_beach">Introduce la localización</string>
     <string name="hint_title_event">Titulo del evento</string>
     <string name="hint_fecha_evento" />
     <string name="hint_horario_event">Introduce la hora del evento</string>
+    <string name="titlulo_pickers">Obtener fecha y hora</string>
+    <string name="formato_fecha">dd/mm/yyyy</string>
+    <string name="formato_hora">hh:mm</string>
 
 
 </resources>
