@@ -92,7 +92,7 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/et_Email_Register"
-            android:inputType="textPersonName" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/etContrasenyaRegister"

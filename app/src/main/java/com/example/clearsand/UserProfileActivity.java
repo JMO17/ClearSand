@@ -8,9 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.clearsand.javabean.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +35,7 @@ public class UserProfileActivity extends AppCompatActivity {
     TextView tvApellido;
     TextView tvEdad;
     TextView tvEmail;
+    ImageView tvImagen;
 
     String email;
 
@@ -43,11 +46,13 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
         tvNombre = findViewById(R.id.txtNombreUserProfile);
         tvApellido = findViewById(R.id.txtApellidosUserProfile);
         tvEdad = findViewById(R.id.txtEdadUserProfile);
         tvEmail= findViewById(R.id.txtEmailUserProfile);
+        tvImagen = findViewById(R.id.imagenDelPerfil);
 
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         fa = FirebaseAuth.getInstance();
@@ -84,8 +89,19 @@ public class UserProfileActivity extends AppCompatActivity {
 
                         if(user[0].getNombreUsuario()!=null){
                             nom = user[0].getNombreUsuario();
+                            getSupportActionBar().setTitle(nom+" wakanda");
                         }else{
                             nom = getString(R.string.txt_SinEspecificar);
+                        }
+
+                        String urlImagen;
+
+                        if(user[0].getFotoUsuario()!=null){
+                            Glide.with(tvImagen.getContext())
+                                    .load(user[0].getFotoUsuario())
+                                    .into(tvImagen);
+                        }else{
+
                         }
 
 
