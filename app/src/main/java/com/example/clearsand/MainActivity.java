@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference dbR;
     private ChildEventListener cel;
 
-    /*STORAGE*/
-    private FirebaseStorage mFirebaseStorage;
-    private StorageReference mFotoStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +60,7 @@ public class MainActivity extends AppCompatActivity {
         addChildEventListener();
 
 
-        /*STORAGE*/
-        mFirebaseStorage = FirebaseStorage.getInstance();
-        mFotoStorageRef = mFirebaseStorage.getReference().child("Fotos"); //Nos posicionamos en la carpeta Fotos
+
     }
 
 

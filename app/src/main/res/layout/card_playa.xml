@@ -29,8 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:adjustViewBounds="false"
-                    android:cropToPadding="false"
-                    app:srcCompat="@drawable/playa_gif" />
+                    android:cropToPadding="false" />
             </FrameLayout>
 
             <LinearLayout

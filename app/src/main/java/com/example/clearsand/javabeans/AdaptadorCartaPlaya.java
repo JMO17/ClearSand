@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.clearsand.R;
 
 import java.util.ArrayList;
@@ -74,9 +75,9 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
          * @param playa
          */
         public void bindPlaya(Playa playa) {
-            //TODO buscar la imagen en FIREBASE
+            Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
             /*tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), playa.getDistancia()));
-            tvNombre.setText(playa.getNombre());*/
+            */
             tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
             tvNombre.setText(playa.getNombre());
         }
