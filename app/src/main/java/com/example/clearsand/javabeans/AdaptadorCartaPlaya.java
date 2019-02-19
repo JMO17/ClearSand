@@ -77,8 +77,8 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             //TODO buscar la imagen en FIREBASE
             /*tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), playa.getDistancia()));
             tvNombre.setText(playa.getNombre());*/
-            tvDistancia.setText(playa.getUbicacionPLaya());
-            tvNombre.setText(playa.getNombrePlaya());
+            tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
+            tvNombre.setText(playa.getNombre());
         }
     } // fin CartaPlayaViewHolder
 }

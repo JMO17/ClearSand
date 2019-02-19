@@ -44,12 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*DATABASE*/
-        //dbR = FirebaseDatabase.getInstance().getReference().child("PLAYA");
-        dbR = FirebaseDatabase.getInstance().getReference().child("playita");
-
-        addChildEventListener();
-
         /*RECYCLE VIEW*/
         rvCartaPlaya = findViewById(R.id.rvListaPlayaMain);
         rvCartaPlaya.setHasFixedSize(true);
@@ -63,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
         rvCartaPlaya.setItemAnimator(new DefaultItemAnimator());
 
+        /*DATABASE*/
+        dbR = FirebaseDatabase.getInstance().getReference().child("PLAYA");
 
+        addChildEventListener();
 
-
-        datosPlaya.add(new Playa("Playa I", "MALLORCA", null));
 
         /*STORAGE*/
         mFirebaseStorage = FirebaseStorage.getInstance();
@@ -81,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     System.out.println("Nuevo playa");
                     Playa m = dataSnapshot.getValue(Playa.class);
-                    //Playa m2 = new Playa(dataSnapshot.getValue())
                     datosPlaya.add(m);
                     adaptador.notifyItemChanged(datosPlaya.size()-1);
                 }
