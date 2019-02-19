@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         rvCartaPlaya.setItemAnimator(new DefaultItemAnimator());
 
         /*DATABASE*/
-        dbR = FirebaseDatabase.getInstance().getReference().child("PLAYA");
+        dbR = FirebaseDatabase.getInstance().getReference().child("PLAYAS");
 
         addChildEventListener();
 
@@ -74,9 +74,10 @@ public class MainActivity extends AppCompatActivity {
             cel = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    System.out.println("Nuevo playa");
+                    System.out.println("Nueva playa");
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlaya.add(m);
+                    System.out.println(m.getNombre());
                     adaptador.notifyItemChanged(datosPlaya.size()-1);
                 }
 
