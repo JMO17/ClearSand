@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     datosPlaya.add(m);
                     System.out.println(m.getNombre());
                     adaptador.notifyItemChanged(datosPlaya.size()-1);
+                    adaptador.notifyDataSetChanged();
                 }
 
                 @Override
