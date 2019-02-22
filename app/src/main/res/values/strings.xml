@@ -138,7 +138,7 @@
     <string name="clave_UserPhoto">FotosUsuarios</string>
     <string name="clave_User">usuarios</string>
 
-    <!--Activity Scrolling Activity-->
+    <!--Activity MakeEvent-->
     <string name="title_activity_scrolling">Crea tu evento</string>
     <string name="action_settings_Evento">Settings</string>
     <string name="hint_name_beach_scrolling_activity">Introduce el nombre de la playa</string>
@@ -149,6 +149,14 @@
     <string name="titlulo_pickers">Obtener fecha y hora</string>
     <string name="formato_fecha">dd/mm/yyyy</string>
     <string name="formato_hora">hh:mm</string>
+
+    <!--Activity Perfil playa-->
+    <string name="tvEstadoPLayaActivity">ESTADO DE LA PLAYA: 1s</string>
+    <string name="tv_perfil_playa_ubicacion">La ubicación</string>
+    <string name="tv_nombre_perfil_playa_activity">Nombre playa</string>
+    <string name="btn_crear_evento">Crear evento de limpieza</string>
+    <string name="tv_voluntariado">Voluntariado</string>
+    <string name="btn_como_llegar">Como llegar</string>
 
 
 </resources>
