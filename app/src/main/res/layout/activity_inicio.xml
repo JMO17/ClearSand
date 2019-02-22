@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
-        app:labelVisibilityMode="selected"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/navigation" />
 
     <LinearLayout

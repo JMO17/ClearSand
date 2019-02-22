@@ -18,16 +18,16 @@ public class ActivityInicio extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.nav_explorar:
-                    mTextMessage.setText(R.string.title_home);
+                    mTextMessage.setText(R.string.nav_explorar);
                     return true;
                 case R.id.nav_eventos:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    mTextMessage.setText(R.string.nav_eventos);
                     return true;
                 case R.id.nav_favoritos:
-                    mTextMessage.setText(R.string.title_notifications);
+                    mTextMessage.setText(R.string.nav_favoritos);
                     return true;
                 case R.id.nav_perfil:
-                    mTextMessage.setText(R.string.title_notifications);
+                    mTextMessage.setText(R.string.nav_perfil);
                     return true;
             }
             return false;
