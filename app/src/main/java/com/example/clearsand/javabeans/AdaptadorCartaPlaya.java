@@ -18,18 +18,24 @@ import java.util.ArrayList;
  * Clase Adaptador que recibe los datos de la playa
  * para poder crear las cartas de la playa.
  */
-public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlaya.CartaPlayaViewHolder> {
+public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlaya.CartaPlayaViewHolder>
+        implements View.OnClickListener{
 
+    /*--------------------------------   ATRIBUTOS   ------------------------------------------*/
     private ArrayList<Playa> datos;
+    private View.OnClickListener listener;
 
+    /*--------------------------------    CONSTRUCTOR  ------------------------------------------*/
     public AdaptadorCartaPlaya(ArrayList<Playa> datos) {
         this.datos = datos;
     }
 
+    /*--------------------------------   METODOS ADAPTER  -----------------------------------------*/
     @NonNull
     @Override
     public CartaPlayaViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_playa, viewGroup, false);
+        v.setOnClickListener(this);
         CartaPlayaViewHolder cpvh = new CartaPlayaViewHolder(v,viewGroup.getContext());
         return cpvh;
     }
@@ -43,7 +49,19 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
     public int getItemCount() {
         return datos.size();
     }
+    /*--------------------------------   METODOS LISTENER -----------------------------------------*/
+    @Override
+    public void onClick(View v) {
+        if(listener != null) {
+            listener.onClick(v);
+        }
+    }
 
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    /*--------------------------------   CLASE INTERNA   ------------------------------------------*/
     /**
      * Clase que hereda de ViewHolder,
      * Establece los datos y la imagen de una playa en una carta
