@@ -1,4 +1,4 @@
-package com.example.clearsand.javabeans;
+package com.uemdam.clearsand.javabean;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.clearsand.R;
+import com.uemdam.clearsand.R;
 
 import java.util.ArrayList;
 

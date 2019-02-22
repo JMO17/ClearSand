@@ -1,6 +1,5 @@
-package com.example.clearsand;
+package com.uemdam.clearsand;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,23 +7,22 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.example.clearsand.javabeans.AdaptadorCartaPlaya;
-import com.example.clearsand.javabeans.Playa;
+
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.uemdam.clearsand.javabean.AdaptadorCartaPlaya;
+import com.uemdam.clearsand.javabean.Playa;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Playa> datosPlaya;
+    private ArrayList<com.uemdam.clearsand.javabean.Playa> datosPlaya;
 
     /*RECYCLED VIEW*/
     private RecyclerView rvCartaPlaya;
@@ -48,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
         llManager = new LinearLayoutManager(this);
         rvCartaPlaya.setLayoutManager(llManager);
 
-        datosPlaya = new ArrayList<Playa>();
+        datosPlaya = new ArrayList<com.uemdam.clearsand.javabean.Playa>();
         adaptador = new AdaptadorCartaPlaya(datosPlaya);
+
         rvCartaPlaya.setAdapter(adaptador);
 
         rvCartaPlaya.setItemAnimator(new DefaultItemAnimator());
