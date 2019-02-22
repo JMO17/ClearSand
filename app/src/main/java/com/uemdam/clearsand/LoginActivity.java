@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,
                                         getString(R.string.msj_logado_login) + user.getEmail(),
                                         Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent i = new Intent(LoginActivity.this, UserProfileActivity.class);
                                 //i.putExtra("USER", user.getEmail());
                                 startActivity(i);
                             } else {

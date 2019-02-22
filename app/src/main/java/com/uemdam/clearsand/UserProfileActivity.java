@@ -1,4 +1,4 @@
-package com.example.clearsand;
+package com.uemdam.clearsand;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.clearsand.javabean.Usuario;
+import com.uemdam.clearsand.javabean.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends MainActivity {
 
 
     private DatabaseReference dbR;
@@ -41,9 +41,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
     @Override
+    public int cargarLayout() {
+        return R.layout.activity_user_profile;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+       // setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

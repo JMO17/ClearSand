@@ -1,4 +1,4 @@
-package com.example.clearsand;
+package com.uemdam.clearsand;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.uemdam.clearsand.R;
 
 public abstract class MainActivity extends AppCompatActivity {
 
