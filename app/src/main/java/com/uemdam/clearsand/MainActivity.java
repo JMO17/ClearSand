@@ -1,5 +1,6 @@
 package com.uemdam.clearsand;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
+import android.view.View;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.ChildEventListener;
@@ -48,7 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
         datosPlaya = new ArrayList<com.uemdam.clearsand.javabean.Playa>();
         adaptador = new AdaptadorCartaPlaya(datosPlaya);
+        adaptador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO borrar el mensaje
+                String msg = "Seleccionada la opción " + rvCartaPlaya.getChildAdapterPosition(v) ;
+                Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
 
+//                Intent i = new Intent(MainActivity.this, PerfilPlayaActivity.class);
+//                i.putExtra("ID", datosPlaya.get(rvCartaPlaya.getChildAdapterPosition(v)).getId());
+//                startActivity(i);
+            }
+        });
         rvCartaPlaya.setAdapter(adaptador);
 
         rvCartaPlaya.setItemAnimator(new DefaultItemAnimator());
