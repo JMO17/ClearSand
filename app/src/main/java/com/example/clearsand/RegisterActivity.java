@@ -59,6 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Uri selectedImage;
     private Boolean imagenSubida = false;
 
+    UploadTask ut;
+
 
     Boolean pas = false;
 
@@ -133,32 +135,54 @@ public class RegisterActivity extends AppCompatActivity {
                                     Uri selectedUri = selectedImage;
 
                                     StorageReference fotoRef = mFotoStorageRef.child(selectedUri.getLastPathSegment());
-                                    UploadTask ut = fotoRef.putFile(selectedUri);
+                                    ut = fotoRef.putFile(selectedUri);
 
                                     Handler handler = new Handler();
-                                    handler.postDelayed(null,5000);
+                                    handler.postDelayed(new Runnable() {
+                                        public void run() {
+                                            //que hacer despues de 10 segundos
 
-                                    ut.addOnSuccessListener(RegisterActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                            Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
-                                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            ut.addOnSuccessListener(RegisterActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
-                                                public void onSuccess(Uri uri) {
-                                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), null, null);
-                                                    dbR.child(clave).setValue(user);
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
+                                                    task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                        @Override
+                                                        public void onSuccess(Uri uri) {
+                                                            Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), null, null);
+                                                            dbR.child(clave).setValue(user);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
-                                    });
+                                    }, 5000);
+
+
                                 } else {
 
                                     Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, null, null);
                                     dbR.child(clave).setValue(user);
+
+
+                                    /**
+                                     * VOY A CREAR YNA PLAYITA PARA JAVI
+                                     */
+/*
+                                    dbR = FirebaseDatabase.getInstance().getReference().child("playita");
+                                    String clave2 = dbR.push().getKey();
+                                    Playa p1 = new Playa("playa1","2423443",null);
+                                    dbR.child(clave2).setValue(p1);
+                                    clave2 = dbR.push().getKey();
+                                    Playa p2 = new Playa("playa2","88888",null);
+                                    dbR.child(clave2).setValue(p2);
+*/
+
+
                                 }
 
                                 //TODO RESTAURAR BUENO ------ Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-                                System.out.print(pas.toString());
+                                //System.out.print(pas.toString());
                                 Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
 
 
@@ -199,7 +223,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void enviarFoto(View v) {
         /*abrirá un selector de archivos para ayudarnos a elegir entre cualquier imagen JPEG almacenada localmente en el dispositivo */
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/jpeg");
+        intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
         startActivityForResult(Intent.createChooser(intent,
                 "Complete la acción usando"), RC_PHOTO_ADJ);

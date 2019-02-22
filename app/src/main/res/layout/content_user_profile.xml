@@ -48,5 +48,10 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_EdadUserProfile" />
 
+        <ImageView
+            android:id="@+id/ivFoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

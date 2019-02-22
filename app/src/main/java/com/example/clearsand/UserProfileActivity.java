@@ -8,9 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.clearsand.javabean.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +33,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
     TextView tvNombre;
     TextView tvApellido;
+    TextView tvEdad;
+    TextView tvEmail;
+    ImageView tvImagen;
 
     String email;
 
@@ -41,9 +46,13 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
         tvNombre = findViewById(R.id.txtNombreUserProfile);
         tvApellido = findViewById(R.id.txtApellidosUserProfile);
+        tvEdad = findViewById(R.id.txtEdadUserProfile);
+        tvEmail= findViewById(R.id.txtEmailUserProfile);
+        tvImagen = findViewById(R.id.imagenDelPerfil);
 
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         fa = FirebaseAuth.getInstance();
@@ -76,13 +85,53 @@ public class UserProfileActivity extends AppCompatActivity {
                         //  user = dataSnapshot.child("usuarios").getValue(Usuario.class);
                         //TODO PORQUE MIERDA NO ME FUNCIONA ESTO -- PREGUNTAR A PILAR
                         //TODO OKAY YA FUNCIONA PERO LO HAGO CON EL FOR EACH DE ARRIBA, LA CONSULTA RETORNA UN DATASNAPSOT QUE LUEGO RECORRO POR  CADA UNO DE SUS HIJOS;
-                        String nom = user[0].getNombreUsuario();
-                        String edad = user[0].getEdadUsuario();
+                        String nom ;
+
+                        if(user[0].getNombreUsuario()!=null){
+                            nom = user[0].getNombreUsuario();
+                            getSupportActionBar().setTitle(nom+" wakanda");
+                        }else{
+                            nom = getString(R.string.txt_SinEspecificar);
+                        }
+
+                        String urlImagen;
+
+                        if(user[0].getFotoUsuario()!=null){
+                            Glide.with(tvImagen.getContext())
+                                    .load(user[0].getFotoUsuario())
+                                    .into(tvImagen);
+                        }else{
+
+                        }
+
+
+                        String edad;
+                        if(user[0].getEdadUsuario()!=null){
+                             edad =user[0].getEdadUsuario() ;
+                        }else{
+                            edad  = getString(R.string.txt_SinEspecificar);
+                        }
+
+                        String apellido;
+                        if(user[0].getApellidosUsuario()!=null){
+                            apellido = user[0].getApellidosUsuario();
+                        }else{
+                            apellido = getString(R.string.txt_SinEspecificar);
+                        }
+
+                        String email;
+                        if(user[0].getEmailUsuario()!=null){
+                            email = user[0].getEmailUsuario();
+                        }else{
+                            email = getString(R.string.txt_SinEspecificar);
+                        }
+
                         Toast.makeText(UserProfileActivity.this, nom, Toast.LENGTH_LONG).show();
 
                         tvNombre.setText(String.format(getString(R.string.txt_t_NombreUserProfile), user[0].getNombreUsuario()));
-                        tvApellido.setText(String.format(getString(R.string.txt_ApellidosUserProfile), user[0].getEmailUsuario()));
-
+                        tvApellido.setText(String.format(getString(R.string.txt_ApellidosUserProfile), apellido));
+                        tvEmail.setText(String.format(getString(R.string.txt_EmailUserProfile),email));
+                        tvEdad.setText(String.format(getString(R.string.txt_EdadUserProfile),edad));
 
                     }
 
