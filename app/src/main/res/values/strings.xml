@@ -157,6 +157,7 @@
     <string name="btn_crear_evento">Crear evento de limpieza</string>
     <string name="tv_voluntariado">Voluntariado</string>
     <string name="btn_como_llegar">Como llegar</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
