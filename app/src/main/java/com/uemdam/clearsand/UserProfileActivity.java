@@ -94,7 +94,7 @@ public class UserProfileActivity extends MainActivity {
 
                         if(user[0].getNombreUsuario()!=null){
                             nom = user[0].getNombreUsuario();
-                            getSupportActionBar().setTitle(nom+" wakanda");
+                            getSupportActionBar().setTitle(nom);
                         }else{
                             nom = getString(R.string.txt_SinEspecificar);
                         }
