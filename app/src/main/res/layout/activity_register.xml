@@ -7,6 +7,8 @@
     android:background="@drawable/arena"
     tools:context=".RegisterActivity">
 
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,12 +20,11 @@
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="138dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="132dp"
         android:layout_marginLeft="132dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="25dp"
         android:foregroundGravity="center"
         tools:layout_editor_absoluteX="141dp"
         tools:layout_editor_absoluteY="71dp" />
@@ -63,8 +64,8 @@
 
     <LinearLayout
         android:id="@+id/hola"
-        android:layout_width="323dp"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="454dp"
         android:layout_below="@+id/txtWelcomeRegister"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
@@ -117,16 +118,24 @@
         <Button
             android:id="@+id/btnConfirmarRegister"
 
+            style="@style/boton_login_and_registro"
             android:onClick="registro"
-            android:text="@string/btn_Registrar_register"
 
-            style="@style/boton_login_and_registro" />
+            android:text="@string/btn_Registrar_register" />
 
         <Button
             android:id="@+id/btnCancelarRegister"
 
-            android:text="@string/btn_cancelar_register"
-            style="@style/boton_login_and_registro"/>
+            style="@style/boton_login_and_registro"
+            android:text="@string/btn_cancelar_register" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarRegisterAC"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Inverse"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />/  android:background="@drawable/mipbstyle" />
 </RelativeLayout>
