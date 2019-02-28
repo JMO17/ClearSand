@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         addChildEventListener();
 
 
-
     }
 
 
@@ -81,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
             cel = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    System.out.println("Nueva playa");
+                    //System.out.println("Nueva playa");
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlaya.add(m);
-                    System.out.println(m.getNombre());
+                    //System.out.println(m.getNombre());
                     adaptador.notifyItemChanged(datosPlaya.size()-1);
                     adaptador.notifyDataSetChanged();
                 }

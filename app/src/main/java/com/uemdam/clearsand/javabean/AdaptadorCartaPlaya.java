@@ -1,6 +1,7 @@
 package com.uemdam.clearsand.javabean;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +15,13 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.uemdam.clearsand.R;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Clase Adaptador que recibe los datos de la playa
@@ -26,6 +31,8 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         implements View.OnClickListener{
 
     /*--------------------------------   ATRIBUTOS   ------------------------------------------*/
+    public static final String MIS_FAVORITOS = "arhivo_fav";
+
     private ArrayList<Playa> datos;
     private View.OnClickListener listener;
 
@@ -80,6 +87,8 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         private ToggleButton tbFav;
 
         private Context contexto;
+        /*DATABASE*/
+        private DatabaseReference dbR;
 
         /**
          * Constructor
@@ -87,18 +96,17 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
          */
         public CartaPlayaViewHolder(@NonNull View itemView, Context contexto) {
             super(itemView);
+
             ivFoto = itemView.findViewById(R.id.ivFotoCard);
             tvDistancia = itemView.findViewById(R.id.tvDistanciaCard);
             tvNombre = itemView.findViewById(R.id.tvNombreCard);
             //ibFavorito = itemView.findViewById(R.id.ibFavorito);
             tbFav = itemView.findViewById(R.id.tbFav);
 
-            tbFav.setChecked(false);
-            tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
-
-
-
             this.contexto = contexto;
+
+            /*DATABASE*/
+            dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         }
 
         /**
@@ -106,24 +114,83 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
          * con esos datos
          * @param playa
          */
-        public void bindPlaya(Playa playa) {
+        public void bindPlaya(final Playa playa) {
             Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
             /*tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), playa.getDistancia()));
             */
             tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
             tvNombre.setText(playa.getNombre());
 
+            // Miramos en preferencias los
+            SharedPreferences preferencias = contexto.getSharedPreferences(MIS_FAVORITOS, Context.MODE_PRIVATE);
+            Set<String> favoritos = preferencias.getStringSet("IDS", new HashSet<String>());
+            System.out.println(preferencias.getAll());
+            if(favoritos.contains(playa.getId())) {
+                tbFav.setChecked(true);
+                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+            } else {
+                tbFav.setChecked(false);
+                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+            }
+
             tbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked) {
+                        // Cambiamos el imagen a seleccionado
                         tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+
+                        //Añadimos a preferencias el id de la playa
+                        SharedPreferences preferencias = contexto.getSharedPreferences(MIS_FAVORITOS, Context.MODE_PRIVATE); //Archivo y modo
+                        Set<String> itemId = preferencias.getStringSet("IDS", new HashSet<String>()); //Recogemos valores anteriores o si no hay, se usa un nuevo hashset
+                        itemId.add(playa.getId());
+                        preferencias.edit().putStringSet("IDS", itemId).commit(); //editamos las preferencias con el nuevo set/ o set modificado.
+                        //TODO  mirar si es mejor apply en vez de commit
+                        System.out.println(preferencias.getAll());
                     } else {
                         tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+
+                        SharedPreferences preferencias = contexto.getSharedPreferences(MIS_FAVORITOS, Context.MODE_PRIVATE);
+                        Set<String> itemId = preferencias.getStringSet("IDS", new HashSet<String>());
+                        itemId.remove(playa.getId());
+                        preferencias.edit().putStringSet("IDS", itemId).commit();
+                        System.out.println(preferencias.getAll());
                     }
                 }
             });
-            //ibFavorito.setImageDrawable(contexto.getResources().getDrawable(R.drawable.ic_me_gusta_boton));
+        }
+
+        public void bindPlaya2(final Playa playa) {
+            Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
+            tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
+            tvNombre.setText(playa.getNombre());
+
+            //Cargar toggle button con datos del usuario
+            ArrayList<String> favoritos = new ArrayList<>();
+
+            if(favoritos.contains(playa.getId())) {
+                tbFav.setChecked(true);
+                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+            } else {
+                tbFav.setChecked(false);
+                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+            }
+
+            tbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        // Cambiamos el imagen a seleccionado
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+
+                    } else {
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+
+                    }
+                }
+            });
         }
     } // fin CartaPlayaViewHolder
+
+
 }
