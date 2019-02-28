@@ -14,11 +14,10 @@
         <activity
             android:name=".MakeEvent"
             android:label="@string/action_settings_Evento"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashScreenActivity"></activity>
+        <activity android:name=".SplashScreenActivity" />
         <activity android:name=".MainActivity" />
 
         <meta-data
@@ -46,9 +45,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
+        <activity android:name=".CrearEventoActivity"></activity>
     </application>
 
 </manifest>
