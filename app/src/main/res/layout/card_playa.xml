@@ -24,12 +24,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ToggleButton
+                    android:id="@+id/tbFav"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="right|top"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textOff=" "
+                    android:textOn=" " />
+
                 <ImageView
                     android:id="@+id/ivFotoCard"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:adjustViewBounds="false"
-                    android:cropToPadding="false" />
+                    android:cropToPadding="false"
+                    android:scaleType="fitXY" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:background="@drawable/scrim" />
+
             </FrameLayout>
 
             <LinearLayout

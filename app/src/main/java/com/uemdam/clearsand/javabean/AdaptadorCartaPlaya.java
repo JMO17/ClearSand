@@ -2,12 +2,16 @@ package com.uemdam.clearsand.javabean;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.uemdam.clearsand.R;
@@ -72,6 +76,8 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         private ImageView ivFoto;
         private TextView tvDistancia;
         private TextView tvNombre;
+        private ImageButton ibFavorito;
+        private ToggleButton tbFav;
 
         private Context contexto;
 
@@ -84,6 +90,14 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             ivFoto = itemView.findViewById(R.id.ivFotoCard);
             tvDistancia = itemView.findViewById(R.id.tvDistanciaCard);
             tvNombre = itemView.findViewById(R.id.tvNombreCard);
+            //ibFavorito = itemView.findViewById(R.id.ibFavorito);
+            tbFav = itemView.findViewById(R.id.tbFav);
+
+            tbFav.setChecked(false);
+            tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+
+
+
             this.contexto = contexto;
         }
 
@@ -98,6 +112,18 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             */
             tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
             tvNombre.setText(playa.getNombre());
+
+            tbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+                    } else {
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+                    }
+                }
+            });
+            //ibFavorito.setImageDrawable(contexto.getResources().getDrawable(R.drawable.ic_me_gusta_boton));
         }
     } // fin CartaPlayaViewHolder
 }
