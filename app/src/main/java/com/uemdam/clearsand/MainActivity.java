@@ -22,7 +22,7 @@ import com.uemdam.clearsand.javabean.Playa;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends menuAbstractActivity {
 
     private ArrayList<com.uemdam.clearsand.javabean.Playa> datosPlaya;
 
@@ -37,9 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    public int cargarLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
         /*RECYCLE VIEW*/
         rvCartaPlaya = findViewById(R.id.rvListaPlayaMain);

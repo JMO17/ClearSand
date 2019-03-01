@@ -40,7 +40,7 @@ public class UserProfileActivity extends MainActivity {
     String email;
 
 
-    @Override
+
     public int cargarLayout() {
         return R.layout.activity_user_profile;
     }
