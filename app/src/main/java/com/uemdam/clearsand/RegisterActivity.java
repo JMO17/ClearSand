@@ -116,6 +116,11 @@ public class RegisterActivity extends AppCompatActivity {
         pb.setVisibility(View.VISIBLE);
         //if (validarDatos()) {
         String warning = validarDatos();
+
+        // Para favoritos
+        final ArrayList<String> favoritos = new ArrayList<>();
+        favoritos.add("-1");
+
         if (warning == null) {
 
             fba.createUserWithEmailAndPassword(email, password)
@@ -155,7 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                     task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                         @Override
                                                         public void onSuccess(Uri uri) {
-                                                            Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), null, null);
+                                                            Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), favoritos, null);
                                                             dbR.child(clave).setValue(user);
 
                                                             Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -173,7 +178,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, new ArrayList<String>(), null);
+                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, favoritos, null);
                                     dbR.child(clave).setValue(user);
 
                                     Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
