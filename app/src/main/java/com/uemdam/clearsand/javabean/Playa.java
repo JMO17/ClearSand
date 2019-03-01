@@ -789,4 +789,3 @@ public class Playa {
         this.estado = estado;
     }
 }
-
