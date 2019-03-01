@@ -42,10 +42,12 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
     private ArrayList<Playa> datos;
     private View.OnClickListener listener;
+    private Usuario[] user;
 
     /*--------------------------------    CONSTRUCTOR  ------------------------------------------*/
-    public AdaptadorCartaPlaya(ArrayList<Playa> datos) {
+    public AdaptadorCartaPlaya(ArrayList<Playa> datos, Usuario[] user) {
         this.datos = datos;
+        this.user = user;
     }
 
     /*--------------------------------   METODOS ADAPTER  -----------------------------------------*/
@@ -131,6 +133,9 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                     //Guardar los favoritos del usuario
                     favoritos = user[0].getPlayasUsuarioFav();
 
+                    System.out.println("------------------------");
+                    System.out.println(user[0].getNombreUsuario());
+                    System.out.println(user[0].getPlayasUsuarioFav().isEmpty());
                 }
 
 
@@ -151,6 +156,9 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
             tvNombre.setText(playa.getNombre());
 
+            System.out.println("------------------------");
+            System.out.println(favoritos.get(0));
+            System.out.println(favoritos.get(1));
 
             //Cargar toggle button con los favoritos del usuario
             if(favoritos!= null) {

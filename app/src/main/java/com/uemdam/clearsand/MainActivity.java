@@ -12,13 +12,17 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.uemdam.clearsand.javabean.AdaptadorCartaPlaya;
 import com.uemdam.clearsand.javabean.Playa;
+import com.uemdam.clearsand.javabean.Usuario;
 
 import java.util.ArrayList;
 
@@ -34,7 +38,7 @@ public class MainActivity extends menuAbstractActivity {
     /*DATABASE*/
     private DatabaseReference dbR;
     private ChildEventListener cel;
-
+    Usuario[] user;
 
     @Override
     public int cargarLayout() {
@@ -46,6 +50,27 @@ public class MainActivity extends menuAbstractActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
+        // CONSEGUIR EL USUARIO
+        dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        Query q = dbR.orderByChild("emailUsuario").equalTo(email);
+        user = new Usuario[1];
+
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            //Cargar datos de usuario
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    user[0] = dataSnapshot1.getValue(Usuario.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         /*RECYCLE VIEW*/
         rvCartaPlaya = findViewById(R.id.rvListaPlayaMain);
         rvCartaPlaya.setHasFixedSize(true);
@@ -54,7 +79,7 @@ public class MainActivity extends menuAbstractActivity {
         rvCartaPlaya.setLayoutManager(llManager);
 
         datosPlaya = new ArrayList<com.uemdam.clearsand.javabean.Playa>();
-        adaptador = new AdaptadorCartaPlaya(datosPlaya);
+        adaptador = new AdaptadorCartaPlaya(datosPlaya, user);
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
