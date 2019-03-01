@@ -43,7 +43,7 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu_abstract);
 
         View v = findViewById(R.id.relative);
         RelativeLayout rel = (RelativeLayout) v;
