@@ -11,6 +11,10 @@
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="@string/nav_eventos" />
     <item
+        android:id="@+id/nothing"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="@string/nav_eventos" />
+    <item
         android:id="@+id/nav_favoritos"
         android:icon="@android:drawable/btn_star"
         android:title="@string/nav_favoritos" />
