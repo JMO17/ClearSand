@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.uemdam.clearsand.javabean.Usuario;
@@ -67,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mFotoStorageRef;
 
+    ProgressBar pb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +105,18 @@ public class RegisterActivity extends AppCompatActivity {
         // STORAGE
         mFirebaseStorage = FirebaseStorage.getInstance();
         mFotoStorageRef = mFirebaseStorage.getReference().child(getString(R.string.clave_UserPhoto));
+
+        //ProgressBar
+
+        pb = findViewById(R.id.progressBarRegisterAC);
     }
 
     public void registro(View v) {
+        pb.setVisibility(View.VISIBLE);
         //if (validarDatos()) {
         String warning = validarDatos();
         if (warning == null) {
+
             fba.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -147,6 +156,12 @@ public class RegisterActivity extends AppCompatActivity {
                                                         public void onSuccess(Uri uri) {
                                                             Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), null, null);
                                                             dbR.child(clave).setValue(user);
+
+                                                            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+
+
+                                                            //i.putExtra("USER", user.getEmail());
+                                                            startActivity(i);
                                                         }
                                                     });
                                                 }
@@ -159,6 +174,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                                     Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, null, null);
                                     dbR.child(clave).setValue(user);
+
+                                    Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+
+
+                                    //i.putExtra("USER", user.getEmail());
+                                    startActivity(i);
 
 
                                     /**
@@ -179,11 +200,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 //TODO RESTAURAR BUENO ------ Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                                 //System.out.print(pas.toString());
-                                Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
+                              /**  Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
 
 
                                 //i.putExtra("USER", user.getEmail());
-                                startActivity(i);
+                                startActivity(i);*/
                             } else {
                                 Toast.makeText(RegisterActivity.this, getString(R.string.msj_no_registrado), Toast.LENGTH_SHORT).show();
                             }
@@ -194,6 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
             //Toast.makeText(this, getString(R.string.msj_no_data), Toast.LENGTH_LONG).show();
             Toast.makeText(this, warning,
                     Toast.LENGTH_LONG).show();
+            pb.setVisibility(View.INVISIBLE);
         }
     }
 
