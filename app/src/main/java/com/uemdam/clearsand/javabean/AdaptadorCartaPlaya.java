@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,18 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.uemdam.clearsand.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -89,6 +96,8 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         private Context contexto;
         /*DATABASE*/
         private DatabaseReference dbR;
+        Usuario[] user;
+        ArrayList<String> favoritos;
 
         /**
          * Constructor
@@ -107,6 +116,29 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
             /*DATABASE*/
             dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
+            String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            Query q = dbR.orderByChild("emailUsuario").equalTo(email);
+            user = new Usuario[1];
+
+            q.addListenerForSingleValueEvent(new ValueEventListener() {
+                //Cargar datos de usuario
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        user[0] = dataSnapshot1.getValue(Usuario.class);
+                    }
+
+                    //Guardar los favoritos del usuario
+                    favoritos = user[0].getPlayasUsuarioFav();
+
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
 
         /**
@@ -116,8 +148,49 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
          */
         public void bindPlaya(final Playa playa) {
             Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
-            /*tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), playa.getDistancia()));
-            */
+            tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
+            tvNombre.setText(playa.getNombre());
+
+
+            //Cargar toggle button con los favoritos del usuario
+            if(favoritos!= null) {
+                if(favoritos.contains(playa.getId())) {
+                    tbFav.setChecked(true);
+                    tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+                } else {
+                    tbFav.setChecked(false);
+                    tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+                }
+            } else {
+                // SI NO HAY FAVORITOS -> Todos los FAV Desactivados
+                tbFav.setChecked(false);
+                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+            }
+
+            tbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        // Cambiamos el imagen a seleccionado
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+                        // Añadir a los favoritos de usuario
+                        user[0].getPlayasUsuarioFav().add(playa.getId());
+                        dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
+
+                    } else {
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+                        // Quitar de los favoritos de usuario
+                        user[0].getPlayasUsuarioFav().remove(playa.getId());
+                        dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
+                    }
+                }
+            });
+        }
+
+/*        public void bindPlaya(final Playa playa) {
+            Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
+            *//*tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), playa.getDistancia()));
+             *//*
             tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
             tvNombre.setText(playa.getNombre());
 
@@ -145,7 +218,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                         Set<String> itemId = preferencias.getStringSet("IDS", new HashSet<String>()); //Recogemos valores anteriores o si no hay, se usa un nuevo hashset
                         itemId.add(playa.getId());
                         preferencias.edit().putStringSet("IDS", itemId).commit(); //editamos las preferencias con el nuevo set/ o set modificado.
-                        //TODO  mirar si es mejor apply en vez de commit
+                        // mirar si es mejor apply en vez de commit
                         System.out.println(preferencias.getAll());
                     } else {
                         tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
@@ -158,38 +231,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                     }
                 }
             });
-        }
-
-        public void bindPlaya2(final Playa playa) {
-            Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
-            tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
-            tvNombre.setText(playa.getNombre());
-
-            //Cargar toggle button con datos del usuario
-            ArrayList<String> favoritos = new ArrayList<>();
-
-            if(favoritos.contains(playa.getId())) {
-                tbFav.setChecked(true);
-                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
-            } else {
-                tbFav.setChecked(false);
-                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
-            }
-
-            tbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-                        // Cambiamos el imagen a seleccionado
-                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
-
-                    } else {
-                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
-
-                    }
-                }
-            });
-        }
+        }*/
     } // fin CartaPlayaViewHolder
 
 
