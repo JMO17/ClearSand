@@ -31,7 +31,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         implements View.OnClickListener{
 
     /*--------------------------------   ATRIBUTOS   ------------------------------------------*/
-    public static final String MIS_FAVORITOS = "arhivo_fav";
+    public static final String MIS_FAVORITOS = "arhivofav";
 
     private ArrayList<Playa> datos;
     private View.OnClickListener listener;
