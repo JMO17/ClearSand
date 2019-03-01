@@ -89,6 +89,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_border_playa"
                 android:fontFamily="@font/roboto_medium"
+                android:onClick="comoLlegar"
                 android:text="@string/btn_como_llegar"
                 android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
@@ -115,10 +116,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_border_playa"
+                android:fontFamily="@font/roboto_medium"
+                android:onClick="crearEvento"
                 android:text="@string/btn_crear_evento"
                 android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textSize="14sp"
-                android:fontFamily="@font/roboto_medium"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
     </ScrollView>
