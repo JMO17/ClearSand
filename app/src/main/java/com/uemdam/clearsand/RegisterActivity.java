@@ -34,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 //hl
@@ -172,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, null, null);
+                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, new ArrayList<String>(), null);
                                     dbR.child(clave).setValue(user);
 
                                     Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
