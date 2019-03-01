@@ -18,6 +18,11 @@ public class Playa {
         this.fotosUrlPlaya = fotosUrlPlaya;
     }
 
+    public Playa(String nombrePlaya, String ubicacionPLaya) {
+        this.nombrePlaya = nombrePlaya;
+        this.ubicacionPLaya = ubicacionPLaya;
+    }
+
     public String getNombrePlaya() {
         return nombrePlaya;
     }
