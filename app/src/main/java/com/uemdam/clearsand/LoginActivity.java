@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etPassword = findViewById(R.id.etPasswordLogin);
 
         // Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -194,20 +194,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void updateUI(FirebaseUser user) {
         //hideProgressDialog();
         if (user != null) {
-           /** mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            /** mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
+             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
-            findViewById(R.id.signInButton).setVisibility(View.GONE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);*/
+             findViewById(R.id.signInButton).setVisibility(View.GONE);
+             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);*/
 
-            Toast.makeText(LoginActivity.this,"usuario conectado"+user.getEmail() +" - "+ user.getUid(), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "usuario conectado" + user.getEmail() + " - " + user.getUid(), Toast.LENGTH_LONG).show();
         } else {
-           /** mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
+            /** mStatusTextView.setText(R.string.signed_out);
+             mDetailTextView.setText(null);
 
-            findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);*/
-           Toast.makeText(LoginActivity.this,"usuario no conectado", Toast.LENGTH_LONG).show();
+             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
+             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);*/
+            Toast.makeText(LoginActivity.this, "usuario no conectado", Toast.LENGTH_LONG).show();
         }
     }
 
