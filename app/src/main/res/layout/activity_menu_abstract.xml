@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     tools:context=".menuAbstractActivity">
 
     <RelativeLayout
@@ -34,10 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
             android:elevation="6dp"
             android:scaleType="center"
             app:fabSize="normal"
-            app:maxImageSize="56dp"
-            app:srcCompat="@drawable/logo" />
+            app:maxImageSize="100dp"
+            app:srcCompat="@mipmap/ic_launcher_foreground" />
     </android.support.design.widget.BottomNavigationView>
 </RelativeLayout>
