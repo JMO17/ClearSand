@@ -2,7 +2,6 @@ package com.uemdam.clearsand;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.uemdam.clearsand.javabean.AdaptadorCartaPlaya;
+import com.uemdam.clearsand.javabean.AdaptadorCartaPlayaFav;
 import com.uemdam.clearsand.javabean.Playa;
 import com.uemdam.clearsand.javabean.Usuario;
 
@@ -34,7 +33,7 @@ public class FavoritosActivity extends menuAbstractActivity {
 
     /*RECYCLED VIEW*/
     private RecyclerView rvCartaPlaya;
-    private AdaptadorCartaPlaya adaptador;
+    private AdaptadorCartaPlayaFav adaptador;
     private LinearLayoutManager llManager;
 
     /*DATABASE*/
@@ -90,7 +89,7 @@ public class FavoritosActivity extends menuAbstractActivity {
         rvCartaPlaya.setLayoutManager(llManager);
 
         datosPlaya = new ArrayList<Playa>();
-        adaptador = new AdaptadorCartaPlaya(datosPlaya, user);
+        adaptador = new AdaptadorCartaPlayaFav(datosPlaya, user);
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

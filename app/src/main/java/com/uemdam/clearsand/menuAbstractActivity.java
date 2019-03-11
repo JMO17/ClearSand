@@ -1,6 +1,7 @@
 package com.uemdam.clearsand;
 
 import android.content.Intent;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,11 @@ import android.widget.Toast;
 
 public abstract class menuAbstractActivity extends AppCompatActivity {
 
-    String test;
-    String SecondMerge;
+    public static final int MAIN = 1;
+    public static final int EVENTOS = 2;
+    public static final int GUARDADOS = 3;
+    public static final int USUARIO = 4;
+
     int actActual = 1;
 
 
@@ -25,7 +29,7 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.nav_explorar:
                     Toast.makeText(menuAbstractActivity.this, "Eventos", Toast.LENGTH_LONG).show();
-                    if(actActual != 1) {
+                    if(actActual != MAIN) {
                         Intent i1 = new Intent(menuAbstractActivity.this, MainActivity.class);
                         startActivity(i1);
                     }
@@ -35,14 +39,14 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
                     return true;
                 case R.id.nav_favoritos:
                     Toast.makeText(menuAbstractActivity.this, "favoritos", Toast.LENGTH_LONG).show();
-                    if(actActual != 3){
+                    if(actActual != GUARDADOS){
                         Intent i3 = new Intent(menuAbstractActivity.this, FavoritosActivity.class);
                         startActivity(i3);
                     }
                     return true;
                 case R.id.nav_perfil:
                     Toast.makeText(menuAbstractActivity.this, "perfil", Toast.LENGTH_LONG).show();
-                    if(actActual !=4) {
+                    if(actActual != USUARIO) {
                         Intent i4 = new Intent(menuAbstractActivity.this, UserProfileActivity.class);
                         startActivity(i4);
                     }
@@ -69,7 +73,28 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Se llama al crear la actividad y establecer que actividad es
+     * @param actActual
+     */
     public void setActActual(int actActual) {
         this.actActual = actActual;
+    }
+
+    /**
+     * Determina que al dar al botón de atrás, todas las actividades que extienden de esta clase
+     * vayan al main activity, excepto el main que termina su actividad.
+     */
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(actActual != 1) {
+            Intent i1 = new Intent(menuAbstractActivity.this, MainActivity.class);
+            startActivity(i1);
+        } else {
+            //TODO salir
+            android.os.Process.killProcess(Process.myPid());
+            System.exit(0);
+        }
     }
 }
