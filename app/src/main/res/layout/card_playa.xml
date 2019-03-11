@@ -25,12 +25,12 @@
                 android:layout_height="match_parent">
 
                 <ToggleButton
-                    android:id="@+id/tbFav"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:id="@+id/tbFavCard"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="right|top"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
                     android:textOff=" "
                     android:textOn=" " />
 
@@ -43,11 +43,11 @@
                     android:scaleType="fitXY" />
 
                 <View
-                    android:id="@+id/view2"
+                    android:id="@+id/vScrimCard"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:background="@drawable/scrim"
-                    android:visibility="invisible" />
+                    android:visibility="visible" />
 
             </FrameLayout>
 

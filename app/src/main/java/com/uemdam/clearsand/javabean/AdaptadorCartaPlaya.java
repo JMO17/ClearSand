@@ -92,8 +92,8 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         private ImageView ivFoto;
         private TextView tvDistancia;
         private TextView tvNombre;
-        private ImageButton ibFavorito;
         private ToggleButton tbFav;
+
 
         private Context contexto;
         /*DATABASE*/
@@ -111,8 +111,9 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             ivFoto = itemView.findViewById(R.id.ivFotoCard);
             tvDistancia = itemView.findViewById(R.id.tvDistanciaCard);
             tvNombre = itemView.findViewById(R.id.tvNombreCard);
-            tbFav = itemView.findViewById(R.id.tbFav);
+            tbFav = itemView.findViewById(R.id.tbFavCard);
 
+            dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
             this.contexto = contexto;
             this.user = user;
             favoritos = user[0].getPlayasUsuarioFav();
@@ -129,9 +130,13 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
             tvNombre.setText(playa.getNombre());
 
-
             //Cargar toggle button con los favoritos del usuario
-            if(favoritos!= null) {
+            if(favoritos.isEmpty()) {
+                // SI NO HAY FAVORITOS -> Todos los FAV Desactivados
+                tbFav.setChecked(false);
+                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+
+            } else {
                 if(favoritos.contains(playa.getId())) {
                     tbFav.setChecked(true);
                     tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
@@ -139,13 +144,29 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                     tbFav.setChecked(false);
                     tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
                 }
-            } else {
-                // SI NO HAY FAVORITOS -> Todos los FAV Desactivados
-                tbFav.setChecked(false);
-                tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
             }
 
-            tbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            tbFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(favoritos.contains(playa.getId())){
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
+                        // Quitar de los favoritos de usuario
+                        user[0].getPlayasUsuarioFav().remove(playa.getId());
+                        dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
+
+
+                    } else {
+                        // Cambiamos el imagen a seleccionado
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+                        // Añadir a los favoritos de usuario
+                        user[0].getPlayasUsuarioFav().add(playa.getId());
+                        dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
+                    }
+                }
+            });
+            /*tbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked) {
@@ -162,7 +183,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                         dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
                     }
                 }
-            });
+            });*/
         }
 
 /*        public void bindPlaya(final Playa playa) {

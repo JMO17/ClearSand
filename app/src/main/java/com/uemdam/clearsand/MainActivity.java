@@ -27,7 +27,7 @@ import com.uemdam.clearsand.javabean.Usuario;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends menuAbstractActivity{
 
     private ArrayList<Playa> datosPlaya;
 
@@ -48,9 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    public int cargarLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
         progBar = findViewById(R.id.progBarMain);
 
         /*--------------------            DATABASE USUARIO                  ----------------------*/
@@ -111,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
         addChildEventListener();
 
-        progBar.setVisibility(View.GONE);
-        rvCartaPlaya.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -123,11 +127,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     //System.out.println("Nueva playa");
+                    progBar.setVisibility(View.VISIBLE);
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlaya.add(m);
                     //System.out.println(m.getNombre());
                     adaptador.notifyItemChanged(datosPlaya.size()-1);
                     adaptador.notifyDataSetChanged();
+                    progBar.setVisibility(View.GONE);
                 }
 
                 @Override
