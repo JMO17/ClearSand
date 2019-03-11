@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.uemdam.clearsand.javabean.Usuario;
@@ -33,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 //hl
@@ -55,6 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Uri selectedImage;
     private Boolean imagenSubida = false;
 
+    UploadTask ut;
+
 
     Boolean pas = false;
 
@@ -64,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
     // STORAGE
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mFotoStorageRef;
+
+    ProgressBar pb;
 
 
     @Override
@@ -100,12 +106,23 @@ public class RegisterActivity extends AppCompatActivity {
         // STORAGE
         mFirebaseStorage = FirebaseStorage.getInstance();
         mFotoStorageRef = mFirebaseStorage.getReference().child(getString(R.string.clave_UserPhoto));
+
+        //ProgressBar
+
+        pb = findViewById(R.id.progressBarRegisterAC);
     }
 
     public void registro(View v) {
+        pb.setVisibility(View.VISIBLE);
         //if (validarDatos()) {
         String warning = validarDatos();
+
+        // Para favoritos
+        final ArrayList<String> favoritos = new ArrayList<>();
+        favoritos.add("-1");
+
         if (warning == null) {
+
             fba.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -129,37 +146,71 @@ public class RegisterActivity extends AppCompatActivity {
                                     Uri selectedUri = selectedImage;
 
                                     StorageReference fotoRef = mFotoStorageRef.child(selectedUri.getLastPathSegment());
-                                    UploadTask ut = fotoRef.putFile(selectedUri);
+                                    ut = fotoRef.putFile(selectedUri);
 
                                     Handler handler = new Handler();
-                                    handler.postDelayed(null,5000);
+                                    handler.postDelayed(new Runnable() {
+                                        public void run() {
+                                            //que hacer despues de 10 segundos
 
-                                    ut.addOnSuccessListener(RegisterActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                            Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
-                                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            ut.addOnSuccessListener(RegisterActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
-                                                public void onSuccess(Uri uri) {
-                                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), null, null);
-                                                    dbR.child(clave).setValue(user);
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
+                                                    task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                        @Override
+                                                        public void onSuccess(Uri uri) {
+                                                            Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), favoritos, null);
+                                                            dbR.child(clave).setValue(user);
+
+                                                            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+
+
+                                                            //i.putExtra("USER", user.getEmail());
+                                                            startActivity(i);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
-                                    });
+                                    }, 5000);
+
+
                                 } else {
 
-                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, null, null);
+                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, favoritos, null);
                                     dbR.child(clave).setValue(user);
+
+                                    Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+
+
+                                    //i.putExtra("USER", user.getEmail());
+                                    startActivity(i);
+
+
+                                    /**
+                                     * VOY A CREAR YNA PLAYITA PARA JAVI
+                                     */
+/*
+                                    dbR = FirebaseDatabase.getInstance().getReference().child("playita");
+                                    String clave2 = dbR.push().getKey();
+                                    Playa p1 = new Playa("playa1","2423443",null);
+                                    dbR.child(clave2).setValue(p1);
+                                    clave2 = dbR.push().getKey();
+                                    Playa p2 = new Playa("playa2","88888",null);
+                                    dbR.child(clave2).setValue(p2);
+*/
+
+
                                 }
 
                                 //TODO RESTAURAR BUENO ------ Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-                                System.out.print(pas.toString());
-                                Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
+                                //System.out.print(pas.toString());
+                              /**  Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
 
 
                                 //i.putExtra("USER", user.getEmail());
-                                startActivity(i);
+                                startActivity(i);*/
                             } else {
                                 Toast.makeText(RegisterActivity.this, getString(R.string.msj_no_registrado), Toast.LENGTH_SHORT).show();
                             }
@@ -170,6 +221,7 @@ public class RegisterActivity extends AppCompatActivity {
             //Toast.makeText(this, getString(R.string.msj_no_data), Toast.LENGTH_LONG).show();
             Toast.makeText(this, warning,
                     Toast.LENGTH_LONG).show();
+            pb.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -195,7 +247,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void enviarFoto(View v) {
         /*abrirá un selector de archivos para ayudarnos a elegir entre cualquier imagen JPEG almacenada localmente en el dispositivo */
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/jpeg");
+        intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
         startActivityForResult(Intent.createChooser(intent,
                 "Complete la acción usando"), RC_PHOTO_ADJ);

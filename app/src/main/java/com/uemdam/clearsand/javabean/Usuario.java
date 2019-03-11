@@ -17,11 +17,6 @@ public class Usuario {
 
     }
 
-    public Usuario(String keyUsuario, String nombreUsuario, String emailUsuario) {
-        this.keyUsuario = keyUsuario;
-        this.nombreUsuario = nombreUsuario;
-        this.emailUsuario = emailUsuario;
-    }
 
     public Usuario(String keyUsuario, String nombreUsuario, String apellidosUsuario, String emailUsuario, String edadUsuario, String fotoUsuario, ArrayList<String> playasUsuarioFav, ArrayList<Evento> eventosUsuario) {
         this.nombreUsuario = nombreUsuario;
