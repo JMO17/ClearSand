@@ -42,10 +42,12 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
     private ArrayList<Playa> datos;
     private View.OnClickListener listener;
+    private Usuario[] user;
 
     /*--------------------------------    CONSTRUCTOR  ------------------------------------------*/
-    public AdaptadorCartaPlaya(ArrayList<Playa> datos) {
+    public AdaptadorCartaPlaya(ArrayList<Playa> datos, Usuario[] user) {
         this.datos = datos;
+        this.user = user;
     }
 
     /*--------------------------------   METODOS ADAPTER  -----------------------------------------*/
@@ -54,7 +56,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
     public CartaPlayaViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_playa, viewGroup, false);
         v.setOnClickListener(this);
-        CartaPlayaViewHolder cpvh = new CartaPlayaViewHolder(v,viewGroup.getContext());
+        CartaPlayaViewHolder cpvh = new CartaPlayaViewHolder(v,viewGroup.getContext(), user);
         return cpvh;
     }
 
@@ -103,42 +105,18 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
          * Constructor
          * @param itemView
          */
-        public CartaPlayaViewHolder(@NonNull View itemView, Context contexto) {
+        public CartaPlayaViewHolder(@NonNull View itemView, Context contexto, Usuario[] user) {
             super(itemView);
 
             ivFoto = itemView.findViewById(R.id.ivFotoCard);
             tvDistancia = itemView.findViewById(R.id.tvDistanciaCard);
             tvNombre = itemView.findViewById(R.id.tvNombreCard);
-            //ibFavorito = itemView.findViewById(R.id.ibFavorito);
             tbFav = itemView.findViewById(R.id.tbFav);
 
             this.contexto = contexto;
+            this.user = user;
+            favoritos = user[0].getPlayasUsuarioFav();
 
-            /*DATABASE*/
-            dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
-            String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-            Query q = dbR.orderByChild("emailUsuario").equalTo(email);
-            user = new Usuario[1];
-
-            q.addListenerForSingleValueEvent(new ValueEventListener() {
-                //Cargar datos de usuario
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        user[0] = dataSnapshot1.getValue(Usuario.class);
-                    }
-
-                    //Guardar los favoritos del usuario
-                    favoritos = user[0].getPlayasUsuarioFav();
-
-                }
-
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
         }
 
         /**
