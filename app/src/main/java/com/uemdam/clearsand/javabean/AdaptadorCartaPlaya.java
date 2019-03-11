@@ -129,7 +129,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                     }
 
                     //Guardar los favoritos del usuario
-                    favoritos = user[0].getPlayasUsuarioFav();
+                  //  favoritos = user[0].getPlayasUsuarioFav();
 
                 }
 
