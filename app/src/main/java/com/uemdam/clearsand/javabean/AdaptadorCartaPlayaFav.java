@@ -154,6 +154,10 @@ public class AdaptadorCartaPlayaFav extends RecyclerView.Adapter<AdaptadorCartaP
     } // fin CartaPlayaViewHolder
 
 
+    /**
+     * Recive una posición y lo borra del adaptador
+     * @param position
+     */
     public void removeAt(int position) {
         datos.remove(position);
         notifyItemRemoved(position);
