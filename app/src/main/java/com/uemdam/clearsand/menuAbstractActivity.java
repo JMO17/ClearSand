@@ -1,5 +1,6 @@
 package com.uemdam.clearsand;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
 
     String test;
     String SecondMerge;
+    int actActual = 1;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -21,17 +23,29 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             switch (item.getItemId()) {
-                case R.id.nav_eventos:
-                    Toast.makeText(menuAbstractActivity.this, "Eventos", Toast.LENGTH_LONG).show();
-                    return true;
                 case R.id.nav_explorar:
+                    Toast.makeText(menuAbstractActivity.this, "Eventos", Toast.LENGTH_LONG).show();
+                    if(actActual != 1) {
+                        Intent i1 = new Intent(menuAbstractActivity.this, MainActivity.class);
+                        startActivity(i1);
+                    }
+                    return true;
+                case R.id.nav_eventos:
                     Toast.makeText(menuAbstractActivity.this, "explorar", Toast.LENGTH_LONG).show();
                     return true;
                 case R.id.nav_favoritos:
                     Toast.makeText(menuAbstractActivity.this, "favoritos", Toast.LENGTH_LONG).show();
+                    if(actActual != 3){
+                        Intent i3 = new Intent(menuAbstractActivity.this, FavoritosActivity.class);
+                        startActivity(i3);
+                    }
                     return true;
                 case R.id.nav_perfil:
                     Toast.makeText(menuAbstractActivity.this, "perfil", Toast.LENGTH_LONG).show();
+                    if(actActual !=4) {
+                        Intent i4 = new Intent(menuAbstractActivity.this, UserProfileActivity.class);
+                        startActivity(i4);
+                    }
                     return true;
             }
             return false;
@@ -55,4 +69,7 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
 
     }
 
+    public void setActActual(int actActual) {
+        this.actActual = actActual;
+    }
 }
