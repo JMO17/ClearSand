@@ -1,5 +1,6 @@
 package com.uemdam.clearsand;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,56 +12,35 @@ import android.widget.TextView;
 import com.uemdam.clearsand.javabean.Evento;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MiViewHolder> implements View.OnClickListener{
-    private ArrayList<Evento> lista;
-    private View.OnClickListener listener;
+public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyViewHolder>{
 
+    Context context;
+    List<Evento> lista;
 
-
-
-    public static class MiViewHolder extends RecyclerView.ViewHolder{
-        private ImageView imagen;
-        private TextView  nombrePlaya;
-        private TextView fecha;
-        private TextView descripcion;
-
-        public MiViewHolder( View itemView) {
-            super(itemView);
-            imagen=itemView.findViewById(R.id.ivPlayaEv);
-            nombrePlaya=itemView.findViewById(R.id.tvNomPlaya);
-            fecha=itemView.findViewById(R.id.tvFecha);
-            descripcion=itemView.findViewById(R.id.tvDescEv);
-
-        }
-
-        public void bindItemListaEv(Evento evento){
-
-            imagen.setImageResource(evento.getImagen());
-            nombrePlaya.setText(evento.getPlayaEvento().getNombrePlaya());
-            fecha.setText(evento.getFechaEvento());
-            descripcion.setText(evento.getDescripcion());
-        }
-
+    public AdaptadorEventos(Context context, List<Evento> lista) {
+        this.context = context;
+        this.lista = lista;
     }
 
     @NonNull
     @Override
-    public MiViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_eventos,viewGroup,false);
-        v.setOnClickListener(this);
-        MiViewHolder vh= new MiViewHolder(v);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        View v;
+        v=LayoutInflater.from(context).inflate(R.layout.rv_eventos,parent,false);
+        MyViewHolder vh= new MyViewHolder(v);
         return vh;
     }
 
-    public AdaptadorEventos(ArrayList<Evento> lista) {
-        this.lista = lista;
-    }
-
     @Override
-    public void onBindViewHolder(@NonNull MiViewHolder miViewHolder, int position) {
-        miViewHolder.bindItemListaEv(lista.get(position));
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+        holder.tvNomEv.setText(lista.get(position).getNombreEvento());
+        holder.tvNomPlaya.setText(lista.get(position).getPlayaEvento().getNombrePlaya());
+        holder.tvFecha.setText(lista.get(position).getFechaEvento());
+
     }
 
     @Override
@@ -68,16 +48,24 @@ public class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MiVi
         return lista.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
+    public static  class MyViewHolder extends RecyclerView.ViewHolder{
 
-    @Override
-    public void onClick(View v) {
-        if(listener!=null){
-            listener.onClick(v);
+        private TextView tvNomEv;
+        private TextView tvFecha;
+        private TextView tvNomPlaya;
+        private ImageView ivEv;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tvNomEv= itemView.findViewById(R.id.tvNomEv);
+            tvNomPlaya=itemView.findViewById(R.id.tvNomPlaya);
+            tvFecha=itemView.findViewById(R.id.tvFecha);
+            ivEv=itemView.findViewById(R.id.ivPlayaEv);
         }
-
     }
+
+
+
 
 }
