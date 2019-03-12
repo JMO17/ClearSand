@@ -1,8 +1,13 @@
 package com.uemdam.clearsand;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +54,9 @@ public class MainActivity extends menuAbstractActivity{
     /*USUARIO*/
     private Usuario[] user; //el query devuelve un array de usuarios pero solo utilizamos el primero
 
+    /*LOCATION*/
+    private FusedLocationProviderClient flc;
+    private Location locUsuario;
 
     @Override
     public int cargarLayout() {
@@ -57,6 +68,33 @@ public class MainActivity extends menuAbstractActivity{
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
         progBar = findViewById(R.id.progBarMain);
+
+        /*LOCATION*/
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, 1);
+        }
+
+        if ( ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  }, 2);
+        }
+
+        flc = LocationServices.getFusedLocationProviderClient(this);
+        try {
+            //TODO Pedir permisos
+            flc.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if(location != null) {
+                        locUsuario = location;
+                    }
+                }
+            });
+        } catch (SecurityException e) {
+            Toast.makeText(this, "No se puede acceder a la localización", Toast.LENGTH_SHORT);
+        }
+
 
         /*--------------------            DATABASE USUARIO                  ----------------------*/
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
@@ -94,7 +132,7 @@ public class MainActivity extends menuAbstractActivity{
         rvCartaPlaya.setLayoutManager(llManager);
 
         datosPlaya = new ArrayList<Playa>();
-        adaptador = new AdaptadorCartaPlaya(datosPlaya, user);
+        adaptador = new AdaptadorCartaPlaya(datosPlaya, user, locUsuario);
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

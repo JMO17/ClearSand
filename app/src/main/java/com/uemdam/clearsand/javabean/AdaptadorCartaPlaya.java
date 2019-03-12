@@ -2,6 +2,7 @@ package com.uemdam.clearsand.javabean;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -43,11 +44,13 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
     private ArrayList<Playa> datos;
     private View.OnClickListener listener;
     private Usuario[] user;
+    private Location locUsuario;
 
     /*--------------------------------    CONSTRUCTOR  ------------------------------------------*/
-    public AdaptadorCartaPlaya(ArrayList<Playa> datos, Usuario[] user) {
+    public AdaptadorCartaPlaya(ArrayList<Playa> datos, Usuario[] user, Location locUsuario) {
         this.datos = datos;
         this.user = user;
+        this.locUsuario = locUsuario;
     }
 
     /*--------------------------------   METODOS ADAPTER  -----------------------------------------*/
@@ -56,7 +59,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
     public CartaPlayaViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_playa, viewGroup, false);
         v.setOnClickListener(this);
-        CartaPlayaViewHolder cpvh = new CartaPlayaViewHolder(v,viewGroup.getContext(), user);
+        CartaPlayaViewHolder cpvh = new CartaPlayaViewHolder(v,viewGroup.getContext(), user, locUsuario);
         return cpvh;
     }
 
@@ -98,14 +101,17 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         private Context contexto;
         /*DATABASE*/
         private DatabaseReference dbR;
-        Usuario[] user;
-        ArrayList<String> favoritos;
+
+        /*USER*/
+        private Usuario[] user;
+        private ArrayList<String> favoritos;
+        private Location locUsuario;
 
         /**
          * Constructor
          * @param itemView
          */
-        public CartaPlayaViewHolder(@NonNull View itemView, Context contexto, Usuario[] user) {
+        public CartaPlayaViewHolder(@NonNull View itemView, Context contexto, Usuario[] user, Location locUsuario) {
             super(itemView);
 
             ivFoto = itemView.findViewById(R.id.ivFotoCard);
@@ -116,6 +122,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
             this.contexto = contexto;
             this.user = user;
+            this.locUsuario = locUsuario;
             favoritos = user[0].getPlayasUsuarioFav();
 
         }
@@ -127,7 +134,13 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
          */
         public void bindPlaya(final Playa playa) {
             Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
-            tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
+            if(locUsuario != null) {
+                float distanacia = calcularDistancia(locUsuario, playa);
+                tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), distanacia));
+            } else {
+                tvDistancia.setText(playa.getCoordenada_geográfica_Latitud() + playa.getCoordenada_geográfica_Longitud());
+            }
+
             tvNombre.setText(playa.getNombre());
 
             //Cargar toggle button con los favoritos del usuario
@@ -184,6 +197,18 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                     }
                 }
             });*/
+        }
+
+        private float calcularDistancia(Location locUsuario, Playa playa) {
+            float resultMetros = 0;
+
+            Location locPlaya = new Location("");
+            locPlaya.setLatitude(Double.parseDouble(playa.getCoordenada_Y()));
+            locPlaya.setLongitude(Double.parseDouble(playa.getCoordenada_X()));
+
+            resultMetros = locUsuario.distanceTo(locPlaya);
+
+            return  resultMetros/1000; //pasar a kilometros
         }
 
 /*        public void bindPlaya(final Playa playa) {
