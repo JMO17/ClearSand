@@ -1,6 +1,8 @@
 package com.uemdam.clearsand;
 
 import android.Manifest;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -15,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 
@@ -41,6 +44,7 @@ public class MainActivity extends menuAbstractActivity{
 
     /*VISTA*/
     private ProgressBar progBar;
+    private SearchView svBusqueda;
 
     /*RECYCLED VIEW*/
     private RecyclerView rvCartaPlaya;
@@ -67,7 +71,28 @@ public class MainActivity extends menuAbstractActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
+
         progBar = findViewById(R.id.progBarMain);
+        /*OPCIÓN DE BÚSQUEDA*/
+        svBusqueda = findViewById(R.id.svBusquedaMain);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        svBusqueda.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        svBusqueda.setMaxWidth(Integer.MAX_VALUE);
+
+        svBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adaptador.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adaptador.getFilter().filter(query);
+                return false;
+            }
+        });
 
         /*LOCATION*/
         if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {

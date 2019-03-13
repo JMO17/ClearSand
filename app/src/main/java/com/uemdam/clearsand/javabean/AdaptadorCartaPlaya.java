@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uemdam.clearsand.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,12 +39,13 @@ import java.util.Set;
  * para poder crear las cartas de la playa.
  */
 public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlaya.CartaPlayaViewHolder>
-        implements View.OnClickListener{
+        implements View.OnClickListener, Filterable {
 
     /*--------------------------------   ATRIBUTOS   ------------------------------------------*/
     public static final String MIS_FAVORITOS = "arhivofav";
 
     private ArrayList<Playa> datos;
+    private ArrayList<Playa> datosFiltrados;
     private View.OnClickListener listener;
     private Usuario[] user;
     private Location locUsuario;
@@ -51,6 +55,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         this.datos = datos;
         this.user = user;
         this.locUsuario = locUsuario;
+        datosFiltrados = datos;
     }
 
     /*--------------------------------   METODOS ADAPTER  -----------------------------------------*/
@@ -65,12 +70,12 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
     @Override
     public void onBindViewHolder(@NonNull CartaPlayaViewHolder cartaPlayaViewHolder, int i) {
-        cartaPlayaViewHolder.bindPlaya(datos.get(i));
+        cartaPlayaViewHolder.bindPlaya(datosFiltrados.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return datos.size();
+        return datosFiltrados.size();
     }
     /*--------------------------------   METODOS LISTENER -----------------------------------------*/
     @Override
@@ -83,6 +88,44 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
     public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
+
+
+    /*--------------------------------   MERTODO FILTRO -----------------------------------------*/
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String query = constraint.toString();
+                if(query.isEmpty()) {
+                    datosFiltrados = datos;
+                } else {
+                    ArrayList<Playa> filtrados = new ArrayList<>();
+
+                    //BUSQUEDA por NOMBRE
+                    for(Playa p: datos) {
+                        if(p.getNombre().toLowerCase().contains(query.toLowerCase())) {
+                            filtrados.add(p);
+                        }
+                    }
+                    datosFiltrados = filtrados;
+
+                }// fin if-else
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = datosFiltrados;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                datosFiltrados = (ArrayList<Playa>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
     /*--------------------------------   CLASE INTERNA   ------------------------------------------*/
     /**
@@ -138,7 +181,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                 float distanacia = calcularDistancia(locUsuario, playa);
                 tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), distanacia));
             } else {
-                tvDistancia.setText(playa.getCoordenada_geográfica_Latitud() + playa.getCoordenada_geográfica_Longitud());
+                tvDistancia.setText(playa.getCoordenada_geográfica_Latitud() +" | "+ playa.getCoordenada_geográfica_Longitud());
             }
 
             tvNombre.setText(playa.getNombre());
