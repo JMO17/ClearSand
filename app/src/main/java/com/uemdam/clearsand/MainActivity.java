@@ -29,7 +29,7 @@ import com.uemdam.clearsand.javabean.Usuario;
 
 import java.util.ArrayList;
 
-public class MainActivity extends menuAbstractActivity{
+public class MainActivity extends menuAbstractActivity {
 
     private ArrayList<Playa> datosPlaya;
 
@@ -43,6 +43,7 @@ public class MainActivity extends menuAbstractActivity{
 
     /*DATABASE*/
     private DatabaseReference dbR;
+    private DatabaseReference dbRJorge;
     private ChildEventListener cel;
 
     /*USUARIO*/
@@ -65,38 +66,25 @@ public class MainActivity extends menuAbstractActivity{
         //setContentView(R.layout.activity_main);
         progBar = findViewById(R.id.progBarMain);
 
-        /*--------------------            DATABASE USUARIO                  ----------------------*/
-        dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
-        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        Query q = dbR.orderByChild("emailUsuario").equalTo(email);
-        user = new Usuario[1];
+        //checkUser();
 
-        q.addListenerForSingleValueEvent(new ValueEventListener() {
-            //Cargar datos de usuario
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    user[0] = dataSnapshot1.getValue(Usuario.class);
-                    cargarRecycleView();
-                }
+/** Jorge */
+        fba = FirebaseAuth.getInstance();
+        userx = fba.getCurrentUser();
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         /*Jorge Recuperar Usuario*/
 
-        fba= FirebaseAuth.getInstance();
-        userx = fba.getCurrentUser();
-        if(userx ==null){
+
+        if (userx == null) {
             finish();
 
-        }else{
-            Snackbar.make(getWindow().getDecorView().getRootView(), "Registrado: "+ userx.getEmail(), Snackbar.LENGTH_LONG)
+        } else {
+            checkUser();
+
+            // comprobarUsuario();
+
+            Snackbar.make(getWindow().getDecorView().getRootView(), "Registrado: " + userx.getEmail(), Snackbar.LENGTH_LONG)
                     .setAction("Desconectar", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -109,6 +97,51 @@ public class MainActivity extends menuAbstractActivity{
 
 
     }
+
+    private void checkUser() {
+        /*--------------------            DATABASE USUARIO                  ----------------------*/
+        dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        Query q = dbR.orderByChild("emailUsuario").equalTo(email);
+        user = new Usuario[1];
+
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            //Cargar datos de usuario
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    user[0] = dataSnapshot1.getValue(Usuario.class);
+
+                }
+                if (user[0] == null) {
+                    Toast.makeText(getBaseContext(), "Usuario no creado en Firebase....CREANDO", Toast.LENGTH_LONG).show();
+                    dbRJorge = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                    String clave = dbRJorge.push().getKey();
+                    ArrayList<String> favoritos = new ArrayList<>();
+                    favoritos.add("-1");
+                    Usuario userww = new Usuario(clave, userx.getDisplayName(), null, userx.getEmail(), null, userx.getPhotoUrl().toString(), favoritos, null);
+                    dbRJorge.child(clave).setValue(userww);
+
+                    checkUser();
+
+                } else {
+                    Toast.makeText(getBaseContext(), "Usuario en firebase", Toast.LENGTH_LONG).show();
+                    cargarRecycleView();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+            }
+
+
+        });
+
+    }
+
 
     private void cargarRecycleView() {
         /*---------------------                RECYCLE VIEW             --------------------------*/
@@ -124,8 +157,8 @@ public class MainActivity extends menuAbstractActivity{
             @Override
             public void onClick(View v) {
                 //TODO borrar el mensaje
-                String msg = "Seleccionada la opción " + rvCartaPlaya.getChildAdapterPosition(v) ;
-                Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
+                String msg = "Seleccionada la opción " + rvCartaPlaya.getChildAdapterPosition(v);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 //                Intent i = new Intent(MainActivity.this, PerfilPlayaActivity.class);
 //                i.putExtra("ID", datosPlaya.get(rvCartaPlaya.getChildAdapterPosition(v)).getId());
@@ -142,12 +175,11 @@ public class MainActivity extends menuAbstractActivity{
         addChildEventListener();
 
 
-
     }
 
 
     private void addChildEventListener() {
-        if(cel == null) {
+        if (cel == null) {
             cel = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -156,7 +188,7 @@ public class MainActivity extends menuAbstractActivity{
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlaya.add(m);
                     //System.out.println(m.getNombre());
-                    adaptador.notifyItemChanged(datosPlaya.size()-1);
+                    adaptador.notifyItemChanged(datosPlaya.size() - 1);
                     adaptador.notifyDataSetChanged();
                     progBar.setVisibility(View.GONE);
                 }
