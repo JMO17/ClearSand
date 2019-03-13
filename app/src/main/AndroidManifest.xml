@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FavoritosActivity"></activity>
+        <activity
+            android:name=".TarjetaEventos"
+            android:label="@string/title_activity_tarjeta_eventos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".FavoritosActivity" />
         <activity android:name=".menuAbstractActivity" />
         <activity
             android:name=".UserProfileActivity"
@@ -25,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".EventosTabActivity"/>
+        <activity android:name=".EventosTabActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

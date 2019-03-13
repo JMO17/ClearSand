@@ -17,4 +17,7 @@
     <color name="rojo_google">#DC4E41</color>
     <color name="azul_facebook">#4D6FA9</color>
 
+    <!--Color Evento -->
+    <color name="Transparente">#00A4DAF2</color>
+
 </resources>

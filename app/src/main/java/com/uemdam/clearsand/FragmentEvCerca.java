@@ -1,7 +1,9 @@
 package com.uemdam.clearsand;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
@@ -11,6 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.uemdam.clearsand.javabean.Evento;
 import com.uemdam.clearsand.javabean.Playa;
 
@@ -22,9 +29,14 @@ public class FragmentEvCerca extends Fragment{
 
 
     View v;
+    AdaptadorEventos adaptadorEventos;
+
     private RecyclerView miRecyclerView;
-    private List<Evento> listaEventos;
+    private ArrayList<Evento> listaEventos;
     private Playa playa= new Playa();
+    EventosTabActivity eta;
+
+
 
 
     public FragmentEvCerca() {
@@ -36,9 +48,18 @@ public class FragmentEvCerca extends Fragment{
 
            v=  inflater.inflate(R.layout.fragment_ev_cerca,container,false);
            miRecyclerView=v.findViewById(R.id.rvCerca);
-           AdaptadorEventos adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos);
+            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos);
            miRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
            miRecyclerView.setAdapter(adaptadorEventos);
+
+           adaptadorEventos.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent i= new Intent(getActivity(), TarjetaEventos.class);
+                   i.putExtra("NOM_EV",listaEventos.get(miRecyclerView.indexOfChild(v)).getNombreEvento());
+                   startActivityForResult(i, 1);
+               }
+           });
            return v;
     }
 
@@ -48,19 +69,14 @@ public class FragmentEvCerca extends Fragment{
         super.onCreate(savedInstanceState);
 
         listaEventos = new ArrayList<>();
+
         cargarDatos();
     }
 
+
+
     public void cargarDatos(){
 
-        listaEventos.add(new Evento("Limpiar Playa de la Concha","23-5-2019",playa,R.drawable.arena,"Este es un evento"));
-        listaEventos.add(new Evento("Fiesta ecologista","23-5-2019",playa,R.drawable.arena,"Este es un evento"));
-        listaEventos.add(new Evento("Rescate de animales ","25-7-2019",playa,R.drawable.arena,"Este es un evento"));
-        listaEventos.add(new Evento("Limpiar Playa de Rodeira","26-5-2019",playa,R.drawable.arena,"Este es un evento"));
-        listaEventos.add(new Evento("Limpiar Playa del Arenal","23-5-2019",playa,R.drawable.arena,"Este es un evento"));
-        listaEventos.add(new Evento("Limpiar Playa de la Concha","23-5-2015",playa,R.drawable.arena,"Este es un evento"));
-        listaEventos.add(new Evento("Limpiar Playa de la Concha","23-5-2014",playa,R.drawable.arena,"Este es un evento"));
-        listaEventos.add(new Evento("Limpiar Playa de la Concha","23-5-2013",playa,R.drawable.arena,"Este es un evento"));
-
+       listaEventos=eta.listaEventos;
     }
 }

@@ -14,10 +14,11 @@ import com.uemdam.clearsand.javabean.Evento;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyViewHolder>{
+public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyViewHolder> implements View.OnClickListener{
 
     Context context;
     List<Evento> lista;
+    View.OnClickListener listener;
 
     public AdaptadorEventos(Context context, List<Evento> lista) {
         this.context = context;
@@ -30,6 +31,7 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
 
         View v;
         v=LayoutInflater.from(context).inflate(R.layout.rv_eventos,parent,false);
+        v.setOnClickListener(this);
         MyViewHolder vh= new MyViewHolder(v);
         return vh;
     }
@@ -46,6 +48,18 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
     @Override
     public int getItemCount() {
         return lista.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener!=null){
+            listener.onClick(v);
+        }
+
     }
 
     public static  class MyViewHolder extends RecyclerView.ViewHolder{

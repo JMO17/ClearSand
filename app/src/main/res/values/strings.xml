@@ -140,5 +140,6 @@
     <string name="txt_SinEspecificar">Sin especificar</string>
 
     <string name="tv_distancia_card">A %.3f km</string>
+    <string name="title_activity_tarjeta_eventos">TarjetaEventos</string>
 
 </resources>

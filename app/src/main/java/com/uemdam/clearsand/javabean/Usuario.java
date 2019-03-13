@@ -30,6 +30,10 @@ public class Usuario {
         this.keyUsuario = keyUsuario;
     }
 
+    public Usuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
     public String getNombreUsuario() {
         return nombreUsuario;
     }
