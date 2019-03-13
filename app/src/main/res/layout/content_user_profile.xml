@@ -35,6 +35,13 @@
             android:text="@string/txt_ApellidosUserProfile" />
 
         <TextView
+            android:id="@+id/txtEdadUserProfile"
+            style="@style/TextoUserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_EdadUserProfile" />
+
+        <TextView
             android:id="@+id/txtEmailUserProfile"
             style="@style/TextoUserProfile"
             android:layout_width="match_parent"
@@ -42,16 +49,57 @@
             android:text="@string/txt_EmailUserProfile" />
 
         <TextView
-            android:id="@+id/txtEdadUserProfile"
-            style="@style/TextoUserProfile"
+            android:id="@+id/txtNombreEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_EdadUserProfile" />
+            android:text="Nombre:"
+            android:textSize="30sp" />
 
-        <ImageView
-            android:id="@+id/ivFoto"
+        <EditText
+            android:id="@+id/etNombreProfile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nombre"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txtApellidoEditProfile2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apellido:"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/etApellidosProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Apellido"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txtEdadEditProfile3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edad:"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/etEdadProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Edad"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btnAplicarProfile"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="guardarCambios"
+            android:text="APLICAR" />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
