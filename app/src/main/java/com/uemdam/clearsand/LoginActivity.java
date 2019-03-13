@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -140,9 +141,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.makeText(LoginActivity.this,
                                         getString(R.string.msj_logado_login) + user.getEmail(),
                                         Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                //i.putExtra("USER", user.getEmail());
-                                startActivity(i);
+                                accederMainActivity(user.getEmail(),user.getDisplayName());
                             } else {
                                 Toast.makeText(LoginActivity.this,
                                         getString(R.string.msj_no_accede_login),
@@ -157,6 +156,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     } // fin acceder
+
+    private void accederMainActivity(String email, String displayName) {
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        i.putExtra("USER_MAIL", email);
+        i.putExtra("USER_NAME", displayName);
+        startActivity(i);
+    }
 
     public void registrar(View v) {
         Intent i = new Intent(this, RegisterActivity.class);
@@ -195,20 +201,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void updateUI(FirebaseUser user) {
         //hideProgressDialog();
         if (user != null) {
-            /** mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
-             findViewById(R.id.signInButton).setVisibility(View.GONE);
-             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);*/
+            /**
+             * Usuario conectado
+             */
+            accederMainActivity(user.getEmail(),user.getDisplayName());
 
-            Toast.makeText(LoginActivity.this, "usuario conectado" + user.getEmail() + " - " + user.getUid(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(LoginActivity.this, "usuario conectado - " + user.getEmail() + " - " + user.getUid(), Toast.LENGTH_LONG).show();
+            //Snackbar.make(getWindow().getDecorView().getRootView(), "Replace with your own action", Snackbar.LENGTH_LONG)
+             //       .setAction("Action", null).show();
         } else {
-            /** mStatusTextView.setText(R.string.signed_out);
-             mDetailTextView.setText(null);
 
-             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
-             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);*/
-            Toast.makeText(LoginActivity.this, "usuario no conectado", Toast.LENGTH_LONG).show();
+            /**
+             * Usuario no conectado
+             */
+
+            Snackbar.make(getWindow().getDecorView().getRootView(), "Usuario no conectado", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         }
     }
 
