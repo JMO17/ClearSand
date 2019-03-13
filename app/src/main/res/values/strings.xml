@@ -138,11 +138,7 @@
     <string name="clave_UserPhoto">FotosUsuarios</string>
     <string name="clave_User">usuarios</string>
     <string name="txt_SinEspecificar">Sin especificar</string>
-    <string name="title_activity_eventos_tab">EventosTabActivity</string>
-    <string name="tab_text_1">Cerca de ti</string>
-    <string name="tab_text_2"> Proximamente</string>
 
-    <string name="section_format">Hello World from section: %1$d</string>
-
+    <string name="tv_distancia_card">A %.3f km</string>
 
 </resources>

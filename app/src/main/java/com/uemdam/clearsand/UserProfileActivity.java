@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserProfileActivity extends MainActivity {
+public class UserProfileActivity extends menuAbstractActivity {
 
 
     private DatabaseReference dbR;
@@ -48,7 +48,9 @@ public class UserProfileActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_user_profile);
+        // setContentView(R.layout.activity_user_profile);
+        setActActual(USUARIO);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -56,7 +58,7 @@ public class UserProfileActivity extends MainActivity {
         tvNombre = findViewById(R.id.txtNombreUserProfile);
         tvApellido = findViewById(R.id.txtApellidosUserProfile);
         tvEdad = findViewById(R.id.txtEdadUserProfile);
-        tvEmail= findViewById(R.id.txtEmailUserProfile);
+        tvEmail = findViewById(R.id.txtEmailUserProfile);
         tvImagen = findViewById(R.id.imagenDelPerfil);
 
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
@@ -90,44 +92,44 @@ public class UserProfileActivity extends MainActivity {
                         //  user = dataSnapshot.child("usuarios").getValue(Usuario.class);
                         //TODO PORQUE MIERDA NO ME FUNCIONA ESTO -- PREGUNTAR A PILAR
                         //TODO OKAY YA FUNCIONA PERO LO HAGO CON EL FOR EACH DE ARRIBA, LA CONSULTA RETORNA UN DATASNAPSOT QUE LUEGO RECORRO POR  CADA UNO DE SUS HIJOS;
-                        String nom ;
+                        String nom;
 
-                        if(user[0].getNombreUsuario()!=null){
+                        if (user[0].getNombreUsuario() != null) {
                             nom = user[0].getNombreUsuario();
                             getSupportActionBar().setTitle(nom);
-                        }else{
+                        } else {
                             nom = getString(R.string.txt_SinEspecificar);
                         }
 
                         String urlImagen;
 
-                        if(user[0].getFotoUsuario()!=null){
+                        if (user[0].getFotoUsuario() != null) {
                             Glide.with(tvImagen.getContext())
                                     .load(user[0].getFotoUsuario())
                                     .into(tvImagen);
-                        }else{
+                        } else {
 
                         }
 
 
                         String edad;
-                        if(user[0].getEdadUsuario()!=null){
-                             edad =user[0].getEdadUsuario() ;
-                        }else{
-                            edad  = getString(R.string.txt_SinEspecificar);
+                        if (user[0].getEdadUsuario() != null) {
+                            edad = user[0].getEdadUsuario();
+                        } else {
+                            edad = getString(R.string.txt_SinEspecificar);
                         }
 
                         String apellido;
-                        if(user[0].getApellidosUsuario()!=null){
+                        if (user[0].getApellidosUsuario() != null) {
                             apellido = user[0].getApellidosUsuario();
-                        }else{
+                        } else {
                             apellido = getString(R.string.txt_SinEspecificar);
                         }
 
                         String email;
-                        if(user[0].getEmailUsuario()!=null){
+                        if (user[0].getEmailUsuario() != null) {
                             email = user[0].getEmailUsuario();
-                        }else{
+                        } else {
                             email = getString(R.string.txt_SinEspecificar);
                         }
 
@@ -135,8 +137,8 @@ public class UserProfileActivity extends MainActivity {
 
                         tvNombre.setText(String.format(getString(R.string.txt_t_NombreUserProfile), user[0].getNombreUsuario()));
                         tvApellido.setText(String.format(getString(R.string.txt_ApellidosUserProfile), apellido));
-                        tvEmail.setText(String.format(getString(R.string.txt_EmailUserProfile),email));
-                        tvEdad.setText(String.format(getString(R.string.txt_EdadUserProfile),edad));
+                        tvEmail.setText(String.format(getString(R.string.txt_EmailUserProfile), email));
+                        tvEdad.setText(String.format(getString(R.string.txt_EdadUserProfile), edad));
 
                     }
 

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.uemdam.clearsand.javabean.Usuario;
@@ -33,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 //hl
@@ -66,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
     // STORAGE
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mFotoStorageRef;
+
+    ProgressBar pb;
 
 
     @Override
@@ -102,12 +106,22 @@ public class RegisterActivity extends AppCompatActivity {
         // STORAGE
         mFirebaseStorage = FirebaseStorage.getInstance();
         mFotoStorageRef = mFirebaseStorage.getReference().child(getString(R.string.clave_UserPhoto));
+
+        //ProgressBar
+
+        pb = findViewById(R.id.progressBarRegisterAC);
     }
 
     public void registro(View v) {
+        pb.setVisibility(View.VISIBLE);
         //if (validarDatos()) {
         String warning = validarDatos();
+
+        // Para favoritos
+        final ArrayList<String> favoritos = new ArrayList<>();
+
         if (warning == null) {
+
             fba.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -145,8 +159,14 @@ public class RegisterActivity extends AppCompatActivity {
                                                     task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                         @Override
                                                         public void onSuccess(Uri uri) {
-                                                            Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), null, null);
+                                                            Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, uri.toString(), favoritos, null);
                                                             dbR.child(clave).setValue(user);
+
+                                                            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+
+
+                                                            //i.putExtra("USER", user.getEmail());
+                                                            startActivity(i);
                                                         }
                                                     });
                                                 }
@@ -157,8 +177,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, null, null);
+                                    Usuario user = new Usuario(clave, etNombre.getText().toString(), null, etEmail.getText().toString().toLowerCase(), null, null, favoritos, null);
                                     dbR.child(clave).setValue(user);
+
+                                    Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+
+
+                                    //i.putExtra("USER", user.getEmail());
+                                    startActivity(i);
 
 
                                     /**
@@ -179,11 +205,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 //TODO RESTAURAR BUENO ------ Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                                 //System.out.print(pas.toString());
-                                Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
+                              /**  Intent i = new Intent(RegisterActivity.this, UserProfileActivity.class);
 
 
                                 //i.putExtra("USER", user.getEmail());
-                                startActivity(i);
+                                startActivity(i);*/
                             } else {
                                 Toast.makeText(RegisterActivity.this, getString(R.string.msj_no_registrado), Toast.LENGTH_SHORT).show();
                             }
@@ -194,6 +220,7 @@ public class RegisterActivity extends AppCompatActivity {
             //Toast.makeText(this, getString(R.string.msj_no_data), Toast.LENGTH_LONG).show();
             Toast.makeText(this, warning,
                     Toast.LENGTH_LONG).show();
+            pb.setVisibility(View.INVISIBLE);
         }
     }
 

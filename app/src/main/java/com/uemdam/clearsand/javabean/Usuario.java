@@ -10,7 +10,7 @@ public class Usuario {
     private String emailUsuario;
     private String edadUsuario;
     private String fotoUsuario;
-    private ArrayList<Playa> playasUsuarioFav;
+    private ArrayList<String> playasUsuarioFav;
     private ArrayList<Evento> eventosUsuario;
 
     public Usuario() {
@@ -18,7 +18,7 @@ public class Usuario {
     }
 
 
-    public Usuario(String keyUsuario, String nombreUsuario, String apellidosUsuario, String emailUsuario, String edadUsuario, String fotoUsuario, ArrayList<Playa> playasUsuarioFav, ArrayList<Evento> eventosUsuario) {
+    public Usuario(String keyUsuario, String nombreUsuario, String apellidosUsuario, String emailUsuario, String edadUsuario, String fotoUsuario, ArrayList<String> playasUsuarioFav, ArrayList<Evento> eventosUsuario) {
         this.nombreUsuario = nombreUsuario;
         this.apellidosUsuario = apellidosUsuario;
         this.emailUsuario = emailUsuario;
@@ -50,7 +50,7 @@ public class Usuario {
         return fotoUsuario;
     }
 
-    public ArrayList<Playa> getPlayasUsuarioFav() {
+    public ArrayList<String> getPlayasUsuarioFav() {
         return playasUsuarioFav;
     }
 
