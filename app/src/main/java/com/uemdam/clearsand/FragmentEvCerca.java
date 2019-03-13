@@ -33,8 +33,10 @@ public class FragmentEvCerca extends Fragment{
 
     private RecyclerView miRecyclerView;
     private ArrayList<Evento> listaEventos;
-    private Playa playa= new Playa();
-    EventosTabActivity eta;
+
+    //DATABASE
+    private DatabaseReference dbR;
+    private ChildEventListener cel;
 
 
 
@@ -60,6 +62,8 @@ public class FragmentEvCerca extends Fragment{
                    startActivityForResult(i, 1);
                }
            });
+
+           addChildEventListener();
            return v;
     }
 
@@ -68,15 +72,56 @@ public class FragmentEvCerca extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        dbR = FirebaseDatabase.getInstance().getReference().child("EVENTOS");
+
+
         listaEventos = new ArrayList<>();
 
-        cargarDatos();
+
     }
 
 
 
-    public void cargarDatos(){
 
-       listaEventos=eta.listaEventos;
+
+
+    public void addChildEventListener(){
+        if (cel==null){
+            cel= new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    System.out.println("Nueva Evento");
+                    Evento ev= dataSnapshot.getValue(Evento.class);
+                    listaEventos.add(ev);
+                    adaptadorEventos.notifyItemChanged(listaEventos.size()-1);
+                    adaptadorEventos.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+            dbR.addChildEventListener(cel);
+        }
+
+
+
     }
 }

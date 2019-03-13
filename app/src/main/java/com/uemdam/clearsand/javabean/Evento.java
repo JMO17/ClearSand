@@ -13,8 +13,8 @@ public class Evento {
     private String descripcion;
 
 
-
-
+    public Evento() {
+    }
 
     public Evento(String nombreEvento, String fechaEvento, Playa playaEvento, Usuario creadorEvento, ArrayList<Usuario> participantesEvento, String descripcion) {
         this.nombreEvento = nombreEvento;

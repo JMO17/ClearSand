@@ -41,10 +41,8 @@ public class EventosTabActivity extends menuAbstractActivity{
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
 
-    //DATABASE
-    private DatabaseReference dbR;
-    private ChildEventListener cel;
-    ArrayList<Evento> listaEventos;
+
+
 
 
     //Datos de prueba
@@ -69,8 +67,7 @@ public class EventosTabActivity extends menuAbstractActivity{
         //Datos Prueba
         usuarios.add(new Usuario("pepe"));
 
-        dbR = FirebaseDatabase.getInstance().getReference().child("EVENTOS");
-        listaEventos= new ArrayList<Evento>();
+
 
         tabLayout=findViewById(R.id.tablayout);
         viewPager=findViewById(R.id.viewpager);
@@ -86,52 +83,8 @@ public class EventosTabActivity extends menuAbstractActivity{
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_ev_fecha);
 
 
-        crearEvento();
-        addChildEventListener();
-
     }
 
-    public void crearEvento(){
-        final String clave= dbR.push().getKey();
-        Evento ev= new Evento("Evento Prueba", "23-2-2019", playa, userCreador, usuarios, "PRueba de tarjeta eventos" );
-        dbR.child(clave).setValue(ev);
-
-    }
-
-    public void addChildEventListener(){
-        if (cel==null){
-            cel= new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Evento ev= dataSnapshot.getValue(Evento.class);
-                    listaEventos.add(ev);
-                    adapter.notifyDataSetChanged();
-
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-        }
 
 
-
-    }
 }
