@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:ems="10"
-                android:hint="@string/et_comentario_crear_evento"
+                android:hint="@string/et_comentario_crear_eventoo"
                 android:inputType="textPersonName"
                 android:textSize="18sp" />
 
