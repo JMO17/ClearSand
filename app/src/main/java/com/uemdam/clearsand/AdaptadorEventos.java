@@ -1,6 +1,7 @@
 package com.uemdam.clearsand;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,10 +20,12 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
     Context context;
     List<Evento> lista;
     View.OnClickListener listener;
+    private Location location;
 
-    public AdaptadorEventos(Context context, List<Evento> lista) {
+    public AdaptadorEventos(Context context, List<Evento> lista, Location location) {
         this.context = context;
         this.lista = lista;
+        this.location=location;
     }
 
     @NonNull
@@ -42,6 +45,7 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
         holder.tvNomEv.setText(lista.get(position).getNombreEvento());
         holder.tvNomPlaya.setText(lista.get(position).getPlayaEvento().getNombre());
         holder.tvFecha.setText(lista.get(position).getFechaEvento());
+        holder.ivEv.setImageResource(lista.get(position).getImagen());
 
     }
 
