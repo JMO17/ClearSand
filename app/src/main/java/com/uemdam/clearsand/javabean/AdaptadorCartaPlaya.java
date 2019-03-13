@@ -109,6 +109,15 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                             filtrados.add(p);
                         }
                     }
+                    if(filtrados.isEmpty()) {
+                        //BUSQUEDA por PROVINCIA
+                        for(Playa p: datos) {
+                            if(p.getComunidad_Autonoma().toLowerCase().contains(query.toLowerCase())) {
+                                filtrados.add(p);
+                            }
+                        }
+                    }
+
                     datosFiltrados = filtrados;
 
                 }// fin if-else
@@ -138,6 +147,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         private ImageView ivFoto;
         private TextView tvDistancia;
         private TextView tvNombre;
+        private TextView tvComunidad;
         private ToggleButton tbFav;
 
 
@@ -160,6 +170,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             ivFoto = itemView.findViewById(R.id.ivFotoCard);
             tvDistancia = itemView.findViewById(R.id.tvDistanciaCard);
             tvNombre = itemView.findViewById(R.id.tvNombreCard);
+            tvComunidad = itemView.findViewById(R.id.tvComunidadCard);
             tbFav = itemView.findViewById(R.id.tbFavCard);
 
             dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
@@ -185,6 +196,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             }
 
             tvNombre.setText(playa.getNombre());
+            tvComunidad.setText(playa.getComunidad_Autonoma());
 
             //Cargar toggle button con los favoritos del usuario
             if(favoritos.isEmpty()) {
