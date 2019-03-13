@@ -156,13 +156,13 @@
     <string name="tv_crea_evento">\t Crea tu propio evento</string>
 
     <!--Activity Perfil playa-->
-    <string name="tvEstadoPLayaActivity">ESTADO DE LA PLAYA: 1s</string>
     <string name="tv_perfil_playa_ubicacion">La ubicación</string>
     <string name="tv_nombre_perfil_playa_activity">Nombre playa</string>
     <string name="btn_crear_evento">Crear evento de limpieza</string>
     <string name="tv_voluntariado">Voluntariado</string>
     <string name="btn_como_llegar">Como llegar</string>
     <string name="title_activity_maps">Map</string>
+    <string name="estado_playa">ESTADO DE LA PLAYA:  %s</string>
 
 
 </resources>

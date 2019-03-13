@@ -51,6 +51,8 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
     private String nombre;
     TextView tvNombre;
     ImageView ivPlaya;
+    TextView tvEstado;
+    BitmapDescriptor icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,48 +65,46 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
 
         getSupportActionBar().hide();
 
-        id = getIntent().getIntExtra("CLAVEINTENT",0);
+        id = Integer.parseInt(getIntent().getStringExtra("ID"));
         datoPlaya = new ArrayList<>();
         //DATABASE
         dbR = FirebaseDatabase.getInstance().getReference().child("PLAYAS");
+
+        icon = generateBitmapDescriptor(this, R.drawable.ic_swimming_zone_marker);
+
 
         addChildEventListener();
 
         tvNombre = findViewById(R.id.tvNombrePlayaPerfilActivity);
         ivPlaya = findViewById(R.id.ivPerfilPLayaActivity);
 
-        nombre = datoPlaya.get(0).getNombre();
-        Glide.with(ivPlaya.getContext()).load(datoPlaya.get(0).getUrlImagen()).into(ivPlaya);
-        tvNombre.setText(nombre);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);//Imágenes satelite
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+            mMap = googleMap;
+            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);//Imágenes satelite
 
-        BitmapDescriptor icon = generateBitmapDescriptor(this, R.drawable.ic_swimming_zone_marker);
+            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            mMap.getUiSettings().setZoomControlsEnabled(true);
 
+    }
 
-        latitud = Double.parseDouble(datoPlaya.get(0).getCoordenada_X());
-        longitud = Double.parseDouble(datoPlaya.get(0).getCoordenada_Y());
+    private void cargarMapa(BitmapDescriptor icon) {
+        latitud = Double.parseDouble(datoPlaya.get(0).getCoordenada_Y());
+        longitud = Double.parseDouble(datoPlaya.get(0).getCoordenada_X());
         LatLng mad = new LatLng(latitud, longitud);
 
         mMap.addMarker(new MarkerOptions().position(mad).title(datoPlaya.get(0).getNombre()).icon(icon));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(mad));
 
         CameraPosition camPos = new CameraPosition.Builder()
-                .target(new LatLng(40, -4))
+                .target(new LatLng(latitud, longitud))
                 .zoom(7)
                 .build();
         CameraUpdate camUpd3 = CameraUpdateFactory.newCameraPosition(camPos);
         mMap.animateCamera(camUpd3);
-
-
-
     }
 
     public void crearEvento(View v){
@@ -113,7 +113,7 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
 
     public void comoLlegar(View v){
         Intent i = new Intent(this,MapsActivity.class);
-        i.putExtra("IDMAPA",Integer.parseInt(playa.getId()));
+        i.putExtra("ID",id);
         startActivity(i);
     }
 
@@ -141,6 +141,8 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
                     Playa m = dataSnapshot.getValue(Playa.class);
                     if(Integer.parseInt(m.getId())== id) {
                         datoPlaya.add(m);
+                        cargarComponentes();
+                        cargarMapa(icon);
                     }
 
                 }
@@ -168,5 +170,12 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
 
             dbR.addChildEventListener(cel);
         }
+    }
+
+    public void cargarComponentes(){
+        nombre = datoPlaya.get(0).getNombre();
+        Glide.with(ivPlaya.getContext()).load(datoPlaya.get(0).getUrlImagen()).into(ivPlaya);
+        tvNombre.setText(nombre);
+        //tvEstado.setText(String.format(getString(R.string.estado_playa),datoPlaya.get(0).getEstado()));
     }
 }

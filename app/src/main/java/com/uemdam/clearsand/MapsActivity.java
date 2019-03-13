@@ -77,10 +77,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlayas.add(m);
-                    LatLng gms = new LatLng(Double.parseDouble(m.getCoordenada_X()), Double.parseDouble(m.getCoordenada_Y()));
+                    LatLng gms = new LatLng(Double.parseDouble(m.getCoordenada_Y()), Double.parseDouble(m.getCoordenada_X()));
 
+                    LatLng gmsAux = new LatLng(Double.parseDouble(datosPlayas.get(0).getCoordenada_Y()),Double.parseDouble(datosPlayas.get(0).getCoordenada_X()));
                     mMap.addMarker(new MarkerOptions().position(gms).title(m.getNombre())).setIcon(icon);
-
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
+                    mMap.moveCamera(CameraUpdateFactory.zoomTo(9));
                 }
 
                 @Override
