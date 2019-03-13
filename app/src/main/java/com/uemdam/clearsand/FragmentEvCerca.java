@@ -1,6 +1,8 @@
 package com.uemdam.clearsand;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationProvider;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +41,9 @@ public class FragmentEvCerca extends Fragment{
     private DatabaseReference dbR;
     private ChildEventListener cel;
 
+    private FusedLocationProviderClient flc;
+    private Location locUsuario;
+
 
 
 
@@ -50,7 +56,7 @@ public class FragmentEvCerca extends Fragment{
 
            v=  inflater.inflate(R.layout.fragment_ev_cerca,container,false);
            miRecyclerView=v.findViewById(R.id.rvCerca);
-            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos);
+            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos,locUsuario);
            miRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
            miRecyclerView.setAdapter(adaptadorEventos);
 
