@@ -36,6 +36,11 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
                     return true;
                 case R.id.nav_eventos:
                     Toast.makeText(menuAbstractActivity.this, "explorar", Toast.LENGTH_LONG).show();
+                    if(actActual != EVENTOS) {
+                        Intent i1 = new Intent(menuAbstractActivity.this, EventosTabActivity.class);
+                        startActivity(i1);
+                    }
+
                     return true;
                 case R.id.nav_favoritos:
                     Toast.makeText(menuAbstractActivity.this, "favoritos", Toast.LENGTH_LONG).show();

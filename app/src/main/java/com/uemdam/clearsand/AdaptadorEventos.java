@@ -38,7 +38,7 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.tvNomEv.setText(lista.get(position).getNombreEvento());
-        holder.tvNomPlaya.setText(lista.get(position).getPlayaEvento().getNombrePlaya());
+        holder.tvNomPlaya.setText(lista.get(position).getPlayaEvento().getNombre());
         holder.tvFecha.setText(lista.get(position).getFechaEvento());
 
     }

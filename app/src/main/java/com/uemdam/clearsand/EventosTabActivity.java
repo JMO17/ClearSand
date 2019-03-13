@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class EventosTabActivity extends AppCompatActivity{
+public class EventosTabActivity extends menuAbstractActivity{
 
 
 
@@ -29,9 +29,16 @@ public class EventosTabActivity extends AppCompatActivity{
     private ViewPagerAdapter adapter;
 
     @Override
+    public int cargarLayout() {
+        return R.layout.activity_eventos_tab;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_eventos_tab);
+        //setContentView(R.layout.activity_eventos_tab);
+        setActActual(EVENTOS);
+        getSupportActionBar().hide();
 
         tabLayout=findViewById(R.id.tablayout);
         viewPager=findViewById(R.id.viewpager);

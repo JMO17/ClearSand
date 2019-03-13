@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class DatosEventos {
 
     private ArrayList<Evento> lista;
-    private Playa playa= new Playa("Cocha","Vasco");
+    private Playa playa= new Playa();
 
 
     public DatosEventos() {

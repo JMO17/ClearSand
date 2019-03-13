@@ -23,7 +23,7 @@ public class FragmentEvFecha extends Fragment {
     View v;
     private RecyclerView miRecyclerView;
     private List<Evento> listaEventos;
-    private Playa playa= new Playa("Cocha","Vasco");
+    private Playa playa= new Playa();
 
 
     public FragmentEvFecha() {
