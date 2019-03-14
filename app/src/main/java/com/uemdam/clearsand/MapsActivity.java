@@ -10,12 +10,14 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.ChildEventListener;
@@ -36,6 +38,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ChildEventListener cel;
 
     private int id;
+    private double latitud;
+    private double longitud;
+    private String nombre;
     private  Playa playa;
 
     BitmapDescriptor icon;
@@ -60,13 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addChildEventListener();
 
         id = getIntent().getIntExtra("IDMAPA", 0);
+        latitud = getIntent().getDoubleExtra("LATITUD", 0.0);
+        longitud = getIntent().getDoubleExtra("LONGITUD", 0.0);
+        nombre = getIntent().getStringExtra("NOMBRE");
         playa = null;
-
-        for (Playa com : datosPlayas) {
-            if (Integer.parseInt(com.getId()) == id) {
-                playa = com;
-            }
-        }
 
     }
 
@@ -77,12 +79,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlayas.add(m);
-                    LatLng gms = new LatLng(Double.parseDouble(m.getCoordenada_Y()), Double.parseDouble(m.getCoordenada_X()));
+                    if (id == 0) {
+                        LatLng gms = new LatLng(Double.parseDouble(m.getCoordenada_Y()), Double.parseDouble(m.getCoordenada_X()));
 
-                    LatLng gmsAux = new LatLng(Double.parseDouble(datosPlayas.get(0).getCoordenada_Y()),Double.parseDouble(datosPlayas.get(0).getCoordenada_X()));
-                    mMap.addMarker(new MarkerOptions().position(gms).title(m.getNombre())).setIcon(icon);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
-                    mMap.moveCamera(CameraUpdateFactory.zoomTo(9));
+                        LatLng gmsAux = new LatLng(Double.parseDouble(datosPlayas.get(0).getCoordenada_Y()), Double.parseDouble(datosPlayas.get(0).getCoordenada_X()));
+                        mMap.addMarker(new MarkerOptions().position(gms).title(m.getNombre())).setIcon(icon);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
+                        mMap.moveCamera(CameraUpdateFactory.zoomTo(9));
+                    }
                 }
 
                 @Override
@@ -116,7 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //BitmapDescriptor icon = generateBitmapDescriptor(this, R.drawable.ic_swimming_zone_marker);
 
 
-        if (playa == null) {
+        if (id == 0) {
           /*  for (Playa plas : datosPlayas) {
                 LatLng gms = new LatLng(Double.parseDouble(plas.getCoordenada_X()), Double.parseDouble(plas.getCoordenada_Y()));
 
@@ -124,15 +128,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }*/
             LatLng gmsAux = new LatLng(-40,3.7);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(9));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
         } else {
 
-            LatLng localizacionPlaya = new LatLng(Double.parseDouble(playa.getCoordenada_X()), Double.parseDouble(playa.getCoordenada_Y()));
+            /*LatLng localizacionPlaya = new LatLng(Double.parseDouble(playa.getCoordenada_X()), Double.parseDouble(playa.getCoordenada_Y()));
             mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title(playa.getNombre())).setIcon(icon);
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(localizacionPlaya));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));*/
+            LatLng mad = new LatLng(latitud, longitud);
 
+            mMap.addMarker(new MarkerOptions().position(mad).title(nombre).icon(icon));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mad));
+
+            CameraPosition camPos = new CameraPosition.Builder()
+                    .target(new LatLng(latitud, longitud))
+                    .zoom(7)
+                    .build();
+            CameraUpdate camUpd3 = CameraUpdateFactory.newCameraPosition(camPos);
+            mMap.animateCamera(camUpd3);
         }
 
 

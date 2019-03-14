@@ -113,7 +113,10 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
 
     public void comoLlegar(View v){
         Intent i = new Intent(this,MapsActivity.class);
-        i.putExtra("ID",id);
+        i.putExtra("IDMAPA",id);
+        i.putExtra("LATITUD",latitud);
+        i.putExtra("LONGITUD",longitud);
+        i.putExtra("NOMBRE",datoPlaya.get(0).getNombre());
         startActivity(i);
     }
 
