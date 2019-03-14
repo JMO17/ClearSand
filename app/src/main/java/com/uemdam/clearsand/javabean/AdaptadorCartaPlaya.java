@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.uemdam.clearsand.R;
 
 import java.lang.reflect.Array;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -91,6 +92,23 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
 
     /*--------------------------------   MERTODO FILTRO -----------------------------------------*/
+
+    /**
+     * Quita las tildes de una palabra
+     * @param s
+     * @return
+     */
+    public static String quitaDiacriticos(String s) {
+        s = Normalizer.normalize(s, Normalizer.Form.NFD);
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return s;
+    }
+
+    /**
+     * Crea un filtro para el adapter
+     * Según el nombre de la playa y la provincia
+     * @return
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -105,20 +123,19 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
                     //BUSQUEDA por NOMBRE
                     for(Playa p: datos) {
-                        if(p.getNombre().toLowerCase().contains(query.toLowerCase())) {
+                        if(quitaDiacriticos(p.getNombre().toLowerCase()).contains(quitaDiacriticos(query.toLowerCase()))) {
                             filtrados.add(p);
                         }
                     }
-/*                    if(filtrados.isEmpty()) {
-                        //BUSQUEDA por PROVINCIA
+
+                    //BUSQUEDA por PROVINCIA
 
 
-                        for(Playa p: datos) {
-                            if(p.getComunidad_Autonoma().toLowerCase().contains(query.toLowerCase())) {
-                                filtrados.add(p);
-                            }
+                    for(Playa p: datos) {
+                        if(quitaDiacriticos(p.getComunidad_Autonoma().toLowerCase()).contains(quitaDiacriticos(query.toLowerCase()))) {
+                            filtrados.add(p);
                         }
-                    }*/
+                    }
 
                     datosFiltrados = filtrados;
 
