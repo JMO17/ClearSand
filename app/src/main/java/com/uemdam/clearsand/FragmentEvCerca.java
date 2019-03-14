@@ -95,7 +95,7 @@ public class FragmentEvCerca extends Fragment{
                @Override
                public void onClick(View v) {
                    Intent i= new Intent(getActivity(), TarjetaEventos.class);
-                   i.putExtra("NOM_EV",listaEventos.get(miRecyclerView.indexOfChild(v)).getNombreEvento());
+                   i.putExtra("ID_EV",listaEventos.get(miRecyclerView.indexOfChild(v)).getIdEventos());
                    startActivityForResult(i, 1);
                }
            });
