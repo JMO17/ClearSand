@@ -53,14 +53,14 @@ public class TarjetaEventos extends AppCompatActivity {
 
         fba = FirebaseAuth.getInstance();
         userx = fba.getCurrentUser();
-        String nombre=userx.get
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if()
+
 
             }
         });
