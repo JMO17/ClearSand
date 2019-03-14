@@ -2,6 +2,7 @@ package com.uemdam.clearsand.javabean;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uemdam.clearsand.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -35,19 +39,23 @@ import java.util.Set;
  * para poder crear las cartas de la playa.
  */
 public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlaya.CartaPlayaViewHolder>
-        implements View.OnClickListener{
+        implements View.OnClickListener, Filterable {
 
     /*--------------------------------   ATRIBUTOS   ------------------------------------------*/
     public static final String MIS_FAVORITOS = "arhivofav";
 
     private ArrayList<Playa> datos;
+    private ArrayList<Playa> datosFiltrados;
     private View.OnClickListener listener;
     private Usuario[] user;
+    private Location locUsuario;
 
     /*--------------------------------    CONSTRUCTOR  ------------------------------------------*/
-    public AdaptadorCartaPlaya(ArrayList<Playa> datos, Usuario[] user) {
+    public AdaptadorCartaPlaya(ArrayList<Playa> datos, Usuario[] user, Location locUsuario) {
         this.datos = datos;
         this.user = user;
+        this.locUsuario = locUsuario;
+        datosFiltrados = datos;
     }
 
     /*--------------------------------   METODOS ADAPTER  -----------------------------------------*/
@@ -56,18 +64,18 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
     public CartaPlayaViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_playa, viewGroup, false);
         v.setOnClickListener(this);
-        CartaPlayaViewHolder cpvh = new CartaPlayaViewHolder(v,viewGroup.getContext(), user);
+        CartaPlayaViewHolder cpvh = new CartaPlayaViewHolder(v,viewGroup.getContext(), user, locUsuario);
         return cpvh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CartaPlayaViewHolder cartaPlayaViewHolder, int i) {
-        cartaPlayaViewHolder.bindPlaya(datos.get(i));
+        cartaPlayaViewHolder.bindPlaya(datosFiltrados.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return datos.size();
+        return datosFiltrados.size();
     }
     /*--------------------------------   METODOS LISTENER -----------------------------------------*/
     @Override
@@ -81,6 +89,55 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         this.listener = listener;
     }
 
+
+    /*--------------------------------   MERTODO FILTRO -----------------------------------------*/
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String query = constraint.toString();
+                if(query.isEmpty()) {
+                    datosFiltrados = datos;
+                } else {
+                    ArrayList<Playa> filtrados = new ArrayList<>();
+
+                    //BUSQUEDA por NOMBRE
+                    for(Playa p: datos) {
+                        if(p.getNombre().toLowerCase().contains(query.toLowerCase())) {
+                            filtrados.add(p);
+                        }
+                    }
+/*                    if(filtrados.isEmpty()) {
+                        //BUSQUEDA por PROVINCIA
+
+
+                        for(Playa p: datos) {
+                            if(p.getComunidad_Autonoma().toLowerCase().contains(query.toLowerCase())) {
+                                filtrados.add(p);
+                            }
+                        }
+                    }*/
+
+                    datosFiltrados = filtrados;
+
+                }// fin if-else
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = datosFiltrados;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                datosFiltrados = (ArrayList<Playa>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+
     /*--------------------------------   CLASE INTERNA   ------------------------------------------*/
     /**
      * Clase que hereda de ViewHolder,
@@ -92,30 +149,36 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
         private ImageView ivFoto;
         private TextView tvDistancia;
         private TextView tvNombre;
+        private TextView tvComunidad;
         private ToggleButton tbFav;
 
 
         private Context contexto;
         /*DATABASE*/
         private DatabaseReference dbR;
-        Usuario[] user;
-        ArrayList<String> favoritos;
+
+        /*USER*/
+        private Usuario[] user;
+        private ArrayList<String> favoritos;
+        private Location locUsuario;
 
         /**
          * Constructor
          * @param itemView
          */
-        public CartaPlayaViewHolder(@NonNull View itemView, Context contexto, Usuario[] user) {
+        public CartaPlayaViewHolder(@NonNull View itemView, Context contexto, Usuario[] user, Location locUsuario) {
             super(itemView);
 
             ivFoto = itemView.findViewById(R.id.ivFotoCard);
             tvDistancia = itemView.findViewById(R.id.tvDistanciaCard);
             tvNombre = itemView.findViewById(R.id.tvNombreCard);
+            tvComunidad = itemView.findViewById(R.id.tvComunidadCard);
             tbFav = itemView.findViewById(R.id.tbFavCard);
 
             dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
             this.contexto = contexto;
             this.user = user;
+            this.locUsuario = locUsuario;
             favoritos = user[0].getPlayasUsuarioFav();
 
         }
@@ -127,8 +190,15 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
          */
         public void bindPlaya(final Playa playa) {
             Glide.with(ivFoto.getContext()).load(playa.getUrlImagen()).into(ivFoto);
-            tvDistancia.setText(playa.getCoordenada_geográfica_Latitud());
+            if(locUsuario != null) {
+                float distanacia = calcularDistancia(locUsuario, playa);
+                tvDistancia.setText(String.format(contexto.getString(R.string.tv_distancia_card), distanacia));
+            } else {
+                tvDistancia.setText(playa.getCoordenada_geográfica_Latitud() +" | "+ playa.getCoordenada_geográfica_Longitud());
+            }
+
             tvNombre.setText(playa.getNombre());
+            tvComunidad.setText(playa.getComunidad_Autonoma());
 
             //Cargar toggle button con los favoritos del usuario
             if(favoritos.isEmpty()) {
@@ -184,6 +254,18 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                     }
                 }
             });*/
+        }
+
+        private float calcularDistancia(Location locUsuario, Playa playa) {
+            float resultMetros = 0;
+
+            Location locPlaya = new Location("");
+            locPlaya.setLatitude(Double.parseDouble(playa.getCoordenada_Y()));
+            locPlaya.setLongitude(Double.parseDouble(playa.getCoordenada_X()));
+
+            resultMetros = locUsuario.distanceTo(locPlaya);
+
+            return  resultMetros/1000; //pasar a kilometros
         }
 
 /*        public void bindPlaya(final Playa playa) {

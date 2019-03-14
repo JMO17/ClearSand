@@ -139,6 +139,6 @@
     <string name="clave_User">usuarios</string>
     <string name="txt_SinEspecificar">Sin especificar</string>
 
-    <string name="tv_distancia_card">A %.3f km</string>
+    <string name="tv_distancia_card">A %.1f km</string>
 
 </resources>
