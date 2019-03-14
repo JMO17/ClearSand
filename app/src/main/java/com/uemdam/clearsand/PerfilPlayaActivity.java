@@ -39,12 +39,13 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
 
     //Mapa
     private GoogleMap mMap;
+    BitmapDescriptor icon;
 
     //DATABASE
     private DatabaseReference dbR;
     private ChildEventListener cel;
 
-    private Playa playa;
+    //Componentes
     private ArrayList<Playa> datoPlaya;
     private int id;
     private double latitud;
@@ -53,7 +54,7 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
     TextView tvNombre;
     ImageView ivPlaya;
     TextView tvEstado;
-    BitmapDescriptor icon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

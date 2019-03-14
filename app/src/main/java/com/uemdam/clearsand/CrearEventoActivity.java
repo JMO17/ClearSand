@@ -7,6 +7,7 @@ import android.widget.EditText;
 public class CrearEventoActivity extends AppCompatActivity {
 
     EditText tvTitulo;
+    EditText tvComentario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,5 +15,6 @@ public class CrearEventoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crear_eventoo);
 
         tvTitulo = findViewById(R.id.etTituloEvento);
+        tvComentario = findViewById(R.id.etComentario);
     }
 }
