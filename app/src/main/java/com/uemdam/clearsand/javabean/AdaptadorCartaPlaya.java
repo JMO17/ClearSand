@@ -109,14 +109,16 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                             filtrados.add(p);
                         }
                     }
-                    if(filtrados.isEmpty()) {
+/*                    if(filtrados.isEmpty()) {
                         //BUSQUEDA por PROVINCIA
+
+
                         for(Playa p: datos) {
                             if(p.getComunidad_Autonoma().toLowerCase().contains(query.toLowerCase())) {
                                 filtrados.add(p);
                             }
                         }
-                    }
+                    }*/
 
                     datosFiltrados = filtrados;
 
