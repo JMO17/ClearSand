@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,23 +33,35 @@ public class TarjetaEventos extends AppCompatActivity {
     //COMPONENTES
     private ArrayList<Evento> eventoSel;
     private int id;
+    private Usuario[] user;
+    String participantes;
     TextView tvNombreEv;
     TextView tvNombrePlaya;
     TextView tvFecha;
     TextView tvDescripcion;
     TextView tvUsuarios;
 
+
+    private FirebaseAuth fba;
+    private FirebaseUser userx;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tarjeta_eventos);
 
+        fba = FirebaseAuth.getInstance();
+        userx = fba.getCurrentUser();
+        String nombre=userx.get
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                if()
+
             }
         });
 
@@ -114,7 +128,7 @@ public class TarjetaEventos extends AppCompatActivity {
         ArrayList<Usuario> participantesEv= new ArrayList<>();
         participantesEv=eventoSel.get(0).getParticipantesEvento();
 
-        String participantes="";
+         participantes="";
         for(Usuario participante: participantesEv){
 
              participantes=participantes+"-"+participante.getNombreUsuario()+"\n";
