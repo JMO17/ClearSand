@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.uemdam.clearsand.javabean.Evento;
 import com.uemdam.clearsand.javabean.Playa;
 
@@ -28,6 +29,7 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
     ArrayList<Evento> lista;
     View.OnClickListener listener;
     Location locUsuario;
+    int origen;
 
 
     public AdaptadorEventos(Context context, ArrayList<Evento> lista, final Location locUsuario, int origen) {
@@ -35,6 +37,65 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
         this.context = context;
         this.lista = lista;
         this.locUsuario=locUsuario;
+        this.origen=origen;
+
+
+
+    }
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View v;
+        v=LayoutInflater.from(context).inflate(R.layout.rv_eventos,parent,false);
+        v.setOnClickListener(this);
+        MyViewHolder vh= new MyViewHolder(v);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+        Glide.with(holder.ivEv.getContext()).load(lista.get(position).getPlayaEvento().getUrlImagen()).into(holder.ivEv);
+
+        holder.tvNomEv.setText(lista.get(position).getNombreEvento());
+        holder.tvNomPlaya.setText(lista.get(position).getPlayaEvento().getNombre());
+        holder.tvFecha.setText(lista.get(position).getFechaEvento());
+        //holder.ivEv.setImageResource(lista.get(position).getImagen());
+
+        if(locUsuario != null) {
+            float distanacia = calcularDistancia(locUsuario, lista.get(position).getPlayaEvento());
+            holder.tvDistancia.setText(String.format(context.getString(R.string.tv_distancia_card), distanacia));
+        } else {
+            holder.tvDistancia.setText(lista.get(position).getPlayaEvento().getCoordenada_geográfica_Latitud() +" | "+ lista.get(position).getPlayaEvento().getCoordenada_geográfica_Longitud());
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return lista.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener!=null){
+            listener.onClick(v);
+        }
+
+    }
+
+    public void setLocUsuario(final Location locUsuario) {
+
+        this.locUsuario = locUsuario;
+
+    }
+
+    public void organizarLista(){
 
         if(origen==1){
             if(locUsuario==null){
@@ -44,12 +105,15 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
                 Collections.sort(lista, new Comparator<Evento>() {
                     @Override
                     public int compare(Evento ev1, Evento ev2) {
+                            System.out.printf("Se organiza");
+                            float dist1=calcularDistancia(locUsuario,ev1.getPlayaEvento());
+                            float dist2=calcularDistancia(locUsuario,ev2.getPlayaEvento());
 
-                        if(calcularDistancia(locUsuario,ev1.getPlayaEvento())>calcularDistancia(locUsuario,ev1.getPlayaEvento())){
+                        if(dist1>dist2){
 
                             return 1;
 
-                        }else if(calcularDistancia(locUsuario,ev1.getPlayaEvento())<=calcularDistancia(locUsuario,ev1.getPlayaEvento())){
+                        }else if(dist1<dist2){
 
                             return -1;
                         }else{
@@ -92,51 +156,6 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
             });
 
         }
-
-    }
-
-    @NonNull
-    @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View v;
-        v=LayoutInflater.from(context).inflate(R.layout.rv_eventos,parent,false);
-        v.setOnClickListener(this);
-        MyViewHolder vh= new MyViewHolder(v);
-        return vh;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        holder.tvNomEv.setText(lista.get(position).getNombreEvento());
-        holder.tvNomPlaya.setText(lista.get(position).getPlayaEvento().getNombre());
-        holder.tvFecha.setText(lista.get(position).getFechaEvento());
-        holder.ivEv.setImageResource(lista.get(position).getImagen());
-
-        if(locUsuario != null) {
-            float distanacia = calcularDistancia(locUsuario, lista.get(position).getPlayaEvento());
-            holder.tvDistancia.setText(String.format(context.getString(R.string.tv_distancia_card), distanacia));
-        } else {
-            holder.tvDistancia.setText(lista.get(position).getPlayaEvento().getCoordenada_geográfica_Latitud() +" | "+ lista.get(position).getPlayaEvento().getCoordenada_geográfica_Longitud());
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return lista.size();
-    }
-
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(listener!=null){
-            listener.onClick(v);
-        }
-
     }
 
     public static  class MyViewHolder extends RecyclerView.ViewHolder{
@@ -171,6 +190,8 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
 
         return  resultMetros/1000; //pasar a kilometros
     }
+
+
 
 
 

@@ -64,10 +64,7 @@ public class FragmentEvCerca extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-
-
-
+        addChildEventListener();
 
         flc = LocationServices.getFusedLocationProviderClient(getActivity());
         try {
@@ -77,6 +74,8 @@ public class FragmentEvCerca extends Fragment{
                 public void onSuccess(Location location) {
                     if(location != null) {
                         locUsuario = location;
+                        adaptadorEventos.setLocUsuario(locUsuario);
+                        adaptadorEventos.notifyDataSetChanged();
                     }
                 }
             });
@@ -88,7 +87,7 @@ public class FragmentEvCerca extends Fragment{
 
            v=  inflater.inflate(R.layout.fragment_ev_cerca,container,false);
            miRecyclerView=v.findViewById(R.id.rvCerca);
-            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos, locUsuario);
+            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos, locUsuario, 1);
            miRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
            miRecyclerView.setAdapter(adaptadorEventos);
 
@@ -101,7 +100,7 @@ public class FragmentEvCerca extends Fragment{
                }
            });
 
-           addChildEventListener();
+
            return v;
     }
 
@@ -133,6 +132,7 @@ public class FragmentEvCerca extends Fragment{
 
 
                     listaEventos.add(ev);
+                    adaptadorEventos.organizarLista();
 
 
                     adaptadorEventos.notifyItemChanged(listaEventos.size()-1);
