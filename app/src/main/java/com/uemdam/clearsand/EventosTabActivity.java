@@ -45,10 +45,7 @@ public class EventosTabActivity extends menuAbstractActivity{
 
 
 
-    //Datos de prueba
-    Playa playa = new Playa("Playa De prueba");
-    Usuario userCreador= new Usuario("Jacinto");
-    ArrayList<Usuario> usuarios= new ArrayList<>();
+
 
 
 
@@ -64,8 +61,8 @@ public class EventosTabActivity extends menuAbstractActivity{
         setActActual(EVENTOS);
         getSupportActionBar().hide();
 
-        //Datos Prueba
-        usuarios.add(new Usuario("pepe"));
+
+
 
 
 

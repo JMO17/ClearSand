@@ -67,15 +67,7 @@ public class FragmentEvCerca extends Fragment{
 
 
 
-        if ( ContextCompat.checkSelfPermission( getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
 
-            ActivityCompat.requestPermissions( getActivity(), new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, 1);
-        }
-
-        if ( ContextCompat.checkSelfPermission( getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-
-            ActivityCompat.requestPermissions( getActivity(), new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  }, 2);
-        }
 
         flc = LocationServices.getFusedLocationProviderClient(getActivity());
         try {
@@ -96,7 +88,7 @@ public class FragmentEvCerca extends Fragment{
 
            v=  inflater.inflate(R.layout.fragment_ev_cerca,container,false);
            miRecyclerView=v.findViewById(R.id.rvCerca);
-            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos);
+            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos, locUsuario);
            miRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
            miRecyclerView.setAdapter(adaptadorEventos);
 
@@ -136,9 +128,13 @@ public class FragmentEvCerca extends Fragment{
             cel= new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    System.out.println("Nueva Evento");
+
                     Evento ev= dataSnapshot.getValue(Evento.class);
+
+
                     listaEventos.add(ev);
+
+
                     adaptadorEventos.notifyItemChanged(listaEventos.size()-1);
                     adaptadorEventos.notifyDataSetChanged();
 
