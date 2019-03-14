@@ -160,9 +160,9 @@ public class MainActivity extends menuAbstractActivity {
                 String msg = "Seleccionada la opción " + rvCartaPlaya.getChildAdapterPosition(v);
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-//                Intent i = new Intent(MainActivity.this, PerfilPlayaActivity.class);
-//                i.putExtra("ID", datosPlaya.get(rvCartaPlaya.getChildAdapterPosition(v)).getId());
-//                startActivity(i);
+                Intent i = new Intent(MainActivity.this, PerfilPlayaActivity.class);
+                i.putExtra("ID", datosPlaya.get(rvCartaPlaya.getChildAdapterPosition(v)).getId());
+                startActivity(i);
             }
         });
         rvCartaPlaya.setAdapter(adaptador);
