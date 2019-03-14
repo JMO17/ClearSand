@@ -37,6 +37,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:elevation="6dp"
+            android:onClick="irMapa"
             android:scaleType="center"
             app:fabSize="normal"
             app:maxImageSize="100dp"
