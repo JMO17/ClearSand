@@ -83,7 +83,8 @@ public class FragmentEvFecha extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i= new Intent(getActivity(), TarjetaEventos.class);
-                i.putExtra("ID_EV",listaEventos.get(miRecyclerView.indexOfChild(v)).getIdEventos());
+                i.putExtra("ID_EV",listaEventos.get(miRecyclerView.getChildAdapterPosition(v)).getIdEventos());
+                // i.putExtra("ID", datosPlaya.get(rvCartaPlaya.getChildAdapterPosition(v)).getId());
                 startActivityForResult(i, 2);
             }
         });

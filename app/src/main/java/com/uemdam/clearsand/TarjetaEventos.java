@@ -32,7 +32,7 @@ public class TarjetaEventos extends AppCompatActivity {
 
     //COMPONENTES
     private ArrayList<Evento> eventoSel;
-    private int id;
+    private String id;
     private Usuario[] user;
     String participantes;
     TextView tvNombreEv;
@@ -66,7 +66,9 @@ public class TarjetaEventos extends AppCompatActivity {
         });
 
 
-        id= Integer.parseInt(getIntent().getStringExtra("ID_EV"));
+        //id= Integer.parseInt(getIntent().getStringExtra("ID_EV"));
+        id=getIntent().getStringExtra("ID_EV");
+
         eventoSel= new ArrayList<>();
 
         dbR= FirebaseDatabase.getInstance().getReference().child("EVENTOS");
@@ -87,7 +89,7 @@ public class TarjetaEventos extends AppCompatActivity {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Evento ev= dataSnapshot.getValue(Evento.class);
-                    if(Integer.parseInt(ev.getIdEventos())==id){
+                    if(ev.getIdEventos().equals(id)){
                         eventoSel.add(ev);
                         cargarComponentes();
                     }
