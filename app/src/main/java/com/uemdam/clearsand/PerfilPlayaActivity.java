@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdate;
@@ -77,7 +78,7 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
 
         tvNombre = findViewById(R.id.tvNombrePlayaPerfilActivity);
         ivPlaya = findViewById(R.id.ivPerfilPLayaActivity);
-
+        tvEstado = findViewById(R.id.tvEstadoPlaya);
     }
 
     @Override
@@ -179,6 +180,6 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
         nombre = datoPlaya.get(0).getNombre();
         Glide.with(ivPlaya.getContext()).load(datoPlaya.get(0).getUrlImagen()).into(ivPlaya);
         tvNombre.setText(nombre);
-        //tvEstado.setText(String.format(getString(R.string.estado_playa),datoPlaya.get(0).getEstado()));
+        tvEstado.setText(String.format(getString(R.string.estado_playa),datoPlaya.get(0).getEstado()));
     }
 }
