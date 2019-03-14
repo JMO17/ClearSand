@@ -22,7 +22,7 @@
             app:fontFamily="@font/roboto_bold" />
 
         <TextView
-            android:id="@+id/tvNombrePlaya"
+            android:id="@+id/tvNombrePlayaEv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -30,7 +30,7 @@
             app:fontFamily="@font/roboto_light" />
 
         <TextView
-            android:id="@+id/tvFecha"
+            android:id="@+id/tvFechaEv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -38,7 +38,7 @@
             app:fontFamily="@font/roboto_light" />
 
         <TextView
-            android:id="@+id/tvDescripcion"
+            android:id="@+id/tvDescripcionEv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -46,7 +46,7 @@
             app:fontFamily="@font/roboto_light" />
 
         <TextView
-            android:id="@+id/tvUsuarios"
+            android:id="@+id/tvUsuariosEv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
