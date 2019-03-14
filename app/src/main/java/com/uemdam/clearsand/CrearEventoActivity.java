@@ -44,10 +44,10 @@ public class CrearEventoActivity extends AppCompatActivity {
 
         //Widget EditText donde se mostrara la fecha obtenida
         etFecha = (EditText) findViewById(R.id.et_mostrar_fecha_picker);
-        setContentView(R.layout.activity_crear_eventoo);
+
         //Widget EditText donde se mostrara la hora obtenida
         etHora = (EditText) findViewById(R.id.et_mostrar_hora_picker);
-        setContentView(R.layout.activity_crear_eventoo);
+
     }
 
     public void fecha(View v){
