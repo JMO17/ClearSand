@@ -1,15 +1,20 @@
 package com.uemdam.clearsand;
 
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +49,10 @@ public class FavoritosActivity extends menuAbstractActivity {
     private Usuario[] user; //el query devuelve un array de usuarios pero solo utilizamos el primero
     private ArrayList<String> favoritos;
 
+    /*LOCATION*/
+    private FusedLocationProviderClient flc;
+    private Location locUsuario;
+
     @Override
     public int cargarLayout() {
         return R.layout.activity_favoritos;
@@ -54,6 +63,8 @@ public class FavoritosActivity extends menuAbstractActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_favoritos);
         setActActual(3);
+        /*--------------------            LOCALIZACIÓN                 ----------------------*/
+        getLocation();
 
         /*--------------------            DATABASE USUARIO                  ----------------------*/
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
@@ -89,7 +100,7 @@ public class FavoritosActivity extends menuAbstractActivity {
         rvCartaPlaya.setLayoutManager(llManager);
 
         datosPlaya = new ArrayList<Playa>();
-        adaptador = new AdaptadorCartaPlayaFav(datosPlaya, user);
+        adaptador = new AdaptadorCartaPlayaFav(datosPlaya, user, locUsuario);
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +163,24 @@ public class FavoritosActivity extends menuAbstractActivity {
             };
 
             dbR.addChildEventListener(cel);
+        }
+    }
+
+    private void getLocation() {
+        flc = LocationServices.getFusedLocationProviderClient(this);
+        try {
+            flc.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if(location != null) {
+                        locUsuario = location;
+
+                    }
+                }
+            });
+        } catch (SecurityException e) {
+            Toast.makeText(this, "No se puede acceder a la localización", Toast.LENGTH_SHORT);
+            Log.e("TAG_ERROR_LOCALIZACION", "Error de localización", e);
         }
     }
 }
