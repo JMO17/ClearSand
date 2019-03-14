@@ -117,7 +117,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                String query = constraint.toString().trim();
+                String query = quitaDiacriticos(constraint.toString().toLowerCase().trim());
                 if(query.isEmpty()) {
                     datosFiltrados = datos;
                 } else {
@@ -125,17 +125,19 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
                     //BUSQUEDA por NOMBRE
                     for(Playa p: datos) {
-                        if(quitaDiacriticos(p.getNombre().toLowerCase()).contains(quitaDiacriticos(query.toLowerCase()))) {
+                        if(quitaDiacriticos(p.getNombre().toLowerCase()).contains(query)) {
                             filtrados.add(p);
                         }
                     }
 
                     //BUSQUEDA por PROVINCIA
-
-
-                    for(Playa p: datos) {
-                        if(quitaDiacriticos(p.getComunidad_Autonoma().toLowerCase()).contains(quitaDiacriticos(query.toLowerCase()))) {
-                            filtrados.add(p);
+                    //para que la búsqueda no sea tan larga solo buscamos por provincia cuando se ha añadido
+                    // 3 letras
+                    if(query.length() >= 3) {
+                        for(Playa p: datos) {
+                            if(quitaDiacriticos(p.getComunidad_Autonoma().toLowerCase()).contains(query)) {
+                                filtrados.add(p);
+                            }
                         }
                     }
 
