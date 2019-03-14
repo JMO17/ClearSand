@@ -1,4 +1,6 @@
-# ClearSand: Aporta tu grano de arena
+![](https://github.com/JMO17/ClearSand/blob/master/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png)
+
+# ClearSand: Aporta tu grano de arena    
 
 ## Aplicación del proyecto integrador de 2º Ciclo de Desarrollo de Aplicaciones Multiplataforma 
 
