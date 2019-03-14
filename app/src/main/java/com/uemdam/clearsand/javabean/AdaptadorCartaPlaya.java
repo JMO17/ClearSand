@@ -198,7 +198,14 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             }
 
             tvNombre.setText(playa.getNombre());
-            tvComunidad.setText(playa.getComunidad_Autonoma());
+            if(playa.getComunidad_Autonoma().toLowerCase().contains("murcia")) {
+                tvComunidad.setText("Región de Murcia");
+            } else if(playa.getComunidad_Autonoma().toLowerCase().contains("asturias")) {
+                tvComunidad.setText("Principado de Asturias");
+            }else {
+                tvComunidad.setText(playa.getComunidad_Autonoma());
+
+            }
 
             //Cargar toggle button con los favoritos del usuario
             if(favoritos.isEmpty()) {

@@ -115,7 +115,6 @@ public class MainActivity extends menuAbstractActivity {
 
         flc = LocationServices.getFusedLocationProviderClient(this);
         try {
-            //TODO Pedir permisos
             flc.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
