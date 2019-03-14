@@ -91,6 +91,8 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
     }
 
 
+
+
     /*--------------------------------   MERTODO FILTRO -----------------------------------------*/
 
     /**
@@ -115,7 +117,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                String query = constraint.toString();
+                String query = constraint.toString().trim();
                 if(query.isEmpty()) {
                     datosFiltrados = datos;
                 } else {

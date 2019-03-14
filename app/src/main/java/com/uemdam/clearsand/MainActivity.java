@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -103,29 +104,9 @@ public class MainActivity extends menuAbstractActivity {
         });
 
         /*LOCATION*/
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
 
-            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, 1);
-        }
 
-        if ( ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-
-            ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  }, 2);
-        }
-
-        flc = LocationServices.getFusedLocationProviderClient(this);
-        try {
-            flc.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if(location != null) {
-                        locUsuario = location;
-                    }
-                }
-            });
-        } catch (SecurityException e) {
-            Toast.makeText(this, "No se puede acceder a la localización", Toast.LENGTH_SHORT);
-        }
+        getLocation();
 
 
         //checkUser();
@@ -142,6 +123,7 @@ public class MainActivity extends menuAbstractActivity {
             finish();
 
         } else {
+
             checkUser();
 
             // comprobarUsuario();
@@ -158,6 +140,24 @@ public class MainActivity extends menuAbstractActivity {
         }
 
 
+    }
+
+    private void getLocation() {
+        flc = LocationServices.getFusedLocationProviderClient(this);
+        try {
+            flc.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if(location != null) {
+                        locUsuario = location;
+
+                    }
+                }
+            });
+        } catch (SecurityException e) {
+            Toast.makeText(this, "No se puede acceder a la localización", Toast.LENGTH_SHORT);
+            Log.e("TAG_ERROR_LOCALIZACION", "Error de localización", e);
+        }
     }
 
     private void checkUser() {
@@ -250,7 +250,7 @@ public class MainActivity extends menuAbstractActivity {
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlaya.add(m);
                     //System.out.println(m.getNombre());
-                    adaptador.notifyItemChanged(datosPlaya.size() - 1);
+                    //adaptador.notifyItemChanged(datosPlaya.size() - 1);
                     adaptador.notifyDataSetChanged();
                     progBar.setVisibility(View.GONE);
                 }
