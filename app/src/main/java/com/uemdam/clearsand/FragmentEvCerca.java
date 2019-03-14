@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
+
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -29,10 +31,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.uemdam.clearsand.javabean.Evento;
-import com.uemdam.clearsand.javabean.Playa;
+
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class FragmentEvCerca extends Fragment{
@@ -48,8 +50,9 @@ public class FragmentEvCerca extends Fragment{
     private DatabaseReference dbR;
     private ChildEventListener cel;
 
-    private FusedLocationProviderClient flc;
+
     private Location locUsuario;
+    private FusedLocationProviderClient flc;
 
 
 
@@ -61,7 +64,9 @@ public class FragmentEvCerca extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        /*LOCATION*/
+
+
+
         if ( ContextCompat.checkSelfPermission( getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
 
             ActivityCompat.requestPermissions( getActivity(), new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, 1);
@@ -74,7 +79,7 @@ public class FragmentEvCerca extends Fragment{
 
         flc = LocationServices.getFusedLocationProviderClient(getActivity());
         try {
-            //TODO Pedir permisos
+
             flc.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
@@ -87,9 +92,11 @@ public class FragmentEvCerca extends Fragment{
             Toast.makeText(getActivity(), "No se puede acceder a la localización", Toast.LENGTH_SHORT).show();
         }
 
+
+
            v=  inflater.inflate(R.layout.fragment_ev_cerca,container,false);
            miRecyclerView=v.findViewById(R.id.rvCerca);
-            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos,locUsuario);
+            adaptadorEventos= new AdaptadorEventos(getContext(),listaEventos);
            miRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
            miRecyclerView.setAdapter(adaptadorEventos);
 

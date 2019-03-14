@@ -22,10 +22,10 @@ public class  AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.MyV
     View.OnClickListener listener;
     private Location location;
 
-    public AdaptadorEventos(Context context, List<Evento> lista, Location location) {
+    public AdaptadorEventos(Context context, List<Evento> lista) {
         this.context = context;
         this.lista = lista;
-        this.location=location;
+
     }
 
     @NonNull
