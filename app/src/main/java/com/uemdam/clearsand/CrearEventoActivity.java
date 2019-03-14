@@ -30,6 +30,7 @@ import java.util.Calendar;
 
 public class CrearEventoActivity extends AppCompatActivity {
 
+    //Ya ta loko
     EditText tvTitulo;
     EditText tvComentario;
 
