@@ -82,10 +82,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (id == 0) {
                         LatLng gms = new LatLng(Double.parseDouble(m.getCoordenada_Y()), Double.parseDouble(m.getCoordenada_X()));
 
-                        LatLng gmsAux = new LatLng(Double.parseDouble(datosPlayas.get(0).getCoordenada_Y()), Double.parseDouble(datosPlayas.get(0).getCoordenada_X()));
                         mMap.addMarker(new MarkerOptions().position(gms).title(m.getNombre())).setIcon(icon);
+                        LatLng gmsAux = new LatLng(40.4167, -3.70325);
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
-                        mMap.moveCamera(CameraUpdateFactory.zoomTo(9));
+                        mMap.moveCamera(CameraUpdateFactory.zoomTo(4));
                     }
                 }
 
@@ -126,9 +126,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 mMap.addMarker(new MarkerOptions().position(gms).title(plas.getNombre())).setIcon(icon);
             }*/
-            LatLng gmsAux = new LatLng(-40,3.7);
+            LatLng gmsAux = new LatLng(40.4167, -3.70325);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(6));
         } else {
 
             /*LatLng localizacionPlaya = new LatLng(Double.parseDouble(playa.getCoordenada_X()), Double.parseDouble(playa.getCoordenada_Y()));

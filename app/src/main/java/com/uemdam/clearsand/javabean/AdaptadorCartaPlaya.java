@@ -214,6 +214,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
                 tvDistancia.setText(playa.getCoordenada_geográfica_Latitud() +" | "+ playa.getCoordenada_geográfica_Longitud());
             }
 
+            /*CAMBIAR EL FORMATO DE ECRITURA*/
             tvNombre.setText(playa.getNombre());
             if(playa.getComunidad_Autonoma().toLowerCase().contains("murcia")) {
                 tvComunidad.setText("Región de Murcia");
