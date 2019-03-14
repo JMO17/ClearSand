@@ -2,13 +2,30 @@ package com.uemdam.clearsand;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.uemdam.clearsand.javabean.Evento;
+import com.uemdam.clearsand.javabean.Playa;
+import com.uemdam.clearsand.javabean.Usuario;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CrearEventoActivity extends AppCompatActivity {
@@ -34,19 +51,66 @@ public class CrearEventoActivity extends AppCompatActivity {
     //Widgets
     EditText etFecha;
     EditText etHora;
+
+    private int id;
+    Evento evento;
+    Playa playa;
+
+    //DATABASE
+    private DatabaseReference dbR;
+    private ChildEventListener cel;
+
+    /*USUARIO*/
+    private Usuario[] user; //el query devuelve un array de usuarios pero solo utilizamos el primero
+
+    /*USER JORGE */
+
+    private FirebaseAuth fba;
+    private FirebaseUser userx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_eventoo);
 
+        getSupportActionBar().hide();
+
         tvTitulo = findViewById(R.id.etTituloEvento);
         tvComentario = findViewById(R.id.etComentario);
+        id = getIntent().getIntExtra("IDEVENTOS",0);
+        playa = null;
 
         //Widget EditText donde se mostrara la fecha obtenida
         etFecha = (EditText) findViewById(R.id.et_mostrar_fecha_picker);
 
         //Widget EditText donde se mostrara la hora obtenida
         etHora = (EditText) findViewById(R.id.et_mostrar_hora_picker);
+
+        /*--------------------            DATABASE USUARIO                  ----------------------*/
+        dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        FirebaseAuth fa = FirebaseAuth.getInstance();
+        FirebaseUser usuario = fa.getCurrentUser();
+        String email = usuario.getEmail();
+        Query q = dbR.orderByChild("emailUsuario").equalTo(email);
+        user = new Usuario[1];
+
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            //Cargar datos de usuario
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    user[0] = dataSnapshot1.getValue(Usuario.class);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dbR = FirebaseDatabase.getInstance().getReference().child("PLAYAS");
+
+        addChildEventListener();
 
     }
 
@@ -115,5 +179,64 @@ public class CrearEventoActivity extends AppCompatActivity {
         }, hora, minuto, false);
 
         recogerHora.show();
+    }
+
+    private void addChildEventListener() {
+        if (cel == null) {
+            cel = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Playa m = dataSnapshot.getValue(Playa.class);
+                    if(Integer.parseInt(m.getId())== id) {
+                        playa = m;
+                    }
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+
+            dbR.addChildEventListener(cel);
+        }
+    }
+
+    public void crearEvento(View v){
+        if (tvTitulo.getText().toString().isEmpty() || etFecha.getText().toString().isEmpty()
+                || etHora.getText().toString().isEmpty() || tvComentario.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Debes introducir la infomación necesaria en todos los campos ", Toast.LENGTH_LONG).show();
+        }else{
+            ArrayList<Usuario> participantes = new ArrayList<>();
+            participantes.add(user[0]);
+            dbR = FirebaseDatabase.getInstance().getReference().child("EVENTOS");
+
+            final String clave = dbR.push().getKey();
+
+            evento = new Evento(tvTitulo.getText().toString(), etFecha.getText().toString(), playa, user[0], participantes, etHora.getText().toString(), clave, tvComentario.getText().toString());
+            dbR.child(clave).setValue(evento);
+
+            Toast.makeText(this, "Evento creado por: " + user[0].getNombreUsuario(), Toast.LENGTH_LONG).show();
+
+            finish();
+        }
+
+
     }
 }

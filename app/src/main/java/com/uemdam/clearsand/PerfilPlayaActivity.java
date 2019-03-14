@@ -110,7 +110,9 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
     }
 
     public void crearEvento(View v){
-
+        Intent e = new Intent(this, CrearEventoActivity.class);
+        e.putExtra("IDEVENTOS",id);
+        startActivity(e);
     }
 
     public void comoLlegar(View v){

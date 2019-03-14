@@ -150,7 +150,7 @@
     <string name="hint_fecha_evento" />
     <string name="hint_horario_event">Introduce la hora del evento</string>
     <string name="titlulo_pickers">Obtener fecha y hora</string>
-    <string name="formato_fecha">dd/mm/yyyy</string>
+    <string name="formato_fecha">dd/mm/aaaa</string>
     <string name="formato_hora">hh:mm</string>
     <string name="et_comentario_crear_eventoo">Introduce un comentario con las \n especificaciones a realizar  \n y el punto de encuentro.</string>
     <string name="tv_crea_evento">\t Crea tu propio evento</string>
