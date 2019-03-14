@@ -3,6 +3,7 @@ package com.uemdam.clearsand;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +29,7 @@ import com.uemdam.clearsand.javabean.Usuario;
 
 import java.util.ArrayList;
 
-public class MainActivity extends menuAbstractActivity{
+public class MainActivity extends menuAbstractActivity {
 
     private ArrayList<Playa> datosPlaya;
 
@@ -41,10 +43,16 @@ public class MainActivity extends menuAbstractActivity{
 
     /*DATABASE*/
     private DatabaseReference dbR;
+    private DatabaseReference dbRJorge;
     private ChildEventListener cel;
 
     /*USUARIO*/
     private Usuario[] user; //el query devuelve un array de usuarios pero solo utilizamos el primero
+
+    /*USER JORGE */
+
+    private FirebaseAuth fba;
+    private FirebaseUser userx;
 
 
     @Override
@@ -58,6 +66,39 @@ public class MainActivity extends menuAbstractActivity{
         //setContentView(R.layout.activity_main);
         progBar = findViewById(R.id.progBarMain);
 
+        //checkUser();
+
+/** Jorge */
+        fba = FirebaseAuth.getInstance();
+        userx = fba.getCurrentUser();
+
+
+        /*Jorge Recuperar Usuario*/
+
+
+        if (userx == null) {
+            finish();
+
+        } else {
+            checkUser();
+
+            // comprobarUsuario();
+
+            Snackbar.make(getWindow().getDecorView().getRootView(), "Registrado: " + userx.getEmail(), Snackbar.LENGTH_LONG)
+                    .setAction("Desconectar", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            fba.signOut();
+                            finish();
+                        }
+                    }).show();
+
+        }
+
+
+    }
+
+    private void checkUser() {
         /*--------------------            DATABASE USUARIO                  ----------------------*/
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -70,6 +111,21 @@ public class MainActivity extends menuAbstractActivity{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     user[0] = dataSnapshot1.getValue(Usuario.class);
+
+                }
+                if (user[0] == null) {
+                    Toast.makeText(getBaseContext(), "Usuario no creado en Firebase....CREANDO", Toast.LENGTH_LONG).show();
+                    dbRJorge = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                    String clave = dbRJorge.push().getKey();
+                    ArrayList<String> favoritos = new ArrayList<>();
+                    favoritos.add("-1");
+                    Usuario userww = new Usuario(clave, userx.getDisplayName(), null, userx.getEmail(), null, userx.getPhotoUrl().toString(), favoritos, null);
+                    dbRJorge.child(clave).setValue(userww);
+
+                    checkUser();
+
+                } else {
+                    Toast.makeText(getBaseContext(), "Usuario en firebase", Toast.LENGTH_LONG).show();
                     cargarRecycleView();
                 }
 
@@ -78,12 +134,14 @@ public class MainActivity extends menuAbstractActivity{
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
             }
+
+
         });
 
-
-
     }
+
 
     private void cargarRecycleView() {
         /*---------------------                RECYCLE VIEW             --------------------------*/
@@ -99,12 +157,12 @@ public class MainActivity extends menuAbstractActivity{
             @Override
             public void onClick(View v) {
                 //TODO borrar el mensaje
-                String msg = "Seleccionada la opción " + rvCartaPlaya.getChildAdapterPosition(v) ;
-                Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
+                String msg = "Seleccionada la opción " + rvCartaPlaya.getChildAdapterPosition(v);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-//                Intent i = new Intent(MainActivity.this, PerfilPlayaActivity.class);
-//                i.putExtra("ID", datosPlaya.get(rvCartaPlaya.getChildAdapterPosition(v)).getId());
-//                startActivity(i);
+                Intent i = new Intent(MainActivity.this, PerfilPlayaActivity.class);
+                i.putExtra("ID", datosPlaya.get(rvCartaPlaya.getChildAdapterPosition(v)).getId());
+                startActivity(i);
             }
         });
         rvCartaPlaya.setAdapter(adaptador);
@@ -117,12 +175,11 @@ public class MainActivity extends menuAbstractActivity{
         addChildEventListener();
 
 
-
     }
 
 
     private void addChildEventListener() {
-        if(cel == null) {
+        if (cel == null) {
             cel = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -131,7 +188,7 @@ public class MainActivity extends menuAbstractActivity{
                     Playa m = dataSnapshot.getValue(Playa.class);
                     datosPlaya.add(m);
                     //System.out.println(m.getNombre());
-                    adaptador.notifyItemChanged(datosPlaya.size()-1);
+                    adaptador.notifyItemChanged(datosPlaya.size() - 1);
                     adaptador.notifyDataSetChanged();
                     progBar.setVisibility(View.GONE);
                 }

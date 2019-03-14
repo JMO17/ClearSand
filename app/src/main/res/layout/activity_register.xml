@@ -16,6 +16,15 @@
 
     </FrameLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtWelcomeRegister">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="150dp"
@@ -62,74 +71,78 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:layout_editor_absoluteX="146dp" />
 
-    <LinearLayout
-        android:id="@+id/hola"
-        android:layout_width="320dp"
-        android:layout_height="454dp"
-        android:layout_below="@+id/txtWelcomeRegister"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etNombreRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_003_id_card_1"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="@string/et_Nombre_Register"
-            android:inputType="textPersonName" />
+            <LinearLayout
+                android:id="@+id/hola"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtWelcomeRegister"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etEmailRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_correo"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="@string/et_Email_Register"
-            android:inputType="textEmailAddress" />
+                <EditText
+                    android:id="@+id/etNombreRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_003_id_card_1"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/et_Nombre_Register"
+                    android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/etContrasenyaRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_001_pin_code"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="@string/et_Contrasenya_Register"
-            android:inputType="textPassword" />
+                <EditText
+                    android:id="@+id/etEmailRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_correo"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/et_Email_Register"
+                    android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/etContrasenyaRepeatRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_001_pin_code"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:hint="@string/et_ContrasenyaRepeat_Register"
-            android:inputType="textPassword" />
+                <EditText
+                    android:id="@+id/etContrasenyaRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_001_pin_code"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/et_Contrasenya_Register"
+                    android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/btnConfirmarRegister"
+                <EditText
+                    android:id="@+id/etContrasenyaRepeatRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_001_pin_code"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/et_ContrasenyaRepeat_Register"
+                    android:inputType="textPassword" />
 
-            style="@style/boton_login_and_registro"
-            android:onClick="registro"
+                <Button
+                    android:id="@+id/btnConfirmarRegister"
 
-            android:text="@string/btn_Registrar_register" />
+                    style="@style/boton_login_and_registro"
+                    android:onClick="registro"
 
-        <Button
-            android:id="@+id/btnCancelarRegister"
+                    android:text="@string/btn_Registrar_register" />
 
-            style="@style/boton_login_and_registro"
-            android:text="@string/btn_cancelar_register" />
+                <Button
+                    android:id="@+id/btnCancelarRegister"
 
-    </LinearLayout>
+                    style="@style/boton_login_and_registro"
+                    android:text="@string/btn_cancelar_register" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/progressBarRegisterAC"

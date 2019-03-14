@@ -142,4 +142,29 @@
     <string name="tv_distancia_card">A %.3f km</string>
     <string name="title_activity_tarjeta_eventos">TarjetaEventos</string>
 
+    <!--Activity MakeEvent-->
+    <string name="title_activity_scrolling">Crea tu evento</string>
+    <string name="action_settings_Evento">Settings</string>
+    <string name="hint_name_beach_scrolling_activity">Introduce el nombre de la playa</string>
+    <string name="hint_local_beach">Introduce la localización</string>
+    <string name="hint_title_event">Titulo del evento</string>
+    <string name="hint_fecha_evento" />
+    <string name="hint_horario_event">Introduce la hora del evento</string>
+    <string name="titlulo_pickers">Obtener fecha y hora</string>
+    <string name="formato_fecha">dd/mm/yyyy</string>
+    <string name="formato_hora">hh:mm</string>
+    <string name="et_comentario_crear_eventoo">Introduce un comentario con las \n especificaciones a realizar  \n y el punto de encuentro.</string>
+    <string name="tv_crea_evento">\t Crea tu propio evento</string>
+
+    <!--Activity Perfil playa-->
+    <string name="tv_perfil_playa_ubicacion">La ubicación</string>
+    <string name="tv_nombre_perfil_playa_activity">Nombre playa</string>
+    <string name="btn_crear_evento">Crear evento de limpieza</string>
+    <string name="tv_voluntariado">Voluntariado</string>
+    <string name="btn_como_llegar">Como llegar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="estado_playa">ESTADO DE LA PLAYA:  %s</string>
+    <string name="btn_crer_evento">Crear</string>
+
+
 </resources>

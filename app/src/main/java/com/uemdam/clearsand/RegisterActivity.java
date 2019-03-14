@@ -119,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Para favoritos
         final ArrayList<String> favoritos = new ArrayList<>();
-
+        favoritos.add("-1");
         if (warning == null) {
 
             fba.createUserWithEmailAndPassword(email, password)

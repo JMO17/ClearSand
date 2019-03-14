@@ -69,4 +69,16 @@ public class Usuario {
     public String getKeyUsuario() {
         return keyUsuario;
     }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public void setApellidosUsuario(String apellidosUsuario) {
+        this.apellidosUsuario = apellidosUsuario;
+    }
+
+    public void setEdadUsuario(String edadUsuario) {
+        this.edadUsuario = edadUsuario;
+    }
 }
