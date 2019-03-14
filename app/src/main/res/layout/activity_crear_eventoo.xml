@@ -8,13 +8,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:background="@color/azulClaro">
 
         <TextView
             android:id="@+id/tvCreaEvento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingTop="25dp"
             android:text="@string/tv_crea_evento"
             android:textSize="36sp" />
     </RelativeLayout>
@@ -27,7 +29,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="97dp">
+        android:layout_marginTop="97dp"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,8 +46,11 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginLeft="0dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/roboto_medium"
                 android:hint="@string/hint_title_event"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/tvFechaHora"
@@ -52,6 +58,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/etNameBeach"
                 android:layout_alignLeft="@+id/etNameBeach"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingBottom="15dp"
                 android:text="@string/titlulo_pickers"
                 android:textSize="24sp"
                 app:layout_constraintHorizontal_bias="0.025"
@@ -60,73 +69,79 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/et_mostrar_hora_picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="0dp"
-                    android:hint="@string/formato_hora"
-                    android:inputType="time"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/et_mostrar_fecha_picker" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp">
 
                 <ImageButton
                     android:id="@+id/ib_obtener_hora"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="69dp"
-                    android:layout_marginRight="69dp"
-                    android:src="@android:drawable/ic_menu_my_calendar"
+                    android:background="@drawable/ic_clock"
+                    android:onClick="hora"
                     app:layout_constraintHorizontal_bias="0.504"
                     app:layout_constraintLeft_toRightOf="@+id/et_mostrar_hora_picker"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/et_mostrar_fecha_picker"
                     tools:ignore="ContentDescription" />
 
+                <EditText
+                    android:id="@+id/et_mostrar_hora_picker"
+                    android:layout_width="102dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:hint="@string/formato_hora"
+                    android:inputType="time"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_mostrar_fecha_picker" />
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+
+                <ImageButton
+                    android:id="@+id/ib_obtener_fecha"
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginRight="70dp"
+                    android:background="@drawable/ic_calendar"
+                    android:onClick="fecha"
+                    app:layout_constraintHorizontal_bias="0.505"
+                    app:layout_constraintLeft_toRightOf="@+id/et_mostrar_fecha_picker"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <EditText
                     android:id="@+id/et_mostrar_fecha_picker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="0dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:hint="@string/formato_fecha"
                     android:inputType="date"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/ib_obtener_fecha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="70dp"
-                    android:layout_marginRight="70dp"
-                    app:layout_constraintHorizontal_bias="0.505"
-                    app:layout_constraintLeft_toRightOf="@+id/et_mostrar_fecha_picker"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:srcCompat="@drawable/ic_010_keyhole_1"
-                    tools:ignore="ContentDescription" />
             </LinearLayout>
 
             <EditText
                 android:id="@+id/etComentario"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:ems="10"
+                android:fontFamily="@font/roboto_medium"
                 android:hint="@string/et_comentario_crear_eventoo"
                 android:inputType="textPersonName"
                 android:textSize="18sp" />
@@ -135,7 +150,9 @@
                 android:id="@+id/btnCrearEvento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/button_border_playa"
+                android:onClick="crearEvento"
                 android:text="@string/btn_crer_evento"
                 android:textColor="@color/colorPrimary" />
 
