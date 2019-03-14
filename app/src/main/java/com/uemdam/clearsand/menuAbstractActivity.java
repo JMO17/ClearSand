@@ -102,4 +102,9 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
             System.exit(0);
         }
     }
+
+    public void irMapa (View v){
+        Intent iM = new Intent(this,MapsActivity.class);
+        startActivity(iM);
+    }
 }

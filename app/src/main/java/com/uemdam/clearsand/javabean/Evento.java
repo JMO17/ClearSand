@@ -10,29 +10,24 @@ public class Evento {
     private Usuario creadorEvento;
     private ArrayList<Usuario> participantesEvento;
     private int imagen;
-    private String descripcion;
 
+    private String horaEvento;
+    private String idEventos;
+    private String descripcionEventos;
 
-    public Evento() {
+    public Evento(){
+
     }
 
-    public Evento(String nombreEvento, String fechaEvento, Playa playaEvento, Usuario creadorEvento, ArrayList<Usuario> participantesEvento, String descripcion) {
+    public Evento(String nombreEvento, String fechaEvento, Playa playaEvento, Usuario creadorEvento, ArrayList<Usuario> participantesEvento,String horaEvento, String idEventos, String descripcionEventos) {
         this.nombreEvento = nombreEvento;
         this.fechaEvento = fechaEvento;
         this.playaEvento = playaEvento;
         this.creadorEvento = creadorEvento;
         this.participantesEvento = participantesEvento;
-        this.descripcion=descripcion;
-    }
-
-
-
-    public Evento(String nombreEvento, String fechaEvento, Playa playaEvento, int imagen, String descripcion) {
-        this.nombreEvento = nombreEvento;
-        this.fechaEvento = fechaEvento;
-        this.playaEvento = playaEvento;
-        this.imagen = imagen;
-        this.descripcion = descripcion;
+        this.horaEvento = horaEvento;
+        this.idEventos = idEventos;
+        this.descripcionEventos = descripcionEventos;
     }
 
     public String getNombreEvento() {
@@ -55,11 +50,20 @@ public class Evento {
         return participantesEvento;
     }
 
+    public String getHoraEvento() {
+        return horaEvento;
+    }
+
+    public String getIdEventos() {
+        return idEventos;
+    }
+
+    public String getDescripcionEventos() {
+        return descripcionEventos;
+    }
+
     public int getImagen() {
         return imagen;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
 }
