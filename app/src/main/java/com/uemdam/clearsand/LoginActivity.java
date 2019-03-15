@@ -41,6 +41,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
+    private boolean checking = false;
+
+    public boolean isChecking() {
+        return checking;
+    }
+
+    public void setChecking(boolean checking) {
+        this.checking = checking;
+    }
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -102,7 +111,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  }, 2);
         }
+
+
+        try{
+            String xxx = getIntent().getStringExtra("001");
+
+            if(xxx.equalsIgnoreCase("exit")){
+                revokeAccess();
+            }
+        }catch (Exception e){
+
+        }
+
+
+
+
     }
+
+    private void revokeAccess() {
+        // Firebase sign out
+        fba.signOut();
+
+        // Google revoke access
+        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        updateUI(null);
+                    }
+                });
+    }
+
 
     /**
      * Comprueba y realiza una pequeña validación de los campos
@@ -220,6 +259,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
              * Usuario conectado
              */
             accederMainActivity(user.getEmail(),user.getDisplayName());
+            checking=true;
 
             //Toast.makeText(LoginActivity.this, "usuario conectado - " + user.getEmail() + " - " + user.getUid(), Toast.LENGTH_LONG).show();
             //Snackbar.make(getWindow().getDecorView().getRootView(), "Replace with your own action", Snackbar.LENGTH_LONG)

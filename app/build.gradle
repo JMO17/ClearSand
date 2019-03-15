@@ -2,13 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.uemdam.clearsand"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 5
-        versionName "5.1"
+        versionCode 6
+        versionName "6.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

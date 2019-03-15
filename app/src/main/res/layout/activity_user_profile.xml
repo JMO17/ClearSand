@@ -41,7 +41,9 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_user_profile" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_user_profile" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -52,5 +54,16 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+
+        android:clickable="true"
+        app:layout_anchor="@id/include"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_013_login_3" />
 
 </android.support.design.widget.CoordinatorLayout>

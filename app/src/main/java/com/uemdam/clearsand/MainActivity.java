@@ -25,7 +25,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -128,19 +130,30 @@ public class MainActivity extends menuAbstractActivity {
 
             // comprobarUsuario();
 
+
             Snackbar.make(getWindow().getDecorView().getRootView(), "Registrado: " + userx.getEmail(), Snackbar.LENGTH_LONG)
                     .setAction("Desconectar", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
                             fba.signOut();
+                            Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+                            loginIntent.putExtra("001","exit");
+                            startActivity(loginIntent);
+
                             finish();
                         }
                     }).show();
+
+
+
 
         }
 
 
     }
+
+
 
     private void getLocation() {
         flc = LocationServices.getFusedLocationProviderClient(this);

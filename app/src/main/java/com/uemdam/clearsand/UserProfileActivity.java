@@ -1,5 +1,6 @@
 package com.uemdam.clearsand;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -54,6 +55,8 @@ public class UserProfileActivity extends menuAbstractActivity {
 
     private Boolean editQQ = false;
 
+    FirebaseAuth fba;
+
     @Override
     public int cargarLayout() {
         return R.layout.activity_user_profile;
@@ -100,6 +103,21 @@ public class UserProfileActivity extends menuAbstractActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        FloatingActionButton fabExit = findViewById(R.id.fabExit);
+         fba = FirebaseAuth.getInstance();
+        fabExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fba.signOut();
+                Intent loginIntent = new Intent(UserProfileActivity.this,LoginActivity.class);
+                loginIntent.putExtra("001","exit");
+                startActivity(loginIntent);
+
+                finish();
+            }
+        });
+
 
         cargarDatos();
 
