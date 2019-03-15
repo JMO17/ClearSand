@@ -184,5 +184,8 @@ public class PerfilPlayaActivity extends AppCompatActivity implements OnMapReady
         Glide.with(ivPlaya.getContext()).load(datoPlaya.get(0).getUrlImagen()).into(ivPlaya);
         tvNombre.setText(nombre);
         tvEstado.setText(String.format(getString(R.string.estado_playa),datoPlaya.get(0).getEstado()));
+
+
+
     }
 }

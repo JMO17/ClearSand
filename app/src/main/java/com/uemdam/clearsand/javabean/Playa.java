@@ -84,6 +84,10 @@ public class Playa {
     public Playa() {
     }
 
+    public Playa(String nombre) {
+        Nombre = nombre;
+    }
+
     public Playa(String id, String estado, String comunidad_Autonoma, String provincia, String isla, String código_INE_Municipio, String término_Municipal, String web_municipal, String identificador, String nombre, String nombre_alternativo, String nombre_alternativo_2, String descripción, String longitud, String anchura, String variación_anchura, String grado_ocupación, String grado_urbanización, String paseo_marítimo, String tipo_paseo_marítimo, String tipo_de_arena, String condiciones_baño, String zona_fondeo_balizada, String nudismo, String vegetación, String vegetación_lugar, String actuaciones, String actuaciones_tipo, String bandera_azul, String auxilio_y_salvamento, String auxilio_y_salvamento_desc, String señalización_peligro, String señalización_peligro_desc, String forma_de_acceso, String señalización_accesos, String acceso_discapacitados, String carretera_más_próxima, String autobús, String autobús_tipo, String aparcamiento, String aparcamiento_seguridad, String aparcamiento_num_plazas, String aseos, String lavapies, String duchas, String teléfonos, String papelera, String servicio_limpieza, String alquiler_sombrillas, String alquiler_hamacas, String alquiler_naúticos, String oficina_turismo, String establecimiento_comida, String establecimiento_bebida, String zona_infantil, String zona_deportiva, String club_naútico, String submarinismo, String zona_Surf, String observaciones, String coordenada_X, String coordenada_Y, String huso, String coordenada_geográfica_Longitud, String coordenada_geográfica_Latitud, String puerto_deportivo, String web_puerto_deportivo, String distancia_Puerto_Deportivo, String hospital, String dirección_Hospital, String teléfono_Hospital, String distancia_Hospital, String composición, String fachada_Litoral, String espacio_protegido, String espacio_protegido_desc, String web, String urlImagen) {
         Id = id;
         this.estado = estado;

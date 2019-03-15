@@ -33,5 +33,9 @@
         <item name="android:fontFamily">@font/roboto_thin</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="TarjetaEventos" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+
+
+    </style>
 
 </resources>

@@ -66,6 +66,7 @@ public class FavoritosActivity extends menuAbstractActivity {
         /*--------------------            LOCALIZACIÓN                 ----------------------*/
         getLocation();
 
+        getSupportActionBar().hide();
         /*--------------------            DATABASE USUARIO                  ----------------------*/
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();

@@ -142,6 +142,8 @@
     <!--Layout CartaPlaya-->
     <string name="tv_distancia_card">A %.1f km</string>
 
+    <string name="title_activity_tarjeta_eventos">TarjetaEventos</string>
+
     <!--Activity MakeEvent-->
     <string name="title_activity_scrolling">Crea tu evento</string>
     <string name="action_settings_Evento">Settings</string>

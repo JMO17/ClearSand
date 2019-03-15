@@ -9,6 +9,8 @@ public class Evento {
     private Playa playaEvento;
     private Usuario creadorEvento;
     private ArrayList<Usuario> participantesEvento;
+    private int imagen;
+
     private String horaEvento;
     private String idEventos;
     private String descripcionEventos;
@@ -59,4 +61,9 @@ public class Evento {
     public String getDescripcionEventos() {
         return descripcionEventos;
     }
+
+    public int getImagen() {
+        return imagen;
+    }
+
 }
