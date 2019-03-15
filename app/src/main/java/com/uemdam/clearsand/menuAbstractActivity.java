@@ -28,14 +28,14 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_explorar:
-                    Toast.makeText(menuAbstractActivity.this, "Eventos", Toast.LENGTH_LONG).show();
+                    Toast.makeText(menuAbstractActivity.this, "Explorar", Toast.LENGTH_LONG).show();
                     if(actActual != MAIN) {
                         Intent i1 = new Intent(menuAbstractActivity.this, MainActivity.class);
                         startActivity(i1);
                     }
                     return true;
                 case R.id.nav_eventos:
-                    Toast.makeText(menuAbstractActivity.this, "explorar", Toast.LENGTH_LONG).show();
+                    Toast.makeText(menuAbstractActivity.this, "Eventos", Toast.LENGTH_LONG).show();
                     if(actActual != EVENTOS) {
                         Intent i1 = new Intent(menuAbstractActivity.this, EventosTabActivity.class);
                         startActivity(i1);
@@ -43,14 +43,14 @@ public abstract class menuAbstractActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.nav_favoritos:
-                    Toast.makeText(menuAbstractActivity.this, "favoritos", Toast.LENGTH_LONG).show();
+                    Toast.makeText(menuAbstractActivity.this, "Favoritos", Toast.LENGTH_LONG).show();
                     if(actActual != GUARDADOS){
                         Intent i3 = new Intent(menuAbstractActivity.this, FavoritosActivity.class);
                         startActivity(i3);
                     }
                     return true;
                 case R.id.nav_perfil:
-                    Toast.makeText(menuAbstractActivity.this, "perfil", Toast.LENGTH_LONG).show();
+                    Toast.makeText(menuAbstractActivity.this, "Perfil", Toast.LENGTH_LONG).show();
                     if(actActual != USUARIO) {
                         Intent i4 = new Intent(menuAbstractActivity.this, UserProfileActivity.class);
                         startActivity(i4);
