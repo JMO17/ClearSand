@@ -18,6 +18,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.uemdam.clearsand.javabean.Evento;
 import com.uemdam.clearsand.javabean.Usuario;
 
@@ -32,41 +34,52 @@ public class TarjetaEventos extends AppCompatActivity {
 
     //COMPONENTES
     private ArrayList<Evento> eventoSel;
+    Evento ev;
     private String id;
-    private Usuario[] user;
-    String participantes;
+    String participantes="";
     TextView tvNombreEv;
     TextView tvNombrePlaya;
     TextView tvFecha;
     TextView tvDescripcion;
-    TextView tvUsuarios;
+    TextView tvCreador;
+    TextView tvParticipantes;
 
 
-    private FirebaseAuth fba;
-    private FirebaseUser userx;
-
+    //USUARIO
+    private Usuario[] user;
+    String nombreUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tarjeta_eventos);
 
-        fba = FirebaseAuth.getInstance();
-        userx = fba.getCurrentUser();
 
+        dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        Query q = dbR.orderByChild("emailUsuario").equalTo(email);
+        user = new Usuario[1];
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            //Cargar datos de usuario
             @Override
-            public void onClick(View view) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    user[0] = dataSnapshot1.getValue(Usuario.class);
+                    nombreUsuario = user[0].getNombreUsuario();
 
+                }
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
 
-        //id= Integer.parseInt(getIntent().getStringExtra("ID_EV"));
+
         id=getIntent().getStringExtra("ID_EV");
 
         eventoSel= new ArrayList<>();
@@ -75,11 +88,50 @@ public class TarjetaEventos extends AppCompatActivity {
 
         addChildEventListener();
 
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String anotacion=nombreUsuario;
+
+                addChildEventListener();
+                if(participantes.contains(anotacion)){
+
+                    String participantesAuxiliar=anotacion+"";
+                    participantes=participantes.replaceAll(participantesAuxiliar,"");
+
+                    participantesAuxiliar=""+anotacion;
+                    participantes.replaceAll(participantesAuxiliar,"");
+
+                    tvParticipantes.setText("Participantes: \n"+participantes.trim());
+
+                    //user[0].getEventosUsuario().remove(ev.getIdEventos());
+                    //dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
+
+
+                }else{
+
+                    participantes= participantes.trim()+"\n"+nombreUsuario;
+
+                    tvParticipantes.setText("Participantes: \n"+participantes.trim());
+
+                  //  user[0].getEventosUsuario().add(ev.getIdEventos());
+                  //  dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
+
+                }
+
+
+            }
+        });
+
         tvNombreEv=findViewById(R.id.tvNombreEv);
         tvNombrePlaya=findViewById(R.id.tvNombrePlayaEv);
         tvFecha=findViewById(R.id.tvFechaEv);
         tvDescripcion=findViewById(R.id.tvDescripcionEv);
-        tvUsuarios=findViewById(R.id.tvUsuariosEv);
+        tvCreador=findViewById(R.id.tvCreador);
+        tvParticipantes= findViewById(R.id.tvParticipantes);
 
     }
 
@@ -88,7 +140,7 @@ public class TarjetaEventos extends AppCompatActivity {
             cel= new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Evento ev= dataSnapshot.getValue(Evento.class);
+                     ev= dataSnapshot.getValue(Evento.class);
                     if(ev.getIdEventos().equals(id)){
                         eventoSel.add(ev);
                         cargarComponentes();
@@ -121,22 +173,27 @@ public class TarjetaEventos extends AppCompatActivity {
 
     public void cargarComponentes(){
         tvNombreEv.setText(eventoSel.get(0).getNombreEvento());
-        tvNombrePlaya.setText(eventoSel.get(0).getPlayaEvento().getNombre());
-        tvFecha.setText(eventoSel.get(0).getFechaEvento());
-        tvDescripcion.setText(eventoSel.get(0).getDescripcionEventos());
+        tvNombrePlaya.setText("Playa: "+eventoSel.get(0).getPlayaEvento().getNombre());
+        tvFecha.setText("Fecha: "+eventoSel.get(0).getFechaEvento());
+        tvDescripcion.setText("Descripción del evento: "+eventoSel.get(0).getDescripcionEventos());
+        tvCreador.setText("Creador: "+eventoSel.get(0).getCreadorEvento().getNombreUsuario());
+       cargarParticipantes();
 
-        String creador= eventoSel.get(0).getCreadorEvento().getNombreUsuario();
+    }
+
+    public  void cargarParticipantes(){
+
+
 
         ArrayList<Usuario> participantesEv= new ArrayList<>();
         participantesEv=eventoSel.get(0).getParticipantesEvento();
 
-         participantes="";
+
         for(Usuario participante: participantesEv){
 
-             participantes=participantes+"-"+participante.getNombreUsuario()+"\n";
+            participantes=participantes+""+participante.getNombreUsuario()+"\n".trim();
         }
 
-        tvUsuarios.setText("Creador: "+creador+"\n" +participantes);
-
+        tvParticipantes.setText("Participantes: "+"\n" +participantes.trim());
     }
 }

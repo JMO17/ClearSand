@@ -55,6 +55,7 @@ public class FavoritosActivity extends menuAbstractActivity {
         //setContentView(R.layout.activity_favoritos);
         setActActual(3);
 
+        getSupportActionBar().hide();
         /*--------------------            DATABASE USUARIO                  ----------------------*/
         dbR = FirebaseDatabase.getInstance().getReference().child("usuarios");
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();

@@ -46,7 +46,15 @@
             app:fontFamily="@font/roboto_light" />
 
         <TextView
-            android:id="@+id/tvUsuariosEv"
+            android:id="@+id/tvCreador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvParticipantes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"

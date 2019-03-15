@@ -11,14 +11,14 @@ public class Usuario {
     private String edadUsuario;
     private String fotoUsuario;
     private ArrayList<String> playasUsuarioFav;
-    private ArrayList<Evento> eventosUsuario;
+    private ArrayList<String> eventosUsuario;
 
     public Usuario() {
 
     }
 
 
-    public Usuario(String keyUsuario, String nombreUsuario, String apellidosUsuario, String emailUsuario, String edadUsuario, String fotoUsuario, ArrayList<String> playasUsuarioFav, ArrayList<Evento> eventosUsuario) {
+    public Usuario(String keyUsuario, String nombreUsuario, String apellidosUsuario, String emailUsuario, String edadUsuario, String fotoUsuario, ArrayList<String> playasUsuarioFav, ArrayList<String> eventosUsuario) {
         this.nombreUsuario = nombreUsuario;
         this.apellidosUsuario = apellidosUsuario;
         this.emailUsuario = emailUsuario;
@@ -58,7 +58,7 @@ public class Usuario {
         return playasUsuarioFav;
     }
 
-    public ArrayList<Evento> getEventosUsuario() {
+    public ArrayList<String> getEventosUsuario() {
         return eventosUsuario;
     }
 
