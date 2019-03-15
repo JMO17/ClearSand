@@ -153,7 +153,7 @@ public class AdaptadorCartaPlayaFav extends RecyclerView.Adapter<AdaptadorCartaP
             } else {
                 if(favoritos.contains(playa.getId())) {
                     tbFav.setChecked(true);
-                    tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+                    tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.heart_pressed));
                 } else {
                     tbFav.setChecked(false);
                     tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));

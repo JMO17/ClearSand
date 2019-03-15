@@ -238,7 +238,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
             } else {
                 if(favoritos.contains(playa.getId())) {
                     tbFav.setChecked(true);
-                    tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+                    tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.heart_pressed));
                 } else {
                     tbFav.setChecked(false);
                     tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton));
@@ -258,7 +258,7 @@ public class AdaptadorCartaPlaya extends RecyclerView.Adapter<AdaptadorCartaPlay
 
                     } else {
                         // Cambiamos el imagen a seleccionado
-                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.ic_me_gusta_boton_pressed));
+                        tbFav.setBackgroundDrawable(ContextCompat.getDrawable(tbFav.getContext(), R.drawable.heart_pressed));
                         // Añadir a los favoritos de usuario
                         user[0].getPlayasUsuarioFav().add(playa.getId());
                         dbR.child(user[0].getKeyUsuario()).setValue(user[0]);
