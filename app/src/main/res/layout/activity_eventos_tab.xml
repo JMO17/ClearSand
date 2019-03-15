@@ -12,7 +12,7 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/azul"
+        android:background="@color/azulClaro"
         app:tabMode="fixed"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/beige"></android.support.design.widget.TabLayout>
